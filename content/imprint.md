@@ -1,6 +1,6 @@
 ---
 title: "Imprint (Impressum)"
-draft: true
+draft: false
 ShowToc: false
 ShowReadingTime: false
 ShowBreadCrumbs: false
@@ -13,7 +13,7 @@ Zur Lutternschen Egge 65
 32549 Bad Oeynhausen
 Germany
 
-E-mail: [address]
+E-mail: blogging.contact408203@gmail.com
 
 Responsible for the content according to § 18 (2) MStV: Raiko Mesterheide, address as above.
 
