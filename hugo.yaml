@@ -1,0 +1,82 @@
+baseURL: https://raimes.de/
+languageCode: en-us
+title: raimes.de
+theme: PaperMod
+timeZone: Europe/Berlin
+enableRobotsTXT: true
+enableEmoji: true
+
+pagination:
+  pagerSize: 10
+
+minify:
+  disableXML: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON   # feeds the built-in search
+
+params:
+  env: production
+  description: "Notes on Claude Code, local AI and a homelab that runs them."
+  author: Raiko Mesterheide
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowToc: true
+  ShowRssButtonInSectionTermList: true
+  hideFooter: false
+
+  homeInfoParams:
+    Title: "Hi, I'm Raiko."
+    Content: >
+      I write down what I learn while working with Claude Code, running AI
+      models at home and keeping a small homelab alive. Mostly so I don't have
+      to learn it twice. If it helps you too, even better.
+
+  socialIcons:
+    - name: github
+      url: https://github.com/rmesterheide
+    - name: rss
+      url: /index.xml
+
+  # Comments via giscus (GitHub Discussions). Fill in after enabling
+  # Discussions on the repo and running https://giscus.app once.
+  comments: false
+
+  fuseOpts:
+    isCaseSensitive: false
+    threshold: 0.4
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 30
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 40
+
+markup:
+  highlight:
+    noClasses: false
+    lineNos: false
+  goldmark:
+    renderer:
+      unsafe: true
