@@ -1,6 +1,6 @@
-baseURL: https://raimes.de/
+baseURL: https://raimes.ai/
 languageCode: en-us
-title: raimes.de
+title: raimes.ai
 theme: PaperMod
 timeZone: Europe/Berlin
 enableRobotsTXT: true

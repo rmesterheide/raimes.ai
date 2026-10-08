@@ -1,5 +1,5 @@
 ---
-title: "Hello again, raimes.de"
+title: "Hello again, raimes"
 date: 2026-10-08T07:30:00+02:00
 draft: false
 tags: ["meta", "hugo", "claude-code"]

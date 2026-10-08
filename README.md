@@ -1,4 +1,4 @@
-# raimes.de
+# raimes.ai
 
 Personal blog about Claude Code, private AI and homelab topics.
 Built with [Hugo](https://gohugo.io) and the
