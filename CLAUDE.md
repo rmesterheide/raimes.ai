@@ -5,7 +5,8 @@ Personal blog, Hugo + PaperMod, deployed to GitHub Pages. Posts are English.
 ## Status (2026-10-08)
 - Live at https://raimes.de via GitHub Pages (repo rmesterheide/raimes.de, workflow deploy, HTTPS enforced, Let's Encrypt cert).
 - DNS still at df.eu: apex A record -> 185.199.108.153. The www CNAME to rmesterheide.github.io is still missing.
-- Plan: transfer the domain to GoDaddy, then cancel the df.eu hosting (earliest 07.11.2026; hosting-only cancellation is not possible, domain must leave the order).
+- df.eu cancellation submitted 2026-10-08: hosting ends 09.11.2026, domain marked for provider transfer (must leave by 18.07.2027).
+- Next: get the auth code at df.eu (Domain-Einstellungen > Authcode > Anzeigen), transfer raimes.de to GoDaddy, then rebuild DNS there (4 A records + www CNAME).
 - Old WordPress still answers at blog.raimes.de via the wildcard A record until the hosting ends.
 
 ## Conventions
