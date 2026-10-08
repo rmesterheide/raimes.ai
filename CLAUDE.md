@@ -8,7 +8,7 @@ Personal blog, Hugo + PaperMod, deployed to GitHub Pages. Posts are English.
 - raimes.de DNS at df.eu: apex A -> 185.199.108.153, www CNAME -> rmesterheide.github.io (both live).
 - df.eu cancellation submitted 2026-10-08: hosting ends 09.11.2026, domain marked for provider transfer (must leave by 18.07.2027).
 - raimes.ai DNS at GoDaddy done 2026-10-08: 4 A records -> GitHub Pages IPs, www CNAME -> rmesterheide.github.io. GitHub Pages custom domain = raimes.ai.
-- raimes.de currently returns 404 on GitHub (only one custom domain per Pages site). Planned: small redirect repo or GoDaddy forwarding -> https://raimes.ai after the transfer.
+- raimes.de and www.raimes.de redirect to raimes.ai via the tiny Pages repo rmesterheide/raimes-de-redirect (local: ../raimes-de-redirect), HTTPS enforced. Keep raimes.de DNS on the GitHub IPs after the transfer.
 - raimes.de transfer to GoDaddy started 2026-10-08 (order 4173484041) but blocked: auth code rejected until df.eu stores the AuthInfo at DENIC. Ask df.eu support if it does not clear by itself.
 - Old WordPress still answers at blog.raimes.de via the wildcard A record until the hosting ends.
 
