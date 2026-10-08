@@ -20,7 +20,7 @@ One post per week at most. One learning per post, not a chronicle. English only.
 
 | Week | Working title | Core learning | Status |
 |---|---|---|---|
-| 1 | A voice assistant for a five-year-old, built on Home Assistant and Claude | The slow parts are the pause detection and the voice, not speech recognition; two wake words give two personas | drafted 2026-10-08 |
+| 1 | A voice assistant for a five-year-old, built on Home Assistant and Claude | The slow parts are the pause detection and the voice, not speech recognition; two wake words give two personas | published 2026-10-08 |
 | 2 | Moving a dead WordPress to Hugo on GitHub Pages in one evening | Pages via API, one custom domain per site, a router caching "domain does not exist" for a fresh domain | notes in CLAUDE.md |
 | 3 | Let Claude read your terminal | `script` plus rsync instead of screenshots, including the window-size bug and the setsid fix | notes in shell-setup |
 | 4 | A Mac mini as always-on control room for Claude Code | Sessions on the mini, Remote Control, SMB share | LinkedIn draft exists |

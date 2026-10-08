@@ -1,7 +1,7 @@
 ---
 title: "A voice assistant for a five-year-old, built on Home Assistant and Claude"
-date: 2026-10-08T10:00:00+02:00
-draft: true
+date: 2026-10-08T15:30:00+02:00
+draft: false
 tags: ["private-ai", "homelab", "claude-code"]
 summary: "Two evenings from unboxing to a kid asking why the sky is blue. What was slow, what was wrong, and why the two expensive computers in the house ended up doing nothing."
 ---
