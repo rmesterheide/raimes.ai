@@ -31,6 +31,8 @@ params:
   ShowToc: true
   ShowRssButtonInSectionTermList: true
   hideFooter: false
+  footer:
+    text: "[Privacy](/privacy/) · [Imprint](/imprint/)"
 
   homeInfoParams:
     Title: "Hi, I'm Raiko."
