@@ -18,7 +18,7 @@ One post per week at most. One learning per post, not a chronicle. English only.
 
 ## Backlog (in publishing order)
 
-Two threads alternate: the tools and infrastructure thread (Claude Code, homelab) and the family thread (what the five-year-old actually gets out of all this). Rule for the family posts: no photos of the child, no name unless Raiko decides otherwise.
+Two threads alternate: the tools and infrastructure thread (Claude Code, homelab) and the family thread (what the five-year-old actually gets out of all this). Rule for the family posts (Raiko, 2026-10-09): no photos of the child, no generated images with his face, no name. He is "my five-year-old".
 
 | Week | Working title | Core learning | Status |
 |---|---|---|---|
