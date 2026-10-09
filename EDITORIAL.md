@@ -4,7 +4,7 @@ One post per week at most. One learning per post, not a chronicle. English only.
 
 ## Format
 
-- 600 to 1200 words. One problem, one solution, one code block or screenshot.
+- 600 to 1200 words. One problem, one solution, and at least one thing the reader can try right away: a command, a config block, a prompt, a Home Assistant YAML snippet. Every snippet is copy-paste ready, says where it runs and what the expected result looks like. No secrets, no home IPs, placeholders in angle brackets.
 - Fixed structure: starting point, what broke, what fixed it, what I would do differently.
 - Three tags are enough: `claude-code`, `homelab`, `private-ai`. No numbered series; every post stands alone.
 - Publish on Tuesdays. If a week has nothing worth saying, skip it. No filler.
