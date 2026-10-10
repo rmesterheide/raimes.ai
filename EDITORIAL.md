@@ -23,6 +23,7 @@ Two threads alternate: the tools and infrastructure thread (Claude Code, homelab
 | Week | Working title | Core learning | Status |
 |---|---|---|---|
 | 1 | A voice assistant for a five-year-old, built on Home Assistant and Claude | The slow parts are the pause detection and the voice, not speech recognition; two wake words give two personas | published 2026-10-08 |
+| next (Raiko decides the slot) | The voice box, measured: where two seconds really go, and the one-second trick that fixed the feeling | HA plays only after the last token; cloud STT is faster than local; local voice ties with Azure blind; filler word in the ESPHome firmware | draft in `content/posts/voice-box-deep-dive.md` (2026-10-10) |
 | 2, Tue 14.10. | Moving a dead WordPress to Hugo on GitHub Pages in one evening | Pages via API, one custom domain per site, a router caching "domain does not exist" for a fresh domain | notes in CLAUDE.md |
 | 3, Tue 21.10. | Dino of the day: why image models cannot draw a Stegosaurus | Licensed Wikimedia art first, a vector drawing as the reliable layer, Flux has no anatomy, an LLM judge needs two passes | App-Development/Dino-des-Tages |
 | 4, Tue 28.10. | An AI sales desk for selling old hardware | Evidence per claim before "ready", duplicate detection, fraud patterns in offers, Cloud Run with workers at home, the day bucket reads cost 2.50 EUR | SalesSupportApp (no buyer names, no serials, no order numbers) |
