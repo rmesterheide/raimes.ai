@@ -63,11 +63,14 @@ The on-prem chain is a second faster and answers like a 14B model: "the Argentin
 
 **The filler word.** Dialogue researchers call it a backchannel: the "mm-hm" that tells you the other side is still there. The box now plays a short "Okay" or "Hm, let me think", in the same voice it answers with, the instant it detects the end of your sentence, before anything is sent anywhere. A Home Assistant announcement cannot do this, it aborts the running pipeline, I checked. The ESPHome firmware has a hook for exactly that moment, and the device plays embedded sounds without touching the pipeline. Measured latency: unchanged. Perceived latency: the pause became a conversation. My five-year-old's verdict was one word, and it was not a complaint.
 
-This is the overlay I added to the device's configuration in the ESPHome Device Builder add-on, under the official Nabu Casa package. The FLAC files are five short clips synthesized with the same voice, served from any web server on your LAN while the firmware compiles:
+This is the overlay I added to the device's configuration in the ESPHome Device Builder add-on, under the official Nabu Casa package. The FLAC files are five short clips synthesized with the same voice, served from any web server on your LAN while the firmware compiles.
+
+**Update, the same evening.** The first version played the clip through the firmware's own `play_sound` script, which uses the announcement channel, and that was a mistake I only heard on the on-prem chain: a short "O" and then silence. The pipeline timestamps explained it. Home Assistant sends the answer's streaming URL to the device as soon as the model has produced about sixty characters, 0.4 s after the end of speech with a local Whisper and a 14B model, and the firmware starts that URL as a new announcement at once, even though the audio only arrives after the last token. A new announcement replaces the running one, so it cut the filler. On the cloud chain the first tokens arrived 0.3 s later and "Okay" squeezed through. The fix is a third input on the device's audio mixer with its own small media player, which the answer cannot touch, plus clips trimmed of their leading silence. This is the version that runs now:
 
 ```yaml
 # Appended to home-assistant-voice-<id>.yaml below the official package.
-# Plays a random filler clip the moment the device detects end of speech.
+# Plays a random filler clip the moment the device detects end of speech,
+# on its own mixer input so the answer's early streaming URL cannot cut it.
 audio_file:
   - id: filler_okay
     file: http://<your-lan-server>:8800/okay.flac
@@ -75,6 +78,34 @@ audio_file:
     file: http://<your-lan-server>:8800/mal_sehen.flac
   - id: filler_good_question
     file: http://<your-lan-server>:8800/gute_frage.flac
+
+speaker:
+  - id: !extend mixing_speaker       # the package's mixer, add a third input
+    source_speakers:
+      - id: filler_mixing_input
+        timeout: never
+  - platform: resampler
+    id: filler_resampling_speaker
+    output_speaker: filler_mixing_input
+    sample_rate: 48000
+    bits_per_sample: 16
+
+media_source:
+  - platform: audio_file
+    id: audio_file_filler_source
+
+media_player:
+  - platform: speaker_source
+    id: filler_player
+    name: "Filler player"
+    internal: true
+    announcement_pipeline:
+      format: FLAC
+      num_channels: 1
+      sample_rate: 48000
+      speaker: filler_resampling_speaker
+      sources:
+        - audio_file_filler_source
 
 switch:
   - platform: template
@@ -92,10 +123,12 @@ voice_assistant:
         then:
           - lambda: |-
               static const char* fillers[] = {"filler_okay", "filler_hm", "filler_good_question"};
-              id(play_sound).execute(false, std::string(fillers[esp_random() % 3]));
+              id(filler_player)->make_call()
+                .set_media_url(std::string("audio-file://") + fillers[esp_random() % 3])
+                .set_announcement(true).perform();
 ```
 
-Runs on the Voice PE after "Update" in the Device Builder; expect ten to twenty minutes of compile time on a Pi 5. Do not write `id: !extend va` on the `voice_assistant` block, the validator rejects it, and for single components ESPHome merges the lists anyway. The clips must be mono, 48 kHz, and the switch gives you an off button in Home Assistant.
+Runs on the Voice PE after "Install, on the network" in the Device Builder; the first compile on a Pi 5 takes ten to twenty minutes, later ones a few. `!extend` works on list entries like the mixer but not on the single `voice_assistant` block, where ESPHome merges the lists anyway. `buffer_size` on the extra media player is rejected by ESPHome 2026.9.1. The clips must be mono, 48 kHz, and trimmed: the TTS put a third of a second of silence in front of every clip, which is exactly what you do not want from a backchannel. The switch gives you an off button in Home Assistant.
 
 ## What broke on the way, none of it AI
 
