@@ -1,6 +1,6 @@
 ---
 title: "The voice box, measured: where two seconds really go, and the one-second trick that fixed the feeling"
-date: 2026-10-10T09:40:00+02:00
+date: 2026-10-10T08:30:00+02:00
 draft: false
 tags: ["private-ai", "homelab"]
 summary: "Three days of timestamps on a Home Assistant voice assistant: cloud versus on-prem on one device, a local voice that ties with Azure in a blind test, a 4090 that finally earns its place, and a filler word in the firmware that changed nothing in the numbers and everything in the conversation."
