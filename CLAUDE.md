@@ -13,7 +13,7 @@ Personal blog, Hugo + PaperMod, deployed to GitHub Pages. Posts are English.
 - Old WordPress still answers at blog.raimes.de via the wildcard A record until the hosting ends.
 
 ## Drafts (2026-10-10)
-- `content/posts/voice-box-deep-dive.md` (draft: true): follow-up to the voice post, corrects two claims from part 1 (cloud voice is not 2 s; the 4090 is now in use). Charts in `static/images/voice-box-deep-dive/` come from `../homelab/benchmarks/tts-voice/scripts/charts.py`. About 1,600 words, above the 1,200 guideline on purpose (deep dive); Raiko cuts. Snippet: the ESPHome filler-sound overlay with placeholders. Build checked with `hugo -D`.
+- `content/posts/voice-box-deep-dive.md` (published 2026-10-10, https://raimes.ai/posts/voice-box-deep-dive/): follow-up to the voice post, corrects two claims from part 1 (cloud voice is not 2 s; the 4090 is now in use). Charts in `static/images/voice-box-deep-dive/` come from `../homelab/benchmarks/tts-voice/scripts/charts.py`. About 1,600 words, above the 1,200 guideline on purpose (deep dive); Raiko cuts. Snippet: the ESPHome filler-sound overlay with placeholders. Build checked with `hugo -D`. Lesson: a post date later than the deploy time makes Hugo skip the page (first push rendered a 404 until the date was moved back).
 
 ## Conventions
 - Editorial plan and post backlog: `EDITORIAL.md`. One post per week at most, drafts stay `draft: true` until Raiko says publish.
