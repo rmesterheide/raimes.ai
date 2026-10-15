@@ -29,130 +29,136 @@
 <text x="802" y="284" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Remote access to Home Assistant</text>
 <text x="802" y="302" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Azure speech-to-text for the cloud voice chain</text>
 <text x="802" y="320" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Everything else stays on the LAN</text>
-<rect x="40" y="378" width="1120" height="232" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
-<text x="64" y="406" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start" letter-spacing="2">02  COMMAND POST  ·  CLAUDE CODE</text>
-<text x="1136" y="406" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">one place where context, memory and tools live</text>
-<rect x="64" y="424" width="716" height="170" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="64" y="438" width="4" height="142" rx="2" fill="#c084fc"/>
-<text x="86" y="456" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Mac mini  ·  always on, headless, FileVault, on the 10G switch</text>
-<text x="86" y="478" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#c084fc" text-anchor="start">Claude Code runs here. Phones and laptops only steer.</text>
-<text x="86" y="520" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#f4f6f8" text-anchor="start">Account raiko  ·  interactive sessions</text>
-<text x="86" y="540" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Projects, memory, skills and SSH keys in one copy</text>
-<text x="86" y="557" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Steered from iPhone and MacBook (Remote Control,</text>
-<text x="86" y="574" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">SSH, Tailscale). A mod shows host + account.</text>
-<text x="440" y="520" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#f4f6f8" text-anchor="start">Account claude  ·  unattended services</text>
-<text x="440" y="540" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">LaunchDaemons: morning report, radar, app workers,</text>
-<text x="440" y="557" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Dino sensor, nightly docs backup to git.</text>
-<text x="440" y="574" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">No mail, no passwords, read-only rules.</text>
-<rect x="800" y="424" width="336" height="170" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="800" y="438" width="4" height="142" rx="2" fill="#c084fc"/>
-<text x="822" y="456" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Steering devices</text>
-<text x="822" y="478" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#c084fc" text-anchor="start">the session never runs here</text>
-<text x="822" y="502" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">MacBook Air  ·  SSH into the Mac mini,</text>
-<text x="822" y="520" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">DEVONthink, Obsidian, browser</text>
-<text x="822" y="538" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">iPhone  ·  Claude app over Tailscale</text>
-<text x="822" y="556" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Both see the same session, same memory</text>
-<rect x="40" y="634" width="1120" height="176" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
-<text x="64" y="662" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#76b900" text-anchor="start" letter-spacing="2">03  GPU COMPUTE</text>
-<text x="1136" y="662" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">runs on demand, woken from the Mac mini</text>
-<rect x="64" y="680" width="716" height="114" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="64" y="694" width="4" height="86" rx="2" fill="#76b900"/>
-<text x="86" y="712" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">RTX 4090 workstation</text>
-<text x="86" y="734" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#76b900" text-anchor="start">the lab powerhouse since 2026-10-03</text>
-<text x="86" y="756" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Whisper large-v3-turbo via Wyoming  ·  0.07 s per command</text>
-<text x="86" y="774" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Ollama qwen3:14b as the on-prem conversation agent</text>
-<text x="440" y="756" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Qwen3-TTS, first sound in 0.11 s</text>
-<text x="440" y="774" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Worker fallback  ·  Steam via Sunshine  ·  X710 10 GbE</text>
-<rect x="800" y="680" width="336" height="114" rx="12" fill="#161d29" stroke="#283241" stroke-width="1" stroke-dasharray="6 5"/>
-<text x="822" y="712" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#8a94a3" text-anchor="start">RTX 3090 server</text>
-<text x="822" y="734" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#5d6774" text-anchor="start">retired 2026-10-03</text>
-<text x="822" y="758" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">All services moved to the 4090 in one day,</text>
-<text x="822" y="776" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">machine being sold.</text>
-<rect x="40" y="834" width="1120" height="212" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
-<text x="64" y="862" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start" letter-spacing="2">04  NETWORK &amp; STORAGE</text>
-<text x="1136" y="862" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">the network is not the bottleneck, the SSDs were</text>
-<rect x="64" y="880" width="338" height="146" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="64" y="894" width="4" height="118" rx="2" fill="#38bdf8"/>
-<text x="86" y="912" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">UniFi</text>
-<text x="86" y="934" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#38bdf8" text-anchor="start">UDM Pro Max as gateway</text>
-<text x="86" y="958" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Controller and Protect on the gateway</text>
-<text x="86" y="976" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Switch Pro Max 16 PoE + USW Pro XG 8 PoE</text>
-<text x="86" y="994" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">U7 Pro / Pro Max Wi-Fi 7, VLANs for IoT</text>
-<text x="86" y="1012" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">and management</text>
-<rect x="422" y="880" width="338" height="146" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="422" y="894" width="4" height="118" rx="2" fill="#38bdf8"/>
-<text x="444" y="912" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">10 GbE backbone</text>
-<text x="444" y="934" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#38bdf8" text-anchor="start">NAS  ·  4090  ·  Mac mini</text>
-<text x="444" y="958" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">6.4 Gbit/s raw TCP measured NAS ↔ GPU</text>
-<text x="444" y="976" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">0.2 ms latency</text>
-<text x="444" y="994" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">SFP+ uplink between the two 10G switches</text>
-<text x="444" y="1012" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Time Machine and NFS ride on it</text>
-<rect x="780" y="880" width="338" height="146" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="780" y="894" width="4" height="118" rx="2" fill="#38bdf8"/>
-<text x="802" y="912" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Synology DS1618+</text>
-<text x="802" y="934" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#38bdf8" text-anchor="start">2× Kingston DC600M 960 GB, RAID 1</text>
-<text x="802" y="958" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Enterprise SSDs: no SLC-cache cliff, PLP</text>
-<text x="802" y="976" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">HA media and backups over NFS</text>
-<text x="802" y="994" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Time Machine for the Mac mini</text>
-<text x="802" y="1012" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Archive and notes via Synology Drive</text>
-<rect x="40" y="1070" width="1120" height="230" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
-<text x="64" y="1098" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start" letter-spacing="2">05  HOME &amp; VOICE</text>
-<text x="1136" y="1098" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">what the family actually touches</text>
-<rect x="64" y="1116" width="338" height="164" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="64" y="1130" width="4" height="136" rx="2" fill="#f59e0b"/>
-<text x="86" y="1148" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Home Assistant</text>
-<text x="86" y="1170" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#f59e0b" text-anchor="start">HAOS on a Raspberry Pi 5</text>
-<text x="86" y="1194" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Family dashboard with its own login</text>
-<text x="86" y="1212" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Nuki lock, Sonos, ESPHome, cameras</text>
-<text x="86" y="1230" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Media and backups on the NAS</text>
-<text x="86" y="1248" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">The broker in the voice path, not the</text>
-<text x="86" y="1266" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">compute: heavy lifting is on the 4090</text>
-<rect x="422" y="1116" width="338" height="164" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="422" y="1130" width="4" height="136" rx="2" fill="#f59e0b"/>
-<text x="444" y="1148" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Voice assistant</text>
-<text x="444" y="1170" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#f59e0b" text-anchor="start">HA Voice PE in the kitchen, brains on the 4090</text>
-<text x="444" y="1194" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">“Okay Nabu”  ·  cloud chain for the kid:</text>
-<text x="444" y="1212" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Azure STT → Claude Haiku → Qwen3-TTS, ≈ 2 s</text>
-<text x="444" y="1230" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">“Hey Jarvis”  ·  on-prem chain for adults:</text>
-<text x="444" y="1248" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Whisper → qwen3:14b → Qwen3-TTS, ≈ 1 s,</text>
-<text x="444" y="1266" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">nothing leaves the house</text>
-<rect x="780" y="1116" width="338" height="164" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="780" y="1130" width="4" height="136" rx="2" fill="#f59e0b"/>
-<text x="802" y="1148" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Dino Pad</text>
-<text x="802" y="1170" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#f59e0b" text-anchor="start">kitchen tablet for my five-year-old</text>
-<text x="802" y="1194" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Dinosaur cards and a new story every day</text>
-<text x="802" y="1212" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">“Dino asks” quiz: tap a button, the box asks,</text>
-<text x="802" y="1230" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">listens and praises, Sonos roars</text>
-<text x="802" y="1248" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Pictures generated on the 4090</text>
-<text x="802" y="1266" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Voice only on button press, by design</text>
-<line x1="236" y1="354" x2="236" y2="378" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)" marker-start="url(#pb)"/>
-<rect x="246" y="356.0" width="250.8" height="20" rx="4" fill="#0b0f14"/>
-<text x="253" y="370.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">models  ·  app deploys  ·  cost mails</text>
-<line x1="236" y1="610" x2="236" y2="634" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)"/>
-<rect x="246" y="612.0" width="231.60000000000002" height="20" rx="4" fill="#0b0f14"/>
-<text x="253" y="626.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">SSH  ·  wake-on-LAN  ·  benchmarks</text>
-<line x1="236" y1="810" x2="236" y2="834" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)"/>
-<rect x="246" y="812.0" width="212.4" height="20" rx="4" fill="#0b0f14"/>
-<text x="253" y="826.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">10 GbE  ·  NFS  ·  Time Machine</text>
-<line x1="236" y1="1046" x2="236" y2="1070" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)"/>
-<rect x="246" y="1048.0" width="135.60000000000002" height="20" rx="4" fill="#0b0f14"/>
-<text x="253" y="1062.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">NFS media &amp; backups</text>
-<line x1="760" y1="1046" x2="760" y2="1070" stroke="#76b900" stroke-width="1.6" marker-end="url(#pf)"/>
-<rect x="770" y="1048.0" width="231.60000000000002" height="20" rx="4" fill="#0b0f14"/>
-<text x="777" y="1062.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">voice: Wyoming to the 4090, 10 GbE</text>
-<rect x="64.0" y="1322" width="253.0" height="96" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="40" y="374" width="1120" height="232" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
+<text x="64" y="402" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start" letter-spacing="2">02  COMMAND POST  ·  CLAUDE CODE</text>
+<text x="1136" y="402" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">one place where context, memory and tools live</text>
+<rect x="64" y="420" width="716" height="170" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="64" y="434" width="4" height="142" rx="2" fill="#c084fc"/>
+<text x="86" y="452" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Mac mini  ·  always on, headless, FileVault, on the 10G switch</text>
+<text x="86" y="474" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#c084fc" text-anchor="start">Claude Code runs here. Phones and laptops only steer.</text>
+<text x="86" y="516" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#f4f6f8" text-anchor="start">Account raiko  ·  interactive sessions</text>
+<text x="86" y="536" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Projects, memory, skills and SSH keys in one copy</text>
+<text x="86" y="553" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Steered from iPhone and MacBook (Remote Control,</text>
+<text x="86" y="570" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">SSH, Tailscale). A mod shows host + account.</text>
+<text x="440" y="516" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#f4f6f8" text-anchor="start">Account claude  ·  unattended services</text>
+<text x="440" y="536" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">LaunchDaemons: morning report, radar, app workers,</text>
+<text x="440" y="553" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Dino sensor, nightly docs backup to git.</text>
+<text x="440" y="570" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">No mail, no passwords, read-only rules.</text>
+<rect x="800" y="420" width="336" height="170" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="800" y="434" width="4" height="142" rx="2" fill="#c084fc"/>
+<text x="822" y="452" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Steering devices</text>
+<text x="822" y="474" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#c084fc" text-anchor="start">the session never runs here</text>
+<text x="822" y="498" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">MacBook Air  ·  SSH into the Mac mini,</text>
+<text x="822" y="516" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">DEVONthink, Obsidian, browser</text>
+<text x="822" y="534" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">iPhone  ·  Claude app over Tailscale</text>
+<text x="822" y="552" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Both see the same session, same memory</text>
+<rect x="40" y="626" width="1120" height="194" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
+<text x="64" y="654" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#76b900" text-anchor="start" letter-spacing="2">03  COMPUTE</text>
+<text x="1136" y="654" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">GPU on demand, big iron powered off, one machine leaving</text>
+<rect x="64" y="672" width="338" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="64" y="686" width="4" height="100" rx="2" fill="#76b900"/>
+<text x="86" y="704" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">RTX 4090 workstation</text>
+<text x="86" y="726" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#76b900" text-anchor="start">the lab powerhouse since 2026-10-03</text>
+<text x="86" y="750" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Whisper large-v3-turbo, 0.07 s per command</text>
+<text x="86" y="768" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Ollama qwen3:14b  ·  Qwen3-TTS, 0.11 s</text>
+<text x="86" y="786" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Worker fallback  ·  Steam  ·  X710 10 GbE</text>
+<rect x="422" y="672" width="338" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="422" y="686" width="4" height="100" rx="2" fill="#5d6774"/>
+<text x="444" y="704" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">EPYC 7513 lab server</text>
+<text x="444" y="726" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#5d6774" text-anchor="start">32 cores, 512 GB ECC, NVMe, ESXi</text>
+<text x="444" y="750" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Built 2024 for nested VCF Holodeck labs</text>
+<text x="444" y="768" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Powered off since Claude Code took over</text>
+<text x="444" y="786" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Honest status: not switched on this year</text>
+<rect x="780" y="672" width="338" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1" stroke-dasharray="6 5"/>
+<text x="802" y="704" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#8a94a3" text-anchor="start">RTX 3090 server</text>
+<text x="802" y="726" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#5d6774" text-anchor="start">retired 2026-10-03</text>
+<text x="802" y="750" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">All services moved to the 4090 in one day,</text>
+<text x="802" y="768" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">machine being sold.</text>
+<rect x="40" y="840" width="1120" height="212" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
+<text x="64" y="868" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start" letter-spacing="2">04  NETWORK &amp; STORAGE</text>
+<text x="1136" y="868" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">the network is not the bottleneck, the SSDs were</text>
+<rect x="64" y="886" width="338" height="146" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="64" y="900" width="4" height="118" rx="2" fill="#38bdf8"/>
+<text x="86" y="918" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">UniFi</text>
+<text x="86" y="940" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#38bdf8" text-anchor="start">UDM Pro Max as gateway</text>
+<text x="86" y="964" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Controller and Protect on the gateway</text>
+<text x="86" y="982" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Switch Pro Max 16 PoE + USW Pro XG 8 PoE</text>
+<text x="86" y="1000" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">U7 Pro / Pro Max Wi-Fi 7, VLANs for IoT</text>
+<text x="86" y="1018" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">and management</text>
+<rect x="422" y="886" width="338" height="146" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="422" y="900" width="4" height="118" rx="2" fill="#38bdf8"/>
+<text x="444" y="918" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">10 GbE backbone</text>
+<text x="444" y="940" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#38bdf8" text-anchor="start">NAS  ·  4090  ·  Mac mini</text>
+<text x="444" y="964" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">6.4 Gbit/s raw TCP measured NAS ↔ GPU</text>
+<text x="444" y="982" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">0.2 ms latency</text>
+<text x="444" y="1000" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">SFP+ uplink between the two 10G switches</text>
+<text x="444" y="1018" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Time Machine and NFS ride on it</text>
+<rect x="780" y="886" width="338" height="146" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="780" y="900" width="4" height="118" rx="2" fill="#38bdf8"/>
+<text x="802" y="918" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Synology DS1618+</text>
+<text x="802" y="940" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#38bdf8" text-anchor="start">2× Kingston DC600M 960 GB, RAID 1</text>
+<text x="802" y="964" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Enterprise SSDs: no SLC-cache cliff, PLP</text>
+<text x="802" y="982" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">HA media and backups over NFS</text>
+<text x="802" y="1000" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Time Machine for the Mac mini</text>
+<text x="802" y="1018" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Archive and notes via Synology Drive</text>
+<rect x="40" y="1072" width="1120" height="230" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
+<text x="64" y="1100" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start" letter-spacing="2">05  HOME &amp; VOICE</text>
+<text x="1136" y="1100" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">what the family actually touches</text>
+<rect x="64" y="1118" width="338" height="164" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="64" y="1132" width="4" height="136" rx="2" fill="#f59e0b"/>
+<text x="86" y="1150" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Home Assistant</text>
+<text x="86" y="1172" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#f59e0b" text-anchor="start">HAOS on a Raspberry Pi 5</text>
+<text x="86" y="1196" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Family dashboard with its own login</text>
+<text x="86" y="1214" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Nuki lock, Sonos, ESPHome, cameras</text>
+<text x="86" y="1232" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Media and backups on the NAS</text>
+<text x="86" y="1250" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">The broker in the voice path, not the</text>
+<text x="86" y="1268" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">compute: heavy lifting is on the 4090</text>
+<rect x="422" y="1118" width="338" height="164" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="422" y="1132" width="4" height="136" rx="2" fill="#f59e0b"/>
+<text x="444" y="1150" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Voice assistant</text>
+<text x="444" y="1172" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#f59e0b" text-anchor="start">HA Voice PE in the kitchen, brains on the 4090</text>
+<text x="444" y="1196" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">“Okay Nabu”  ·  cloud chain for the kid:</text>
+<text x="444" y="1214" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Azure STT → Claude Haiku → Qwen3-TTS, ≈ 2 s</text>
+<text x="444" y="1232" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">“Hey Jarvis”  ·  on-prem chain for adults:</text>
+<text x="444" y="1250" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Whisper → qwen3:14b → Qwen3-TTS, ≈ 1 s,</text>
+<text x="444" y="1268" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">nothing leaves the house</text>
+<rect x="780" y="1118" width="338" height="164" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="780" y="1132" width="4" height="136" rx="2" fill="#f59e0b"/>
+<text x="802" y="1150" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Dino Pad</text>
+<text x="802" y="1172" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#f59e0b" text-anchor="start">kitchen tablet for my five-year-old</text>
+<text x="802" y="1196" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Dinosaur cards and a new story every day</text>
+<text x="802" y="1214" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">“Dino asks” quiz: tap a button, the box asks,</text>
+<text x="802" y="1232" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">listens and praises, Sonos roars</text>
+<text x="802" y="1250" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Pictures generated on the 4090</text>
+<text x="802" y="1268" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Voice only on button press, by design</text>
+<line x1="236" y1="354" x2="236" y2="374" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)" marker-start="url(#pb)"/>
+<rect x="246" y="354.0" width="250.8" height="20" rx="4" fill="#0b0f14"/>
+<text x="253" y="368.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">models  ·  app deploys  ·  cost mails</text>
+<line x1="236" y1="606" x2="236" y2="626" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)"/>
+<rect x="246" y="606.0" width="231.60000000000002" height="20" rx="4" fill="#0b0f14"/>
+<text x="253" y="620.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">SSH  ·  wake-on-LAN  ·  benchmarks</text>
+<line x1="236" y1="820" x2="236" y2="840" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)"/>
+<rect x="246" y="820.0" width="212.4" height="20" rx="4" fill="#0b0f14"/>
+<text x="253" y="834.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">10 GbE  ·  NFS  ·  Time Machine</text>
+<line x1="236" y1="1052" x2="236" y2="1072" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)"/>
+<rect x="246" y="1052.0" width="135.60000000000002" height="20" rx="4" fill="#0b0f14"/>
+<text x="253" y="1066.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">NFS media &amp; backups</text>
+<line x1="760" y1="1052" x2="760" y2="1072" stroke="#76b900" stroke-width="1.6" marker-end="url(#pf)"/>
+<rect x="770" y="1052.0" width="231.60000000000002" height="20" rx="4" fill="#0b0f14"/>
+<text x="777" y="1066.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">voice: Wyoming to the 4090, 10 GbE</text>
+<rect x="64.0" y="1322" width="253.0" height="94" rx="12" fill="#161d29" stroke="#283241"/>
 <text x="84.0" y="1366" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#f4f6f8" text-anchor="start">0.07 s</text>
 <text x="84.0" y="1390" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">Whisper per voice command</text>
 <text x="84.0" y="1410" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="start">on the 4090, Mac mini 0.29 s</text>
-<rect x="337.0" y="1322" width="253.0" height="96" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="337.0" y="1322" width="253.0" height="94" rx="12" fill="#161d29" stroke="#283241"/>
 <text x="357.0" y="1366" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#f4f6f8" text-anchor="start">≈ 1 s</text>
 <text x="357.0" y="1390" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">on-prem voice answer</text>
 <text x="357.0" y="1410" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="start">end of speech to first spoken word</text>
-<rect x="610.0" y="1322" width="253.0" height="96" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="610.0" y="1322" width="253.0" height="94" rx="12" fill="#161d29" stroke="#283241"/>
 <text x="630.0" y="1366" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#f4f6f8" text-anchor="start">6.4 Gbit/s</text>
 <text x="630.0" y="1390" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">NAS ↔ GPU over 10 GbE</text>
 <text x="630.0" y="1410" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="start">raw TCP, 0.2 ms latency</text>
-<rect x="883.0" y="1322" width="253.0" height="96" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="883.0" y="1322" width="253.0" height="94" rx="12" fill="#161d29" stroke="#283241"/>
 <text x="903.0" y="1366" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#f4f6f8" text-anchor="start">50 €</text>
 <text x="903.0" y="1390" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">hard cap on Google Cloud</text>
 <text x="903.0" y="1410" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="start">budget detaches billing by itself</text>
