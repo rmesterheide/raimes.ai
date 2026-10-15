@@ -21,6 +21,15 @@ outputs:
 params:
   env: production
   description: "Notes on Claude Code, local AI and a homelab that runs them."
+  images: ["/images/og-default.jpg"]
+  assets:
+    favicon: "/favicon.svg"
+    favicon16x16: "/favicon-16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+    apple_touch_icon: "/apple-touch-icon.png"
+  cover:
+    hiddenInSingle: true
+    linkFullImages: false
   author: Raiko Mesterheide
   defaultTheme: auto
   ShowReadingTime: true
@@ -32,14 +41,22 @@ params:
   ShowRssButtonInSectionTermList: true
   hideFooter: false
   footer:
-    text: "[Privacy](/privacy/) · [Imprint](/imprint/)"
+    text: "[Privacy](/privacy/) · [Imprint](/imprint/) · [Written with Claude Code, checked by a human](/about/#how-this-site-is-written)"
 
   homeInfoParams:
     Title: "Hi, I'm Raiko."
     Content: >
-      I write down what I learn while working with Claude Code, running AI
-      models at home and keeping a small homelab alive. Mostly so I don't have
-      to learn it twice. If it helps you too, even better.
+      I run a small private AI platform at home: one GPU, local models, public
+      models behind one gateway, and a Mac mini that runs Claude Code around the
+      clock. By day I design the same thing at enterprise scale.
+
+
+      This site is where I write down what I learn, with numbers.
+      I decide, the agent builds, I check.
+
+
+      New here? Start with [the voice box for my five-year-old](/posts/voice-assistant-for-a-five-year-old/)
+      or [the one rule for GPU design](/posts/gpu-architecture-for-model-serving-on-vcf/).
 
   socialIcons:
     - name: github

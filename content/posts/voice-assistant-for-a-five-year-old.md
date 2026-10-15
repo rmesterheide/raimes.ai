@@ -3,6 +3,9 @@ title: "A voice assistant for a five-year-old, built on Home Assistant and Claud
 date: 2026-10-08T15:20:00+02:00
 draft: false
 written_with_claude: true
+cover:
+  image: "/images/covers/voice-assistant-for-a-five-year-old.jpg"
+  alt: "A voice assistant for a five-year-old"
 tags: ["private-ai", "homelab", "claude-code"]
 summary: "Two evenings from unboxing to a kid asking why the sky is blue. What was slow, what was wrong, and why the two expensive computers in the house ended up doing nothing."
 ---

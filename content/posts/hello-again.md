@@ -3,6 +3,9 @@ title: "Hello again, raimes"
 date: 2026-10-08T07:30:00+02:00
 draft: false
 written_with_claude: true
+cover:
+  image: "/images/covers/hello-again.jpg"
+  alt: "Hello again, raimes"
 tags: ["meta", "hugo", "claude-code"]
 summary: "Why this site exists, what it replaces and how it is built."
 ---
