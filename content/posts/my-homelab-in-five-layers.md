@@ -2,6 +2,7 @@
 title: "My homelab in five layers, October 2026"
 date: 2026-10-15T22:05:00+02:00
 draft: false
+written_with_claude: true
 tags: ["homelab", "claude-code", "private-ai"]
 summary: "One picture of everything that runs in my house, from Google Cloud down to a kitchen tablet, and the rule that made it calm: the layer that holds the context is the one that never sleeps."
 ---

@@ -1,0 +1,6 @@
+{{- /* Disclosure line for posts drafted with Claude Code. Shown only when the post sets `written_with_claude: true` in its front matter. Wording and the longer explanation live on /about/#how-this-site-is-written. */ -}}
+{{- if .Params.written_with_claude }}
+<aside class="how-written">
+  <strong>How this post was written.</strong> The talk, the measurements and the opinions are mine. Claude Code drafted the text from my notes, I cut and corrected it. Mistakes are mine. <a href="{{ "about/#how-this-site-is-written" | relURL }}">More on how this site is written.</a>
+</aside>
+{{- end }}

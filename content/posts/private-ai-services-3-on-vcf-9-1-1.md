@@ -2,6 +2,7 @@
 title: "Private AI Services 3.0 on VCF 9.1.1: the five changes that matter"
 date: 2026-10-15T09:00:00+02:00
 draft: false
+written_with_claude: true
 tags: ["private-ai", "homelab"]
 summary: "Notes from preparing a VMware Explore on Tour session. Model sharing, public models behind a private gateway, tenants without GPUs, three ways to log in, and the one rule that still decides your GPU design."
 ---
