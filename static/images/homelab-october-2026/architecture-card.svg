@@ -8,27 +8,34 @@
 <rect x="40" y="160" width="1120" height="194" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
 <text x="64" y="188" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#6fa8dc" text-anchor="start" letter-spacing="2">01  CLOUD</text>
 <text x="1136" y="188" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">pay per use, hard cap, nothing a household depends on</text>
-<rect x="64" y="206" width="338" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="64" y="206" width="256" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
 <rect x="64" y="220" width="4" height="100" rx="2" fill="#6fa8dc"/>
 <text x="86" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Google Cloud</text>
 <text x="86" y="260" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#6fa8dc" text-anchor="start">Cloud Run, europe-west1</text>
-<text x="86" y="284" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Own apps behind IAP, one instance each</text>
-<text x="86" y="302" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Buckets as app storage, reads served from memory</text>
-<text x="86" y="320" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Hard spending cap at 50 €, tested</text>
-<rect x="422" y="206" width="338" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="422" y="220" width="4" height="100" rx="2" fill="#6fa8dc"/>
-<text x="444" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Claude</text>
-<text x="444" y="260" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#6fa8dc" text-anchor="start">Anthropic models</text>
-<text x="444" y="284" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Claude Code sessions and background services</text>
-<text x="444" y="302" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Haiku answers the kids' voice assistant</text>
-<text x="444" y="320" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Max plan for sessions, API key for voice</text>
-<rect x="780" y="206" width="338" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
-<rect x="780" y="220" width="4" height="100" rx="2" fill="#6fa8dc"/>
-<text x="802" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Nabu Casa</text>
-<text x="802" y="260" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#6fa8dc" text-anchor="start">Home Assistant Cloud</text>
-<text x="802" y="284" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Remote access to Home Assistant</text>
-<text x="802" y="302" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Azure speech-to-text for the cloud voice chain</text>
-<text x="802" y="320" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Everything else stays on the LAN</text>
+<text x="86" y="284" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Own apps behind IAP</text>
+<text x="86" y="301" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Buckets, reads from memory</text>
+<text x="86" y="318" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Hard cap at 50 €, tested</text>
+<rect x="336" y="206" width="256" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="336" y="220" width="4" height="100" rx="2" fill="#6fa8dc"/>
+<text x="358" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Claude</text>
+<text x="358" y="260" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#6fa8dc" text-anchor="start">Anthropic models</text>
+<text x="358" y="284" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Claude Code sessions, services</text>
+<text x="358" y="301" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Haiku for the kids' voice box</text>
+<text x="358" y="318" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Max plan + API key for voice</text>
+<rect x="608" y="206" width="256" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="608" y="220" width="4" height="100" rx="2" fill="#6fa8dc"/>
+<text x="630" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">GitHub · GoDaddy</text>
+<text x="630" y="260" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#6fa8dc" text-anchor="start">code, docs, blog, domains</text>
+<text x="630" y="284" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Private repos, nightly doc backup</text>
+<text x="630" y="301" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Pages + Actions serve raimes.ai</text>
+<text x="630" y="318" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">GoDaddy holds domains and DNS</text>
+<rect x="880" y="206" width="256" height="128" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="880" y="220" width="4" height="100" rx="2" fill="#6fa8dc"/>
+<text x="902" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#f4f6f8" text-anchor="start">Nabu Casa</text>
+<text x="902" y="260" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#6fa8dc" text-anchor="start">Home Assistant Cloud</text>
+<text x="902" y="284" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Remote access to HA</text>
+<text x="902" y="301" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Azure STT for the cloud chain</text>
+<text x="902" y="318" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">Everything else stays on LAN</text>
 <rect x="40" y="374" width="1120" height="232" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
 <text x="64" y="402" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start" letter-spacing="2">02  COMMAND POST  ·  CLAUDE CODE</text>
 <text x="1136" y="402" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">one place where context, memory and tools live</text>
@@ -132,8 +139,8 @@
 <text x="802" y="1250" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Pictures generated on the 4090</text>
 <text x="802" y="1268" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Voice only on button press, by design</text>
 <line x1="236" y1="354" x2="236" y2="374" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)" marker-start="url(#pb)"/>
-<rect x="246" y="354.0" width="250.8" height="20" rx="4" fill="#0b0f14"/>
-<text x="253" y="368.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">models  ·  app deploys  ·  cost mails</text>
+<rect x="246" y="354.0" width="308.40000000000003" height="20" rx="4" fill="#0b0f14"/>
+<text x="253" y="368.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">models  ·  deploys  ·  git push  ·  cost mails</text>
 <line x1="236" y1="606" x2="236" y2="626" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#pf)"/>
 <rect x="246" y="606.0" width="231.60000000000002" height="20" rx="4" fill="#0b0f14"/>
 <text x="253" y="620.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">SSH  ·  wake-on-LAN  ·  benchmarks</text>
