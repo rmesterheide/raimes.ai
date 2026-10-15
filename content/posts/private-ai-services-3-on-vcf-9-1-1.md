@@ -87,6 +87,12 @@ In this order, before anyone buys a GPU:
 3. **How many tenants?** One instance per security boundary. Share the GPUs behind a provider instance.
 4. **How does the GPU reach the VM?** Passthrough or vGPU. Pick it knowing what it pins.
 
+## Watch the original
+
+The Frankfurt talk was a shortened version of the Las Vegas session. The full recording is [CLOB1084LV: Design & Architect: VMware Cloud Foundation Private AI Services](https://www.vmware.com/explore/video/6403820843112), presented by Luca Camarda and Agustin Malanco. If you want the whole GPU architecture block with every option slide, watch that one.
+
+William Lam keeps a curated, searchable list of all VMware Explore 2026 on-demand sessions with video links in his GitHub repository [vmware-explore-2026-session-urls](https://github.com/lamw/vmware-explore-2026-session-urls). It is the fastest way to find the other private AI sessions from the event.
+
 ## Sources
 
 - [Announcing general availability of VMware Cloud Foundation 9.1.1](https://blogs.vmware.com/cloud-foundation/2026/09/03/announcing-general-availability-of-vmware-cloud-foundation-9-1-1/), Broadcom, 3 September 2026
