@@ -18,7 +18,7 @@ Here is the October 2026 version. Five layers, one house.
 
 Until two weeks ago the MacBook was the centre. It held the notes, the project folders, the Claude Code sessions and the background jobs: the notes sync, the nightly documentation backup, the workers for my cloud apps. When the lid closed, the jobs stopped.
 
-Over the last two months the hardware grew around that laptop: a 10 Gbit network, a Synology NAS, two GPU workstations, a Mac mini. The hardware was fine. The problem was that the laptop was still the only place that knew everything.
+Most of the hardware had been there for years: the UniFi network with 10 Gbit between the racks, the Synology NAS, a GPU server, the EPYC box. This year added a second GPU workstation, a Mac mini and two datacenter SSDs. The hardware was fine. The problem was that the laptop was still the only place that knew everything.
 
 ## What broke
 
@@ -67,7 +67,7 @@ Expected result: a 2400 × 3000 px PNG, crisp text, no scrollbar, the same file 
 
 ## What I would do differently
 
-Buy the datacenter SSDs first and the 10 Gbit gear second. The order I chose produced a month of benchmarks proving that the fast network could not help.
+Benchmark the drives before blaming the network. The 10 Gbit gear had been in place for years and was never the problem. A month of measurements proved that, and the fix was two SSDs.
 
 Decide the always-on node before buying GPUs. The two workstations were bought as the future home of everything. In the final picture they do one job each, one of them is leaving, and the biggest machine in the house is powered off.
 
