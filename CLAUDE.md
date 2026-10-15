@@ -23,6 +23,8 @@ Personal blog, Hugo + PaperMod, deployed to GitHub Pages. Posts are English.
 
 ## Conventions
 - Editorial plan and post backlog: `EDITORIAL.md`. One post per week at most, drafts stay `draft: true` until Raiko says publish.
+- Timed publishing: `scripts/publish-post.sh <slug> [label]` sets `draft: false`, moves the date to now, commits, pushes and checks the live URL (log `~/Library/Logs/publish-post.log` on the Mini). One-shot timer plist `../homelab/mac-mini/launchagents/de.raimes.publish-once.plist` (edit slug and date, install with launchctl bootstrap; it removes itself after the run). Armed 2026-10-15 for the GPU architecture post at 2026-10-16 09:00.
+- Disclosure (2026-10-15, Raiko approved the wording): every post drafted with Claude sets `written_with_claude: true`; `layouts/_partials/extend_post_content.html` renders the note, `extend_head.html` styles it, the long version is on `/about/#how-this-site-is-written`. New posts get the field from day one.
 - Posts go in `content/posts/<slug>.md`, front matter per `archetypes/posts.md`.
 - Keep `draft: true` until Raiko says publish.
 - Preview: a Hugo server with drafts runs permanently on the Mini (LaunchAgent `de.raimes.hugo-raimes`, see `../homelab/mac-mini/README.md`). Open `http://macmini01.local:1313/posts/<slug>/` in the MacBook browser; never give `localhost` links, Raiko reads the app on the MacBook. Still run `hugo -D` for a build check before pushing; every push to `main` deploys.
