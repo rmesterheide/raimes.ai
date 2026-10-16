@@ -6,6 +6,7 @@ written_with_claude: true
 cover:
   image: "/images/homelab-october-2026/architecture-card.png"
   alt: "My homelab in five layers"
+categories: ["homelab-ai"]
 tags: ["homelab", "claude-code", "private-ai"]
 summary: "One picture of everything that runs in my house, from Google Cloud down to a kitchen tablet, and the rule that made it calm: the layer that holds the context is the one that never sleeps."
 ---

@@ -6,6 +6,7 @@ written_with_claude: true
 cover:
   image: "/images/covers/gpu-architecture-for-model-serving-on-vcf.jpg"
   alt: "GPU architecture for model serving on VCF"
+categories: ["vmware"]
 tags: ["private-ai", "homelab"]
 summary: "The second half of my Explore on Tour session, written down. Three ways to give a VM a GPU, how GPUs talk inside a server, and a two-letter grid for connecting GPU hosts."
 ---

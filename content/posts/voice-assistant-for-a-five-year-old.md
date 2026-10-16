@@ -6,6 +6,7 @@ written_with_claude: true
 cover:
   image: "/images/covers/voice-assistant-for-a-five-year-old.jpg"
   alt: "A voice assistant for a five-year-old"
+categories: ["homelab-ai"]
 tags: ["private-ai", "homelab", "claude-code"]
 summary: "Two evenings from unboxing to a kid asking why the sky is blue. What was slow, what was wrong, and why the two expensive computers in the house ended up doing nothing."
 ---

@@ -81,6 +81,10 @@ menu:
       name: Posts
       url: /posts/
       weight: 10
+    - identifier: topics
+      name: Topics
+      url: /categories/
+      weight: 15
     - identifier: tags
       name: Tags
       url: /tags/
