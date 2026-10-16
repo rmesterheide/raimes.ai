@@ -70,6 +70,16 @@ Five options, two decisions. Do you pass the GPU through or use vGPU? That is th
 
 And the option that does not fit the grid, which is really the everyday case. **Option C:** no HGX, no NVSwitch, normal servers with PCIe cards. Several GPU VMs per host. The GPU is passed through, the network card is virtualised. No vGPU licence. Dense, cost-efficient model serving. Most teams start here, and it is a good place to start.
 
+## Enhanced DirectPath: the exception that proves the rule
+
+*Added 16 October 2026, after a reader question.*
+
+Enhanced DirectPath I/O is passthrough that vSphere understands. A vendor driver on the host presents the device as a hardware-backed virtual device, so vSphere can place it with DRS and, if the driver supports it, migrate it. Broadcom is explicit that this is a framework and not every device gets every feature.
+
+Where it stands today, from public documentation: Intel's Flex GPUs support vMotion this way, with a short pause to move GPU state. AMD Instinct cards do not. For the MI350 on ESX 9.1, Broadcom lists Live Patch, Storage vMotion and hot-add, not vMotion. Intel Gaudi 3 uses Enhanced DirectPath for device groups of eight cards and telemetry, nothing more. NVIDIA GPUs get vMotion only through vGPU.
+
+So for the accelerators you would buy for model serving, the rule holds. What Enhanced DirectPath buys you is the day-two work around the VM: patch the host live, move the disks, add memory. Check the Broadcom Compatibility Guide for the card you plan to buy, not the feature name.
+
 ## The details that bite when you build it
 
 - **RDMA needs a lossless network.** Either InfiniBand, which is lossless by design, or RoCE on Ethernet with priority flow control and ECN configured. That is a job for your network team, not a vSphere setting.
@@ -91,6 +101,9 @@ The full GPU block, with every option diagram, is in the Las Vegas recording [CL
 
 ## Sources
 
+- [Why Enhanced DirectPath wins for high-performance apps](https://blogs.vmware.com/cloud-foundation/2026/04/20/why-enhanced-directpath-wins-for-high-performance-apps/), Broadcom blog, April 2026, with the per-device feature table
+- [VCF 9.1 release notes, what's new in vSphere](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-0-0-release-notes/what-s-new/whats-new-vsphere.html), AMD MI350 and ConnectX-7 with Enhanced DirectPath
+- [Intel Data Center Graphics Driver for VMware ESXi with Enhanced DirectPath I/O](https://knowledge.broadcom.com/external/article/384647/intel-data-center-graphics-driver-for-vm.html), Broadcom KB 384647
 - VMware Cloud Foundation 9.1 Design Library, Private AI section, Broadcom TechDocs
 - Broadcom white paper on GPUDirect RDMA on vSphere, September 2025
 - Broadcom KB 313255 on virtual IOMMU and VMs with more than 128 vCPUs
