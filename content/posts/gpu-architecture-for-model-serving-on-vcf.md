@@ -1,17 +1,17 @@
 ---
-title: "GPU architecture for model serving on VCF: whatever you pass through pins the VM"
+title: "GPU architecture for model serving on VMware Cloud Foundation: whatever you pass through pins the VM"
 date: 2026-10-16T09:00:04+02:00
 draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/gpu-architecture-for-model-serving-on-vcf.jpg"
-  alt: "GPU architecture for model serving on VCF"
+  alt: "GPU architecture for model serving on VMware Cloud Foundation"
 categories: ["vmware"]
 tags: ["private-ai", "homelab"]
 summary: "The second half of my Explore on Tour session, written down. Three ways to give a VM a GPU, how GPUs talk inside a server, and a two-letter grid for connecting GPU hosts."
 ---
 
-In [the first post](/posts/private-ai-services-3-on-vcf-9-1-1/) I covered what Private AI Services 3.0 changes on VCF 9.1.1. This one is the part of the talk that happens under the hood. A model endpoint carries two things: a model, and a VM class. Everything below is about what is inside that VM class.
+In [the first post](/posts/private-ai-services-3-on-vcf-9-1-1/) I covered what Private AI Services 3.0 changes on VMware Cloud Foundation (VCF) 9.1.1. This one is the part of the talk that happens under the hood. A model endpoint carries two things: a model, and a VM class. Everything below is about what is inside that VM class.
 
 As before: I work at Broadcom, this is my own reading of public material, and the lab numbers are from consumer hardware.
 

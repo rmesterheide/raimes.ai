@@ -1,17 +1,17 @@
 ---
-title: "Private AI Services 3.0 on VCF 9.1.1: the five changes that matter"
+title: "Private AI Services 3.0 on VMware Cloud Foundation 9.1.1: the five changes that matter"
 date: 2026-10-15T09:00:00+02:00
 draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/private-ai-services-3-on-vcf-9-1-1.jpg"
-  alt: "Private AI Services 3.0 on VCF 9.1.1"
+  alt: "Private AI Services 3.0 on VMware Cloud Foundation 9.1.1"
 categories: ["vmware"]
 tags: ["private-ai", "homelab"]
 summary: "Notes from preparing a VMware Explore on Tour session. Model sharing, public models behind a private gateway, tenants without GPUs, three ways to log in, and the one rule that still decides your GPU design."
 ---
 
-Yesterday I co-presented "Design & Architect: VMware Cloud Foundation Private AI Services" at VMware Explore on Tour in Frankfurt. Four weeks of preparation went into thirty minutes on stage. This post is the condensed version: what Private AI Services (PAIS) 3.0 changes on VCF 9.1.1, and what I would decide first.
+Yesterday I co-presented "Design & Architect: VMware Cloud Foundation Private AI Services" at VMware Explore on Tour in Frankfurt. Four weeks of preparation went into thirty minutes on stage. This post is the condensed version: what Private AI Services (PAIS) 3.0 changes on VMware Cloud Foundation (VCF) 9.1.1, and what I would decide first.
 
 A disclosure: I work at Broadcom. This is my own reading of public documentation and the session. Nothing here is an official statement, and the home-lab numbers are mine.
 
