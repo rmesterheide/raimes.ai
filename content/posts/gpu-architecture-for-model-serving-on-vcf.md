@@ -1,7 +1,7 @@
 ---
 title: "GPU architecture for model serving on VCF: whatever you pass through pins the VM"
-date: 2026-10-15T18:00:00+02:00
-draft: true
+date: 2026-10-16T09:00:04+02:00
+draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/gpu-architecture-for-model-serving-on-vcf.jpg"
