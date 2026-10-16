@@ -43,7 +43,7 @@ The options below behave differently on each of these. Several of them do not ex
 
 The rule that runs through all three: whatever you pass through pins the VM to the host.
 
-One note on sizing a slice, from my own card. A model that lost twelve percent of its memory to another process dropped from 99 to 56 tokens per second, with no error. Doubling the context window from 64k to 128k dropped it from 98 to 27, because the KV cache grew from four to eight gigabytes and no longer fit. Size the profile for the model plus its context, not for the model file.
+One note on sizing a slice, from my own card. Parallel requests share a GPU well only if their slots fit. A 7B model with four parallel slots answered four requests at 540 tokens per second together, instead of 172 for one. The same four slots on a 27B model no longer fit on the 24 GB card. A single request fell from 101 to 56 tokens per second, and four together reached 80, less than one slot with a queue. Each slot brings its own KV cache. Size the profile for the model plus its context times its parallel slots, not for the model file. The context numbers are in [part one](/posts/private-ai-services-3-on-vcf-9-1-1/).
 
 ## Inside the box: NVLink and NVSwitch
 
