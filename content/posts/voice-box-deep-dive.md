@@ -11,14 +11,14 @@ tags: ["private-ai", "homelab"]
 summary: "Three days of timestamps on a Home Assistant voice assistant: cloud versus on-prem on one device, a local voice that ties with Azure in a blind test, a 4090 that finally earns its place, and a filler word in the firmware that changed nothing in the numbers and everything in the conversation."
 ---
 
-**TL;DR**
-
+{{< tldr >}}
 - Home Assistant plays the answer only after the language model's last token. Streaming saves nothing; answer length and the model's total time are the only levers.
 - Cloud speech recognition is faster than local Whisper after the last word (0.05 s vs. 0.4 s), because it transcribes while you talk. Local recognition buys privacy and proper names, not speed.
 - The cloud voice never cost two seconds. Azure through Home Assistant: 0.38 s to first byte. The two seconds were the model finishing.
 - A local Qwen3-TTS voice on the RTX 4090 delivers first audio in 0.11 s and ties with Azure in a blind listening test. Through Home Assistant it loses 0.3 s to an ffmpeg buffer.
 - Two chains on one device: the kid's wake word goes to Claude Haiku 5.5 (right facts, keeps the rules, 1.8 s to first sound), the adults' wake word runs fully on-prem on the 4090 (0.9 to 1.3 s, 14B-grade answers).
 - A one-second filler word ("Okay", "Hm, let me think") played from the device's own flash the moment you stop talking changed no measurement and fixed the feeling. Firmware snippet below.
+{{< /tldr >}}
 
 Last time I promised a local voice. This is what happened when I measured instead of guessing, and it corrects two things I wrote in that post. The cloud voice does not cost two seconds. And the RTX 4090 that "stays off" is now the busiest machine in the house.
 

@@ -1,0 +1,5 @@
+{{- /* TL;DR box at the top of a post. Usage: {{< tldr >}} markdown list {{< /tldr >}}. Styles: .tldr in extend_head.html. */ -}}
+<aside class="tldr">
+  <span class="tldr-label">TL;DR</span>
+  {{ .Inner | .Page.RenderString (dict "display" "block") }}
+</aside>

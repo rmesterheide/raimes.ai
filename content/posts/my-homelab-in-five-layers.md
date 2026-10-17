@@ -4,7 +4,7 @@ date: 2026-10-15T22:05:00+02:00
 draft: false
 written_with_claude: true
 cover:
-  image: "/images/homelab-october-2026/architecture-card.png"
+  image: "/images/covers/my-homelab-in-five-layers.jpg"
   alt: "My homelab in five layers"
 categories: ["homelab-ai"]
 tags: ["homelab", "claude-code", "private-ai"]

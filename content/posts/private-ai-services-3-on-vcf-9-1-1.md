@@ -15,8 +15,7 @@ Yesterday I co-presented "Design & Architect: VMware Cloud Foundation Private AI
 
 A disclosure: I work at Broadcom. This is my own reading of public documentation and the session. Nothing here is an official statement, and the home-lab numbers are mine.
 
-## TL;DR
-
+{{< tldr >}}
 - VCF 9.1.1 and PAIS 3.0 have been generally available since 3 September 2026. Everything below is released, not a preview.
 - **Model sharing** is the headline. The gateway and the model no longer have to live in the same namespace. One PAIS instance can expose a local model, a self-managed endpoint, a model borrowed from another instance and a public cloud model side by side.
 - **Public models are first-class endpoints.** Google Gemini, Gemini Enterprise Agent Platform and any OpenAI-compatible API, with token usage tracking per consumer.
@@ -24,6 +23,7 @@ A disclosure: I work at Broadcom. This is my own reading of public documentation
 - **Three ways to log in:** direct OIDC, OIDC via VCF Automation, local accounts. Two are for production, one is for the first afternoon.
 - **Less friction:** the agent layer is optional, and activation works from the vCenter UI without VCF Automation.
 - **Under the hood nothing changed.** Whatever you pass through pins the VM to the host. Choose that on purpose.
+{{< /tldr >}}
 
 ## PAIS in one paragraph
 

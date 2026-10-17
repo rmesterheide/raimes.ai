@@ -15,14 +15,14 @@ In [the first post](/posts/private-ai-services-3-on-vcf-9-1-1/) I covered what P
 
 As before: I work at Broadcom, this is my own reading of public material, and the lab numbers are from consumer hardware.
 
-## TL;DR
-
+{{< tldr >}}
 - There are three kinds of GPU servers: normal PCIe cards, pairs joined by an NVLink bridge, and HGX systems with eight GPUs behind NVSwitch. Know which one you have before you read any option slide.
 - Three ways to give a VM a GPU on one host: own the host, own the card, own a slice. More virtualisation buys more vSphere features and more driver and licence coupling.
 - One rule covers all of them: whatever you pass through pins the VM to the host.
 - Inside the box, NVLink is about ten times faster than any network leaving it. Fill one host before you spread a model across several.
 - For several hosts there are five options, but only two decisions. The letter is the GPU, the number is the network.
 - Most teams will not start with an HGX system. The everyday case is PCIe cards, GPU passed through, network virtualised, no vGPU licence.
+{{< /tldr >}}
 
 ## Three kinds of GPU servers
 

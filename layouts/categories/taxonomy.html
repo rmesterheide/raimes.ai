@@ -1,0 +1,25 @@
+{{- /* Topics overview (/categories/): every topic with its description and its posts, newest first. Overrides PaperMod's chip-only taxonomy page (UX-ROADMAP phase 0). */ -}}
+{{- define "main" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
+</header>
+{{- range .Data.Terms.Alphabetical }}
+  {{- with $.Site.GetPage (printf "/categories/%s" .Name) }}
+  {{- $slug := .Data.Term | urlize }}
+  <section class="topic-section topic-{{ $slug }}">
+    <h2><a class="topic" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+    {{- with .Description }}<p class="topic-description">{{ . }}</p>{{ end }}
+    <ul class="topic-posts">
+      {{- range .Pages.ByDate.Reverse }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="topic-post-meta">{{ .Date | time.Format ":date_long" }} · {{ .ReadingTime }} min</span>
+        {{- with .Summary }}<p>{{ . | plainify }}</p>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+{{- end }}
+{{- end }}
