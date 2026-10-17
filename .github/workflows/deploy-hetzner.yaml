@@ -1,0 +1,59 @@
+# Build the site and upload it to Hetzner Webhosting over SFTP on every push to main.
+# Draft (2026-10-17): not active until the three secrets exist in the repo:
+#   HETZNER_SFTP_HOST  e.g. www123.your-server.de
+#   HETZNER_SFTP_USER  the main FTP user from konsoleH
+#   HETZNER_SSH_KEY    private key whose public half is registered in konsoleH
+name: Deploy Hugo site to Hetzner
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hetzner
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.167.0
+    steps:
+      - name: Install Hugo CLI and lftp
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
+          sudo apt-get update -q && sudo apt-get install -y -q lftp
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Build with Hugo
+        env:
+          HUGO_ENVIRONMENT: production
+        run: hugo --gc --minify
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.HETZNER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p 22 "${{ secrets.HETZNER_SFTP_HOST }}" >> ~/.ssh/known_hosts
+      - name: Upload with lftp (mirror, delete removed files)
+        run: |
+          lftp -u "${{ secrets.HETZNER_SFTP_USER }}," \
+            -e "set sftp:connect-program 'ssh -a -x -i ~/.ssh/id_ed25519'; \
+                mirror -R --delete --parallel=4 --verbose=1 public/ /public_html/; \
+                quit" \
+            "sftp://${{ secrets.HETZNER_SFTP_HOST }}:22"
+      - name: Check live site
+        run: |
+          curl -sSf -o /dev/null -w '%{http_code} %{url_effective}\n' https://raimes.ai/
