@@ -1,5 +1,6 @@
 {{- /* Share button in .post-actions: native share sheet where the Web Share API exists (phones), otherwise copy the link. No third-party script. */ -}}
-{{- if eq .Type "posts" }}
+{{- /* .Type reads "page" in the footer context, so guard on .Kind. */ -}}
+{{- if eq .Kind "page" }}
 <script>
   document.querySelectorAll(".share-btn").forEach((btn) => {
     const hint = btn.querySelector(".share-hint");
