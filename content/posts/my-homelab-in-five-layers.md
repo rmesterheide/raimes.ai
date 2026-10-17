@@ -19,7 +19,7 @@ Here is the October 2026 version. Five layers, one house.
 
 [Full-size PNG](/images/homelab-october-2026/architecture-card.png), 2400 × 3000 px.
 
-*Card refreshed 2026-10-17: the network layer now shows the fibre uplink (10 Gbit/s down, 1 Gbit/s up by tariff, 8 Gbit/s measured at a client) and the full 10G matrix, 9.4 Gbit/s between any two of the four 10G hosts.*
+*Card refreshed 2026-10-17: the network layer now shows the fibre uplink (10 Gbit/s down, 1 Gbit/s up by tariff, 8 Gbit/s measured at a client) and the full 10G matrix, 9.4 Gbit/s between any two of the four 10G hosts. Same evening: the cloud layer now names Hetzner as the blog host, after the move off GitHub Pages.*
 
 ## Starting point: everything ran on the laptop
 
@@ -43,7 +43,7 @@ Three things, each in its own layer.
 
 **Every other layer got exactly one job.** The RTX 4090 workstation does the heavy lifting for voice and images and runs only on demand, woken from the Mini. Whisper transcribes a spoken command in 0.07 seconds, a local 14B model answers, a local text-to-speech engine speaks. The old 3090 that used to share these jobs is retired and for sale. The third machine in that layer is the honest one: a 32-core EPYC server with 512 GB of ECC memory and local NVMe, built in 2024 for nested VMware Cloud Foundation (VCF) Holodeck deployments ([the build story is on Medium](https://medium.com/@rmesterheide/why-i-switched-from-intel-to-amd-epyc-for-my-homelab-9cc182dfe230)). It has not been switched on since Claude Code took over the lab. It stays in the picture because the picture is supposed to show what is there, not what I am proud of. The NAS got a second volume on two datacenter SSDs with power-loss protection and no cache cliff. Home Assistant stays on a Raspberry Pi. It is the broker in the voice path, not the compute, so it never needed more hardware.
 
-**The cloud got a cap and a cache.** The apps now serve reads from memory and write through only on changes. Bucket operations fell from about 5,600 per two minutes to under ten. A budget function detaches billing from the project at 50 € and was tested with a fake alert before I trusted it. The rest of the cloud layer is boring on purpose: GitHub holds the private repos, receives the nightly documentation backup and serves this blog through Pages and Actions; GoDaddy holds the domains and DNS. Nothing in the house depends on the cloud layer, and I like it that way.
+**The cloud got a cap and a cache.** The apps now serve reads from memory and write through only on changes. Bucket operations fell from about 5,600 per two minutes to under ten. A budget function detaches billing from the project at 50 € and was tested with a fake alert before I trusted it. The rest of the cloud layer is boring on purpose: GitHub holds the private repos, receives the nightly documentation backup and pushes this blog to a Hetzner web host through Actions (the server writes anonymised logs, so I get visitor numbers without a tracker; moved on 2026-10-17, GitHub Pages before); GoDaddy holds the domains and DNS. Nothing in the house depends on the cloud layer, and I like it that way.
 
 ## The layer the family touches
 
