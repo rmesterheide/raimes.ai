@@ -16,7 +16,7 @@ This site is where I document what I learn about:
 
 Everything here is written in English so it is useful to as many people as
 possible. The site is built with [Hugo](https://gohugo.io) and hosted on
-GitHub Pages. The source is on
+a Hetzner web hosting package in Nuremberg, Germany. The source is on
 [GitHub](https://github.com/rmesterheide/raimes.ai).
 
 ## How this site is written

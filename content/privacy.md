@@ -5,11 +5,13 @@ ShowReadingTime: false
 ShowBreadCrumbs: false
 ---
 
-This is a private blog. It sets no cookies, shows no ads and loads no analytics or third-party scripts.
+This is a private blog. It sets no cookies, shows no ads and loads no analytics or third-party scripts. Visitor statistics come only from anonymised server logs, see below.
 
 **Controller.** Raiko Mesterheide, Zur Lutternschen Egge 65, 32549 Bad Oeynhausen, Germany. Contact: see the [imprint](/imprint/).
 
-**Hosting.** The site is served by GitHub Pages, operated by GitHub, Inc., USA. When you open a page, GitHub receives your IP address, the requested page, the time and your browser's user agent, as every web server does. GitHub may keep these server logs for security and operational purposes. GitHub is certified under the EU-US Data Privacy Framework. See GitHub's [privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement). Legal basis: legitimate interest in operating a reliable website, Art. 6 (1) (f) GDPR. I have no access to these logs.
+**Hosting and server logs.** The site is served from Hetzner Online GmbH, Nuremberg, Germany, under a data processing agreement. Like every web server, it writes a log line per request: the requested page, time, status, the referring page and your browser's user agent. Your IP address is anonymised by the web server before it is written (the last part of the address is replaced), so the logs cannot be traced back to you. The logs are deleted after seven days. Legal basis: legitimate interest in operating a reliable website, Art. 6 (1) (f) GDPR.
+
+**Statistics.** I use these anonymised logs to see which posts are read, where readers come from and roughly from which countries. The analysis runs locally on my own machine, builds no profiles, uses no cookies and shares nothing with third parties. There is no analytics script on the page.
 
 **No tracking.** No visitor counters, no fonts from third parties, no embedded videos or social media widgets. Links to other sites are plain links.
 

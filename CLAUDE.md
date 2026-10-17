@@ -1,13 +1,23 @@
 # raimes.ai
 
-Personal blog, Hugo + PaperMod, deployed to GitHub Pages. Posts are English.
+Personal blog, Hugo + PaperMod, hosted on Hetzner Webhosting since 2026-10-17 (GitHub Pages before). Posts are English.
+
+## Hosting (2026-10-17, moved from GitHub Pages to Hetzner Webhosting S)
+- Why: GitHub Pages gives no access logs; Hetzner writes daily access logs with IPs anonymised by the web server (last IPv4 octet / last 88 IPv6 bits), kept 7 days, so visitor statistics work without any script or cookie. Research report: `../reports/Blog Hosting mit Besucherstatistik.md`.
+- Package: Hetzner Webhosting S (1.60 EUR net/month, no SSH, SFTP only) plus raimes.ai as external domain (0.64 EUR net/month). konsoleH account server `www795.your-server.de`, main FTP user `ekui5y`, web root `public_html/`, logs in `www_logs/raimes.ai/`. SFTP on port 22 with key auth (Mini key and the deploy key `~/.ssh/raimes-hetzner-deploy` are registered in konsoleH under Settings > Login data > Public SFTP Keys). No passwords in this repo.
+- Deploy: `.github/workflows/deploy-hetzner.yaml` builds with Hugo and mirrors `public/` to `public_html/` with lftp over SFTP on every push to `main`. Repo secrets: `HETZNER_SFTP_HOST`, `HETZNER_SFTP_USER`, `HETZNER_SSH_KEY`. The old Pages workflow and `static/CNAME` were removed on 2026-10-17.
+- Apache rules in `static/.htaccess`: 404 page, HTTPS and bare-domain redirect (www -> apex), ACME path exempt, cache lifetimes.
+- DNS at GoDaddy since 2026-10-17: `@` A 167.235.125.76, `@` AAAA 2a01:4f8:1061:2275::2, `www` CNAME raimes.ai. The four GitHub A records are gone. `raimes.de` still redirects via the Pages repo rmesterheide/raimes-de-redirect (unchanged).
+- TLS: Let's Encrypt via konsoleH (domain > Services > SSL Manager > SSL Accounts > Install Certificate > Let's Encrypt), auto-renewed by Hetzner.
+- Statistics: `scripts/fetch-logs.sh` pulls `www_logs/raimes.ai/` with lftp into `~/raimes-logs/raw`, feeds each file once into a persistent GoAccess database and writes the report to `~/claude-projects/_vorschau/raimes-stats/index.html`, served at http://macmini01.local:8787/raimes-stats/. LaunchAgent `../homelab/mac-mini/launchagents/de.raimes.raimes-stats.plist` (daily 06:20, registered in `mini-dienste.sh`). Log format assumed Apache combined; verify on the first real file (`LOG_FORMAT=...` override). Hetzner's own AWStats/Report Magic are in konsoleH under Statistics.
+- Privacy page and About updated for Hetzner, anonymised logs and local statistics; the US-transfer paragraph is gone.
 
 ## Status (2026-10-08)
 - Domain switched to raimes.ai on 2026-10-08 (registered at GoDaddy, expires 2028-10-08). raimes.de stays as a secondary name and should forward to raimes.ai once it lives at GoDaddy.
-- Live via GitHub Pages (repo rmesterheide/raimes.ai, workflow deploy, HTTPS enforced).
+- Was live via GitHub Pages until 2026-10-17 (superseded, see Hosting above).
 - raimes.de DNS (zone at GoDaddy, see below): apex A -> 185.199.108.153, www CNAME -> rmesterheide.github.io (both live).
 - df.eu cancellation submitted 2026-10-08: hosting ends 09.11.2026, domain marked for provider transfer (must leave by 18.07.2027).
-- raimes.ai DNS at GoDaddy done 2026-10-08: 4 A records -> GitHub Pages IPs, www CNAME -> rmesterheide.github.io. GitHub Pages custom domain = raimes.ai.
+- raimes.ai DNS at GoDaddy 2026-10-08 to 2026-10-17: 4 A records -> GitHub Pages IPs, www CNAME -> rmesterheide.github.io (superseded, see Hosting above).
 - raimes.de and www.raimes.de redirect to raimes.ai via the tiny Pages repo rmesterheide/raimes-de-redirect (local: ../raimes-de-redirect), HTTPS enforced. Keep raimes.de DNS on the GitHub IPs after the transfer.
 - raimes.de transfer to GoDaddy started 2026-10-08 (order 4173484041) but blocked: GoDaddy tried 7 times on 08.-09.10., all rejected; transfer order stays open until about 07.11.2026. Cause as of 2026-10-12: the cancellation mail lists an authcode, but df.eu never sent the separate AuthInfo mail it promises for .de domains, and DENIC still shows the record unchanged since 2021, so no AuthInfo is stored. df.eu ticket DF-1152836 (domain D2116356) opened 09.10., only the auto-ack so far. Checked 2026-10-12 in the df.eu customer menu (domain page, "Authcode" > "Anzeigen"): df.eu shows the same code and claims it is stored; GoDaddy transfer page still says "Ungültiger Autorisierungscode" (code was always pasted, no typo); ticket still unanswered, df.eu warns of several days backlog. df.eu chat on 12.10. 11:33-11:54 (agent Sara Mustafa): only raised ticket priority from Medium to Highest, no AuthInfo action taken. Next: phone df.eu (+49 89 998 288 026) or use the chat in the customer menu, ask them to (re)create the AuthInfo1 at DENIC, then re-enter the code at dcc.godaddy.com/control/transfers. Fallback: GoDaddy requests an AuthInfo2 from DENIC, sent by letter to the holder.
 - raimes.de DNS is NOT at df.eu: DENIC lists ns81/ns82.domaincontrol.com (GoDaddy) since 2021, the df.eu nameservers do not answer for the zone. Records live in the GoDaddy DNS zone.
