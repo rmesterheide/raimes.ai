@@ -32,6 +32,8 @@ params:
     hiddenInList: true   # list cards show title + summary only (UX-ROADMAP phase 0)
     linkFullImages: false
   author: Raiko Mesterheide
+  # Correction mail under every post (the address already public on /imprint/).
+  correctionsMail: blogging.contact408203@gmail.com
   defaultTheme: auto
   ShowReadingTime: true
   ShowShareButtons: false

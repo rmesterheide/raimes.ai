@@ -14,4 +14,16 @@
     <p class="author-links"><a href="https://www.linkedin.com/in/raikomesterheide/">LinkedIn</a> · <a href="{{ "about/" | relURL }}">About</a> · <a href="{{ "index.xml" | relURL }}">RSS</a></p>
   </div>
 </aside>
+{{- /* Interaction row (UX-ROADMAP phase 1): the LinkedIn thread of this post (front matter `linkedin:`), a share button (native share sheet on phones, copy link elsewhere, script in extend_footer.html) and a correction mail (site param `correctionsMail`). */ -}}
+<nav class="post-actions" aria-label="Discuss, share, correct">
+  {{- with .Params.linkedin }}
+  <a href="{{ . }}" rel="noopener">Discuss on LinkedIn</a>
+  {{- else }}
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" rel="noopener">Share on LinkedIn</a>
+  {{- end }}
+  <button type="button" class="share-btn" data-title="{{ .Title }}" data-url="{{ .Permalink }}">Share<span class="share-hint" aria-live="polite"></span></button>
+  {{- with site.Params.correctionsMail }}
+  <a href="mailto:{{ . }}?subject={{ printf "Correction: %s" $.Title }}">Found an error? Mail me</a>
+  {{- end }}
+</nav>
 {{- end }}

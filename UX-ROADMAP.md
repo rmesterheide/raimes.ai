@@ -85,7 +85,7 @@ Done when: home page under 400 KB total, three posts above the fold at 1440 x 90
 
 ### Phase 1, next two weeks: the post page as home page
 1. Title convention (60 characters plus deck line), retitle existing posts, URLs unchanged.
-2. Post footer: author block (done 2026-10-17), read next by topic, follow line, reply line.
+2. Post footer: author block and interaction row (Discuss on LinkedIn, Share, correction mail) done 2026-10-17; read next by topic still open.
 3. Sticky side ToC on wide screens; "Updated on" line.
 4. Two signature components for a site that promises numbers: `measured` (a box with hardware, date, method, placed where the numbers start) and `try-it` (a labelled code block that says where it runs and what to expect, which `EDITORIAL.md` already demands in prose).
 5. Skip link and visible focus styles.
