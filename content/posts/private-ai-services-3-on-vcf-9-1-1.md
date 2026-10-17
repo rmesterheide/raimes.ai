@@ -9,6 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab"]
 summary: "Notes from preparing a VMware Explore on Tour session. Model sharing, public models behind a private gateway, tenants without GPUs, three ways to log in, and the one rule that still decides your GPU design."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7516563095662608384/"
 ---
 
 Yesterday I co-presented "Design & Architect: VMware Cloud Foundation Private AI Services" at VMware Explore on Tour in Frankfurt. Four weeks of preparation went into thirty minutes on stage. This post is the condensed version: what Private AI Services (PAIS) 3.0 changes on VMware Cloud Foundation (VCF) 9.1.1, and what I would decide first.

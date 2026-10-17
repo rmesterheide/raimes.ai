@@ -9,6 +9,7 @@ cover:
 categories: ["homelab-ai"]
 tags: ["private-ai", "homelab"]
 summary: "Three days of timestamps on a Home Assistant voice assistant: cloud versus on-prem on one device, a local voice that ties with Azure in a blind test, a 4090 that finally earns its place, and a filler word in the firmware that changed nothing in the numbers and everything in the conversation."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7515347701526421505/"
 ---
 
 {{< tldr >}}
