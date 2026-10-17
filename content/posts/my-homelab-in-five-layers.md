@@ -19,6 +19,8 @@ Here is the October 2026 version. Five layers, one house.
 
 [Full-size PNG](/images/homelab-october-2026/architecture-card.png), 2400 × 3000 px.
 
+*Card refreshed 2026-10-17: the network layer now shows the fibre uplink (10 Gbit/s down, 1 Gbit/s up by tariff, 8 Gbit/s measured at a client) and the full 10G matrix, 9.4 Gbit/s between any two of the four 10G hosts.*
+
 ## Starting point: everything ran on the laptop
 
 Until two weeks ago the MacBook was the centre. It held the notes, the project folders, the Claude Code sessions and the background jobs: the notes sync, the nightly documentation backup, the workers for my cloud apps. When the lid closed, the jobs stopped.
