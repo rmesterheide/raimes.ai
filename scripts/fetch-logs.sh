@@ -1,7 +1,7 @@
 #!/bin/bash
 # Pull the anonymised daily access logs of raimes.ai from Hetzner Webhosting
 # and build the GoAccess report on the Mac mini.
-#   bash scripts/fetch-logs.sh            # normal run (LaunchAgent de.raimes.raimes-stats, daily 06:20)
+#   bash scripts/fetch-logs.sh            # normal run (LaunchAgent de.raimes.raimes-stats, daily 05:30, before the 06:00 morning report)
 #   bash scripts/fetch-logs.sh --rebuild  # drop the GoAccess database and re-read every kept log file
 # Logs: Hetzner writes one file per day into www_logs/raimes.ai/ (available from about 01:00
 # the next day, IPs anonymised by the web server, deleted there after 7 days). We keep a copy in
