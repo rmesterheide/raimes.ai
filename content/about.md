@@ -6,8 +6,12 @@ ShowReadingTime: false
 
 <img src="/images/raiko.jpg" class="about-photo" alt="Raiko Mesterheide" width="128" height="128">
 
-I'm Raiko. By day I work in IT, by night I run a homelab with a Mac mini as
-control center and an RTX 4090 workstation for local models.
+I'm Raiko, a solution architect for infrastructure at Broadcom. My job is to
+get enterprise customers from "we have the platform" to use cases that pay for
+themselves, mostly private AI on VMware Cloud Foundation. The homelab is where
+I check what I recommend before I recommend it: one GPU, local models, a Mac
+mini that runs Claude Code around the clock. Opinions here are mine, not my
+employer's.
 
 This site is where I document what I learn about:
 

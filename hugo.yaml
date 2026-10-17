@@ -52,9 +52,10 @@ params:
   homeInfoParams:
     Title: "Private AI, with numbers."
     Content: >
-      One GPU, local models, a Mac mini that runs Claude Code around the clock,
-      and the same design at enterprise scale by day. Every post is one learning
-      and a measurement you can repeat. I decide, the agent builds, I check.
+      I help enterprise customers turn a private AI platform into use cases that
+      pay off. At home I run the same stack small: one GPU, local models, a Mac
+      mini with Claude Code around the clock. Every post is one learning and a
+      measurement you can repeat. I decide, the agent builds, I check.
 
 
       New here? Start with [the voice box for my five-year-old](/posts/voice-assistant-for-a-five-year-old/)
