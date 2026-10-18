@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 376" width="760" height="376" font-family="Inter, -apple-system, Helvetica, Arial, sans-serif" font-size="13" role="img" aria-label="Sonos players: average round-trip time from a wired host, ms">
+<rect width="760" height="376" fill="#ffffff"/>
+<text x="190" y="22" font-size="15" font-weight="500" fill="#2c2c2a">Sonos players: average round-trip time from a wired host, ms</text>
+<rect x="190" y="32" width="10" height="10" rx="2" fill="#b4b2a9"/><text x="206" y="41" fill="#6b6a66">morning, all on Wi-Fi</text>
+<rect x="340" y="32" width="10" height="10" rx="2" fill="#1f6f78"/><text x="356" y="41" fill="#6b6a66">evening, soundbar wired, SonosNet off, new radio plan</text>
+<line x1="190" y1="52" x2="190" y2="340" stroke="#e1e0d9" stroke-width="1"/>
+<text x="190" y="358" text-anchor="middle" fill="#6b6a66" font-size="12">0 ms</text>
+<line x1="315" y1="52" x2="315" y2="340" stroke="#e1e0d9" stroke-width="1"/>
+<text x="315" y="358" text-anchor="middle" fill="#6b6a66" font-size="12">7.5 ms</text>
+<line x1="440" y1="52" x2="440" y2="340" stroke="#e1e0d9" stroke-width="1"/>
+<text x="440" y="358" text-anchor="middle" fill="#6b6a66" font-size="12">15 ms</text>
+<line x1="565" y1="52" x2="565" y2="340" stroke="#e1e0d9" stroke-width="1"/>
+<text x="565" y="358" text-anchor="middle" fill="#6b6a66" font-size="12">22.5 ms</text>
+<line x1="690" y1="52" x2="690" y2="340" stroke="#e1e0d9" stroke-width="1"/>
+<text x="690" y="358" text-anchor="middle" fill="#6b6a66" font-size="12">30 ms</text>
+<text x="180" y="68" text-anchor="end" fill="#2c2c2a">Living room soundbar</text>
+<rect x="190" y="52" width="366.7" height="11" fill="#b4b2a9"/>
+<text x="562.7" y="61" fill="#6b6a66" font-size="12">22</text>
+<rect x="190" y="65" width="16.7" height="11" fill="#1f6f78"/>
+<text x="212.7" y="74" fill="#6b6a66" font-size="12">1</text>
+<text x="180" y="102" text-anchor="end" fill="#2c2c2a">Living room sub</text>
+<rect x="190" y="86" width="466.7" height="11" fill="#b4b2a9"/>
+<text x="662.7" y="95" fill="#6b6a66" font-size="12">28</text>
+<rect x="190" y="99" width="38.3" height="11" fill="#1f6f78"/>
+<text x="234.3" y="108" fill="#6b6a66" font-size="12">2.3</text>
+<text x="180" y="136" text-anchor="end" fill="#2c2c2a">Dining room</text>
+<rect x="190" y="120" width="81.7" height="11" fill="#b4b2a9"/>
+<text x="277.7" y="129" fill="#6b6a66" font-size="12">4.9</text>
+<rect x="190" y="133" width="48.3" height="11" fill="#1f6f78"/>
+<text x="244.3" y="142" fill="#6b6a66" font-size="12">2.9</text>
+<text x="180" y="170" text-anchor="end" fill="#2c2c2a">Bar</text>
+<rect x="190" y="154" width="111.7" height="11" fill="#b4b2a9"/>
+<text x="307.7" y="163" fill="#6b6a66" font-size="12">6.7</text>
+<rect x="190" y="167" width="76.7" height="11" fill="#1f6f78"/>
+<text x="272.7" y="176" fill="#6b6a66" font-size="12">4.6</text>
+<text x="180" y="204" text-anchor="end" fill="#2c2c2a">Portable 1</text>
+<rect x="190" y="188" width="108.3" height="11" fill="#b4b2a9"/>
+<text x="304.3" y="197" fill="#6b6a66" font-size="12">6.5</text>
+<rect x="190" y="201" width="40.0" height="11" fill="#1f6f78"/>
+<text x="236.0" y="210" fill="#6b6a66" font-size="12">2.4</text>
+<text x="180" y="238" text-anchor="end" fill="#2c2c2a">Portable 2</text>
+<rect x="190" y="222" width="103.3" height="11" fill="#b4b2a9"/>
+<text x="299.3" y="231" fill="#6b6a66" font-size="12">6.2</text>
+<rect x="190" y="235" width="38.3" height="11" fill="#1f6f78"/>
+<text x="234.3" y="244" fill="#6b6a66" font-size="12">2.3</text>
+<text x="180" y="272" text-anchor="end" fill="#2c2c2a">Kitchen</text>
+<rect x="190" y="256" width="71.7" height="11" fill="#b4b2a9"/>
+<text x="267.7" y="265" fill="#6b6a66" font-size="12">4.3</text>
+<rect x="190" y="269" width="58.3" height="11" fill="#1f6f78"/>
+<text x="254.3" y="278" fill="#6b6a66" font-size="12">3.5</text>
+<text x="180" y="306" text-anchor="end" fill="#2c2c2a">Office pair</text>
+<rect x="190" y="290" width="51.7" height="11" fill="#b4b2a9"/>
+<text x="247.7" y="299" fill="#6b6a66" font-size="12">3.1</text>
+<rect x="190" y="303" width="40.0" height="11" fill="#1f6f78"/>
+<text x="236.0" y="312" fill="#6b6a66" font-size="12">2.4</text>
+</svg>
