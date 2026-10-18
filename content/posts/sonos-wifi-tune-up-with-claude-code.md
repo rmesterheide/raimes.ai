@@ -1,7 +1,7 @@
 ---
 title: "From 125 ms spikes to 1 ms: a Sonos and Wi-Fi tune-up with Claude Code"
-date: 2026-10-18T19:30:00+02:00
-draft: true
+date: 2026-10-18T20:27:23+02:00
+draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/sonos-wifi-tune-up-with-claude-code.jpg"
