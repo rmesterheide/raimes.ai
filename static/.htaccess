@@ -9,6 +9,10 @@ RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^ https://raimes.ai%{REQUEST_URI} [R=301,L]
 
+# Page-view counter (2026-10-18): /stats/today.json is served by stats/hit.php (one number per day,
+# no personal data, see /privacy/). Home Assistant polls it once a minute.
+RewriteRule ^stats/today\.json$ stats/hit.php?json=1 [L]
+
 # Long-lived caching for fingerprinted and static assets.
 <IfModule mod_expires.c>
   ExpiresActive On

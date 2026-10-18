@@ -1,0 +1,8 @@
+{{- /* PaperMod's robots.txt plus the counter endpoint (2026-10-18): crawlers have no business in /stats/. */ -}}
+User-agent: *
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+Disallow: /stats/
+{{- else }}
+Disallow: /
+{{- end }}
+Sitemap: {{ "sitemap.xml" | absURL }}

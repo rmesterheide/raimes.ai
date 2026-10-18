@@ -17,3 +17,17 @@
   });
 </script>
 {{- end }}
+{{- /* Page-view counter (2026-10-18): one POST per page view to static/stats/hit.php, which keeps a number per day and nothing else (no cookie, no IP, no referrer; see /privacy/). Production builds only, so the Hugo preview on the Mini counts nothing; the hostname guard covers stray copies. */ -}}
+{{- if hugo.IsProduction }}
+<script>
+  (() => {
+    if (location.hostname !== "raimes.ai") return;
+    const hit = () => {
+      if (navigator.sendBeacon) { navigator.sendBeacon("/stats/hit.php"); return; }
+      fetch("/stats/hit.php", { method: "POST", keepalive: true }).catch(() => {});
+    };
+    if (document.prerendering) document.addEventListener("prerenderingchange", hit, { once: true });
+    else hit();
+  })();
+</script>
+{{- end }}
