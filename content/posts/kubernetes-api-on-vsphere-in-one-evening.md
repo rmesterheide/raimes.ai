@@ -9,6 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["homelab"]
 summary: "Part 1 of my route to Private AI Services 3.0 on vCenter alone: one host, one vCenter, no NSX. Within a few hours the platform for a lightweight, vCenter- and distributed-switch-only deployment was in place, and the vSphere Supervisor with the built-in Foundation Load Balancer answered as a Kubernetes API about seven minutes after the last click. What I prepared, what the wizard asks, and the five traps that cost me time."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7518036658362155008/"
 linkedin: ""
 ---
 
