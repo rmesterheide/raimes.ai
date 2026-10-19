@@ -10,7 +10,6 @@ categories: ["vmware"]
 tags: ["homelab"]
 summary: "Part 1 of my route to Private AI Services 3.0 on vCenter alone: one host, one vCenter, no NSX. Within a few hours the platform for a lightweight, vCenter- and distributed-switch-only deployment was in place, and the vSphere Supervisor with the built-in Foundation Load Balancer answered as a Kubernetes API about seven minutes after the last click. What I prepared, what the wizard asks, and the five traps that cost me time."
 linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7518036658362155008/"
-linkedin: ""
 ---
 
 I have installed ESX and vCenter by hand more times than I can count. DNS records, NTP, a distributed switch, a storage policy, then the long road to anything that looks like Kubernetes: an NSX Manager or an external load balancer, certificates, a second appliance to babysit. This evening was different. From a freshly installed ESX host to a Kubernetes API that answers on its own name took one evening, and the part I used to dread, the Supervisor activation, was the shortest step of all.
