@@ -1,11 +1,11 @@
 ---
-title: "Route to Private AI Services 3.0, part 1 of 2: from a fresh ESX host to a Kubernetes API in one evening"
+title: "Route to Private AI Services 3.0, part 1 of 3: from a fresh ESX host to a Kubernetes API in one evening"
 date: 2026-10-19T21:43:47+02:00
 draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/kubernetes-api-on-vsphere-in-one-evening.jpg"
-  alt: "Route to Private AI Services 3.0, part 1 of 2: from a fresh ESX host to a Kubernetes API in one evening"
+  alt: "Route to Private AI Services 3.0, part 1 of 3: from a fresh ESX host to a Kubernetes API in one evening"
 categories: ["vmware"]
 tags: ["homelab"]
 summary: "Part 1 of my route to Private AI Services 3.0 on vCenter alone: one host, one vCenter, no NSX. Within a few hours the platform for a lightweight, vCenter- and distributed-switch-only deployment was in place, and the vSphere Supervisor with the built-in Foundation Load Balancer answered as a Kubernetes API about seven minutes after the last click. What I prepared, what the wizard asks, and the five traps that cost me time."
@@ -14,7 +14,7 @@ linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7518036658362155
 
 I have installed ESX and vCenter by hand more times than I can count. DNS records, NTP, a distributed switch, a storage policy, then the long road to anything that looks like Kubernetes: an NSX Manager or an external load balancer, certificates, a second appliance to babysit. This evening was different. From a freshly installed ESX host to a Kubernetes API that answers on its own name took one evening, and the part I used to dread, the Supervisor activation, was the shortest step of all.
 
-This is part 1 of 2 on my route to Private AI Services (PAIS) 3.0, deployed the lightweight way: vCenter and a vSphere Distributed Switch only, no NSX, no VMware Cloud Foundation (VCF) Automation. Within a few hours we had every platform prerequisite for that deployment in place: the Supervisor with its load balancer, the Kubernetes Service, the Local Consumption Interface in vCenter, a content library with Kubernetes releases, a namespace for PAIS and a registry appliance. Part 2 adds the GPU and PAIS itself.
+This is part 1 of 3 on my route to Private AI Services (PAIS) 3.0, deployed the lightweight way: vCenter and a vSphere Distributed Switch only, no NSX, no VMware Cloud Foundation (VCF) Automation. Within a few hours we had every platform prerequisite for that deployment in place: the Supervisor with its load balancer, the Kubernetes Service, the Local Consumption Interface in vCenter, a content library with Kubernetes releases, a namespace for PAIS and a registry appliance. Part 2 activates PAIS without a GPU and puts a public model (Claude) behind its gateway, part 3 brings the local GPU.
 
 ![vSphere Client inventory at the end of the evening: cluster01 with the ESX host, the namespaces pais, svc-cci-ns, svc-tkg and svc-velero, the load balancer VM flb-sv01, the Supervisor control plane VM, vCenter and the registry appliance vis](/images/kubernetes-api-on-vsphere-in-one-evening/vcenter-inventory.png)
 *The whole lab at the end of the evening: one host, one cluster, the Supervisor with one control plane VM and one load balancer VM, four namespaces, vCenter and a registry appliance.*
@@ -32,7 +32,7 @@ A disclosure: I work at Broadcom. This is my homelab and my own reading of publi
 
 One AMD EPYC 7513 server with 512 GB RAM, local NVMe datastores, three 10 GbE ports. ESX 9.1.1 freshly installed, vCenter 9.1.1 deployed as a tiny appliance onto the same host, everything in an evaluation licence. A UniFi gateway does routing, DHCP and DNS for the house. No NSX Manager, no Avi, no extra appliances.
 
-The goal: a Kubernetes API from which vSphere Kubernetes Service (VKS) clusters can be created, as the platform for PAIS in part 2.
+The goal: a Kubernetes API from which vSphere Kubernetes Service (VKS) clusters can be created, as the platform for PAIS in parts 2 and 3.
 
 ## The network plan: three VLANs, one trunk port
 
@@ -228,4 +228,4 @@ Subscribe to `https://wp-content.broadcom.com/v2/latest/lib.json`, accept the ce
 - **Set the API server DNS name in the wizard.** It costs one field and gives you a certificate with a real name.
 - **Keep the watch loop.** Seven minutes are short when you see the addresses come up one after another, and long when you look at a spinner.
 
-That closes part 1: every platform prerequisite for a vCenter- and distributed-switch-only PAIS deployment is in place, built in a few hours. Part 2 is PAIS 3.0 on this Supervisor: the service definition (and why the file with `-external` in its name is the right one without VCF Automation), the registry credentials, the GPU, and whether the Foundation Load Balancer is enough for it.
+That closes part 1: every platform prerequisite for a vCenter- and distributed-switch-only PAIS deployment is in place, built in a few hours. Part 2 is PAIS 3.0 on this Supervisor without a GPU: the service definition (and why the file with `-external` in its name is the right one without VCF Automation), the registry credentials, the activation, and a public model behind the gateway. Part 3 adds the local GPU.
