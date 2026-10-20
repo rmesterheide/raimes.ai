@@ -65,7 +65,16 @@ The namespace `pais` from part 1 already had the storage policy and a few VM cla
 | GPU driver | Use CPUs only | the GPU comes in part 3; no NVIDIA catalog key needed |
 | Observability | off | can be switched on later |
 
+![PAIS UI with Data Indexing and Retrieval, MCP, Agent Builder and Observability locked, and the message "Data Indexing and Retrieval is not available"](/images/private-ai-services-without-a-gpu/data-indexing-not-available.jpg)
+*What "Model Runtime only" looks like from the inside: everything except the gateway is locked until an administrator switches it on.*
+
 "Create Private AI Instance" at 10:33, **Ready (paisAvailable) at 10:37**. The ingress got the next free virtual IP from the Foundation Load Balancer; vCenter shows it as "Private AI Services UI IP" together with the OpenAI-compatible base URL. One DNS record later, the PAIS UI answered on its name. The question I had after part 1, whether the built-in L4 load balancer is enough for PAIS, has its answer: for the gateway, yes.
+
+![vCenter inventory: namespace pais with the VKS cluster pais-30695622, its control plane VM and the pods pais-api, pais-igr-monitor and pais-ingress](/images/private-ai-services-without-a-gpu/vcenter-inventory-pais.jpg)
+*The instance in vCenter: one small VKS cluster for the control plane, plus the API, gateway monitor and ingress as vSphere Pods. The host barely notices.*
+
+![Private AI Services login page](/images/private-ai-services-without-a-gpu/pais-login.jpg)
+*One DNS record later: the login page on its own name.*
 
 ## Step 3: put Claude behind the gateway
 
@@ -129,6 +138,12 @@ kubectl -n pais annotate paisconfiguration default paisconfigurations.pais.vmwar
 ```
 
 The UI still said "API token generation is not available for your sign-in method" until I logged in again in a private window. Then: user menu → API Tokens → Generate.
+
+![PAIS UI, API tokens page with the message "API token generation is not available for your sign-in method"](/images/private-ai-services-without-a-gpu/api-tokens-not-available.webp)
+*Before: the session from before the patch still says no.*
+
+![PAIS UI, API tokens page with an "Expires in" field and the button "Generate API token"](/images/private-ai-services-without-a-gpu/api-tokens-generate.webp)
+*After a fresh login in a private window. Leave "Expires in" empty for the default of 720 hours.*
 
 ## The first answer
 
