@@ -16,10 +16,20 @@ Yesterday, in [part 1](/posts/kubernetes-api-on-vsphere-in-one-evening/), a sing
 
 That is not a workaround. It is the point I made on stage at VMware Explore on Tour last week: private AI does not mean "no public models". It means you decide which model sees which data, behind a gateway you own. Day zero without a single GPU is a supported start. When the GPU arrives, you repoint.
 
+**To be clear about the route:** for an enterprise, the preferred way to run Private AI Services is a full VMware Cloud Foundation (VCF) deployment with VCF Automation. That is where the things live that a company needs and my lab does not:
+
+- **Multi-tenancy:** organizations and projects, so teams share one platform without seeing each other.
+- **Self-service:** a catalog and a consumption portal, instead of an administrator in vCenter.
+- **Governance:** quotas, policies and role-based access per tenant.
+- **Network isolation:** NSX with virtual private clouds per tenant, instead of shared VLANs.
+- **Operations at scale:** lifecycle management, fleet operations and monitoring across many hosts and clusters.
+
+For one server in my homelab, with one user, the lightweight way (vCenter, a distributed switch and the built-in load balancer) is enough, and it is the quickest way to see how the pieces fit. Read this series as a lab route, not as an enterprise reference architecture.
+
 A disclosure: I work at Broadcom. This is my homelab and my own reading of public documentation, not an official statement. The Anthropic endpoint I use here is their OpenAI compatibility layer, which Anthropic itself describes as intended for testing and comparing models, not as a long-term production path.
 
 {{< tldr >}}
-- PAIS 3.0 comes as a Supervisor Service. Without VMware Cloud Foundation (VCF) Automation, upload the definition with **`-external`** in its file name: the other one pulls its package from a Supervisor-internal depot that only a full VCF stack fills.
+- PAIS 3.0 comes as a Supervisor Service. Without VCF Automation, upload the definition with **`-external`** in its file name: the other one pulls its package from a Supervisor-internal depot that only a full VCF stack fills.
 - Activation from vCenter, "Model Runtime only", CPU only, local accounts: **Ready four minutes after the click**, behind the Foundation Load Balancer from part 1.
 - Public models are not added in the UI. They are a Kubernetes resource, **`InferenceGatewayRoute`**, plus a Secret for the provider key. Ten lines of YAML put Claude behind the PAIS gateway.
 - Three traps: a registry test that fails although the token is fine, a model check that fails although the model works, and API tokens that the UI does not switch on.
