@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="790" viewBox="0 0 1200 790">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#8a94a3" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="790" fill="#0b0f14"/>
+<text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#f4f6f8" text-anchor="start">One request through the Private AI Services gateway</text>
+<text x="40" y="80" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8a94a3" text-anchor="start">My lab on 27 Oct 2026: vSphere 9.1.1, PAIS 3.0, a refurbished RTX A5000 in passthrough, local models next to Claude behind the same names</text>
+<rect x="40" y="160" width="184" height="210" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="40" y="160" width="184" height="4" rx="2" fill="#38bdf8"/>
+<text x="56" y="190" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Client</text>
+<text x="56" y="210" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">MacBook</text>
+<text x="56" y="234" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">lab-concierge.py, curl</text>
+<text x="56" y="254" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">model: lab-fast</text>
+<text x="56" y="274" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Bearer &lt;PAIS token&gt;</text>
+<text x="56" y="294" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="56" y="314" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">unchanged since</text>
+<text x="56" y="334" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">part 2</text>
+<rect x="274" y="160" width="184" height="210" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="274" y="160" width="184" height="4" rx="2" fill="#38bdf8"/>
+<text x="290" y="190" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Foundation</text>
+<text x="290" y="210" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Load Balancer</text>
+<text x="290" y="230" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">Supervisor</text>
+<text x="290" y="254" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">172.16.161.102:443</text>
+<text x="290" y="274" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">L4 virtual IP,</text>
+<text x="290" y="294" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">built into vCenter</text>
+<rect x="508" y="160" width="184" height="210" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="508" y="160" width="184" height="4" rx="2" fill="#c084fc"/>
+<text x="524" y="190" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">pais-ingress</text>
+<text x="524" y="210" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">vSphere Pod</text>
+<text x="524" y="234" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">nginx + auth sidecar</text>
+<text x="524" y="254" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">auth_request checks</text>
+<text x="524" y="274" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">the PAIS token</text>
+<text x="524" y="294" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="524" y="314" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">wrong token: 401</text>
+<text x="524" y="334" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">in about 20 ms</text>
+<rect x="742" y="160" width="184" height="210" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="742" y="160" width="184" height="4" rx="2" fill="#c084fc"/>
+<text x="758" y="190" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">pais-api</text>
+<text x="758" y="210" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">vSphere Pod</text>
+<text x="758" y="234" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">nginx + main (Python)</text>
+<text x="758" y="254" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">picks the route by</text>
+<text x="758" y="274" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">its routing name:</text>
+<text x="758" y="294" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">lab-fast →</text>
+<text x="758" y="314" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">gemma-4-12b-a5000</text>
+<rect x="976" y="160" width="184" height="210" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="976" y="160" width="184" height="4" rx="2" fill="#f59e0b"/>
+<text x="992" y="190" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">ModelEndpoint</text>
+<text x="992" y="210" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">GPU node, VKS</text>
+<text x="992" y="234" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">llama.cpp CUDA image</text>
+<text x="992" y="254" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">--n-gpu-layers 99</text>
+<text x="992" y="274" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">VKS worker VM, 8 vCPU,</text>
+<text x="992" y="294" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">64 GB reserved,</text>
+<text x="992" y="314" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">RTX A5000 passthrough</text>
+<text x="992" y="334" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">8.7 GB of 24 GB used</text>
+<line x1="228" y1="265" x2="268" y2="265" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="462" y1="265" x2="502" y2="265" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="696" y1="265" x2="736" y2="265" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="930" y1="265" x2="970" y2="265" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="696.8" y="237" width="40.4" height="20" rx="4" fill="#0b0f14"/>
+<text x="717.0" y="251" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#c084fc" text-anchor="middle">mTLS</text>
+<rect x="930.8" y="237" width="40.4" height="20" rx="4" fill="#0b0f14"/>
+<text x="951.0" y="251" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#f59e0b" text-anchor="middle">mTLS</text>
+<path d="M1068.0 156 V134 H132.0 V152" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#a)"/>
+<rect x="355.4" y="125" width="489.2" height="20" rx="4" fill="#0b0f14"/>
+<text x="600.0" y="139" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#8a94a3" text-anchor="middle">answer with token usage; “model” says lab-fast, not which model answered</text>
+<rect x="40" y="420" width="418" height="190" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="40" y="420" width="418" height="4" rx="2" fill="#f59e0b"/>
+<text x="56" y="450" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">What changed since part 2</text>
+<text x="56" y="470" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">one patch, one manifest, one route</text>
+<text x="56" y="494" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Host: passthrough on, no reboot. Platform: three fields</text>
+<text x="56" y="514" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">in PAISConfiguration.spec.nvidiaConfig (driver type OSS),</text>
+<text x="56" y="534" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">GPU Operator ready in 30 s, no re-activation.</text>
+<text x="56" y="554" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Endpoint: one ModelEndpoint, Ready six minutes after apply.</text>
+<text x="56" y="574" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Route: delete and recreate (engine is immutable).</text>
+<rect x="508" y="420" width="418" height="190" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="508" y="420" width="418" height="4" rx="2" fill="#c084fc"/>
+<text x="524" y="450" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Service names (InferenceGatewayRoute)</text>
+<text x="524" y="470" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">what clients ask for → what answers</text>
+<text x="524" y="512" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">lab-fast</text>
+<text x="660" y="512" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">→</text>
+<text x="684" y="512" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">gemma-4-12b-a5000 (A5000)</text>
+<text x="524" y="536" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">lab-balanced</text>
+<text x="660" y="536" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">→</text>
+<text x="684" y="536" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">claude-sonnet-5-5</text>
+<text x="524" y="560" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">lab-deep</text>
+<text x="660" y="560" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">→</text>
+<text x="684" y="560" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">claude-opus-5-5</text>
+<text x="524" y="584" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">lab-local</text>
+<text x="660" y="584" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">→</text>
+<text x="684" y="584" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">qwen3:14b, Ollama on the 4090</text>
+<rect x="976" y="420" width="184" height="190" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="976" y="420" width="184" height="4" rx="2" fill="#6fa8dc"/>
+<text x="992" y="450" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">api.anthropic.com</text>
+<text x="992" y="470" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#6fa8dc" text-anchor="start">Anthropic</text>
+<text x="992" y="494" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">still behind</text>
+<text x="992" y="514" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">lab-balanced and</text>
+<text x="992" y="534" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">lab-deep: the only</text>
+<text x="992" y="554" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">hop that leaves</text>
+<text x="992" y="574" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">the house</text>
+<line x1="834.0" y1="374" x2="834.0" y2="414" stroke="#c084fc" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#a)"/>
+<line x1="930" y1="340" x2="1016" y2="414" stroke="#6fa8dc" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#a)"/>
+<rect x="40" y="650" width="1120" height="100" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="60" y="682" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#f4f6f8" text-anchor="start">Measured, same prompt, 400 tokens per answer, one request and eight at once:</text>
+<text x="60" y="706" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Gemma 4 12B on the A5000 72.6 tok/s, eight at once 200 to 351 together. Same model on 16 vCPUs: 9.3 tok/s. Qwen3.8 27B on the card 31.2 / 154. Ollama on the 4090 70.5 / 103.</text>
+<text x="60" y="730" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5d6774" text-anchor="start">Claude Haiku 83.9 / 703, Sonnet 107.1 / 741. One user cannot tell the backends apart; eight can. 15 GB of the card stayed idle: passthrough gives them to nobody (part 4).</text>
+</svg>

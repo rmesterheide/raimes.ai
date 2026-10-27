@@ -1,11 +1,11 @@
 ---
-title: "Route to Private AI Services 3.0, part 2 of 3: a private AI gateway without a GPU, with Claude behind it"
+title: "Route to Private AI Services 3.0, part 2: a private AI gateway without a GPU, with Claude behind it"
 date: 2026-10-20T11:11:01+02:00
 draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/private-ai-services-without-a-gpu.jpg"
-  alt: "Route to Private AI Services 3.0, part 2 of 3: a private AI gateway without a GPU, with Claude behind it"
+  alt: "Route to Private AI Services 3.0, part 2: a private AI gateway without a GPU, with Claude behind it"
 categories: ["vmware"]
 tags: ["private-ai", "homelab"]
 summary: "Part 2 of my route to Private AI Services 3.0 on vCenter alone. The service registered on the second try, the instance was ready four minutes after the last click, and the first model behind my own gateway was not a local one: Claude, through Anthropic's OpenAI-compatible endpoint, on day zero without a GPU. The exact YAML, the three traps, why the route says Ready False and works anyway, and a small tool-using app that lets Opus inspect the lab through the gateway."

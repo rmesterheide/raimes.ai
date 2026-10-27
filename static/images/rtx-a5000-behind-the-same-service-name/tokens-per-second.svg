@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 322" width="820" height="322" font-family="Inter, -apple-system, Helvetica, Arial, sans-serif" font-size="13" role="img" aria-label="Tokens per second through the same gateway, same prompt, 400 tokens per answer">
+<rect width="820" height="322" fill="#ffffff"/>
+<text x="250" y="22" font-size="15" font-weight="500" fill="#2c2c2a">Tokens per second through the same gateway, same prompt, 400 tokens per answer</text>
+<rect x="250" y="34" width="10" height="10" rx="2" fill="#b4b2a9"/><text x="266" y="43" fill="#6b6a66">one request</text>
+<rect x="370" y="34" width="10" height="10" rx="2" fill="#76557e"/><text x="386" y="43" fill="#6b6a66">eight requests at once, added up</text>
+<line x1="250" y1="54" x2="250" y2="286" stroke="#e1e0d9" stroke-width="1"/>
+<text x="250" y="304" text-anchor="middle" fill="#6b6a66" font-size="12">0 tok/s</text>
+<line x1="375" y1="54" x2="375" y2="286" stroke="#e1e0d9" stroke-width="1"/>
+<text x="375" y="304" text-anchor="middle" fill="#6b6a66" font-size="12">200 tok/s</text>
+<line x1="500" y1="54" x2="500" y2="286" stroke="#e1e0d9" stroke-width="1"/>
+<text x="500" y="304" text-anchor="middle" fill="#6b6a66" font-size="12">400 tok/s</text>
+<line x1="625" y1="54" x2="625" y2="286" stroke="#e1e0d9" stroke-width="1"/>
+<text x="625" y="304" text-anchor="middle" fill="#6b6a66" font-size="12">600 tok/s</text>
+<line x1="750" y1="54" x2="750" y2="286" stroke="#e1e0d9" stroke-width="1"/>
+<text x="750" y="304" text-anchor="middle" fill="#6b6a66" font-size="12">800 tok/s</text>
+<text x="240" y="70" text-anchor="end" fill="#2c2c2a">Gemma 4 12B, 16 vCPU (PAIS)</text>
+<rect x="250" y="54" width="5.8" height="11" fill="#b4b2a9"/>
+<text x="261.8" y="63" fill="#6b6a66" font-size="12">9.3</text>
+<text x="256" y="76" fill="#6b6a66" font-size="12">not run</text>
+<text x="240" y="106" text-anchor="end" fill="#2c2c2a">Gemma 4 12B, RTX A5000 (PAIS)</text>
+<rect x="250" y="90" width="45.4" height="11" fill="#b4b2a9"/>
+<text x="301.4" y="99" fill="#6b6a66" font-size="12">72.6</text>
+<rect x="250" y="103" width="125.0" height="11" fill="#76557e"/>
+<text x="381.0" y="112" fill="#6b6a66" font-size="12">200</text>
+<text x="240" y="142" text-anchor="end" fill="#2c2c2a">Qwen3.8 27B, RTX A5000 (PAIS)</text>
+<rect x="250" y="126" width="19.5" height="11" fill="#b4b2a9"/>
+<text x="275.5" y="135" fill="#6b6a66" font-size="12">31.2</text>
+<rect x="250" y="139" width="96.2" height="11" fill="#76557e"/>
+<text x="352.2" y="148" fill="#6b6a66" font-size="12">154</text>
+<text x="240" y="178" text-anchor="end" fill="#2c2c2a">qwen3:14b, Ollama on the 4090</text>
+<rect x="250" y="162" width="44.1" height="11" fill="#b4b2a9"/>
+<text x="300.1" y="171" fill="#6b6a66" font-size="12">70.5</text>
+<rect x="250" y="175" width="64.4" height="11" fill="#76557e"/>
+<text x="320.4" y="184" fill="#6b6a66" font-size="12">103</text>
+<text x="240" y="214" text-anchor="end" fill="#2c2c2a">Claude Haiku 5.5, Anthropic</text>
+<rect x="250" y="198" width="52.4" height="11" fill="#b4b2a9"/>
+<text x="308.4" y="207" fill="#6b6a66" font-size="12">83.9</text>
+<rect x="250" y="211" width="439.4" height="11" fill="#76557e"/>
+<text x="695.4" y="220" fill="#6b6a66" font-size="12">703</text>
+<text x="240" y="250" text-anchor="end" fill="#2c2c2a">Claude Sonnet 5.5, Anthropic</text>
+<rect x="250" y="234" width="66.9" height="11" fill="#b4b2a9"/>
+<text x="322.9" y="243" fill="#6b6a66" font-size="12">107.1</text>
+<rect x="250" y="247" width="463.1" height="11" fill="#76557e"/>
+<text x="719.1" y="256" fill="#6b6a66" font-size="12">741</text>
+</svg>

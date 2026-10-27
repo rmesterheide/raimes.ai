@@ -1,11 +1,11 @@
 ---
-title: "Route to Private AI Services 3.0, part 1 of 3: from a fresh ESX host to a Kubernetes API in one evening"
+title: "Route to Private AI Services 3.0, part 1: from a fresh ESX host to a Kubernetes API in one evening"
 date: 2026-10-19T21:43:47+02:00
 draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/kubernetes-api-on-vsphere-in-one-evening.jpg"
-  alt: "Route to Private AI Services 3.0, part 1 of 3: from a fresh ESX host to a Kubernetes API in one evening"
+  alt: "Route to Private AI Services 3.0, part 1: from a fresh ESX host to a Kubernetes API in one evening"
 categories: ["vmware"]
 tags: ["homelab"]
 summary: "Part 1 of my route to Private AI Services 3.0 on vCenter alone: one host, one vCenter, no NSX. Within a few hours the platform for a lightweight, vCenter- and distributed-switch-only deployment was in place, and the vSphere Supervisor with the built-in Foundation Load Balancer answered as a Kubernetes API about seven minutes after the last click. What I prepared, what the wizard asks, and the five traps that cost me time."
