@@ -6,7 +6,7 @@ ShowReadingTime: false
 
 <img src="/images/raiko.jpg" class="about-photo" alt="Raiko Mesterheide" width="128" height="128">
 
-I'm Raiko, a solution architect for infrastructure at Broadcom. My job is to
+I'm Raiko, a solutions architect for infrastructure at Broadcom. My job is to
 make a private cloud platform get used: enterprise customers go from "we have
 VMware Cloud Foundation" to teams that actually run their workloads on it, with
 the processes and the operating model that keep it running. That means cloud

@@ -16,7 +16,7 @@ linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7520939694763872
 
 So this part is the one with a GPU inside the platform. The setting is unchanged from parts 1 and 2: one EPYC host with ESX 9.1.1, a vSphere Supervisor, Private AI Services (PAIS) 3.0 activated from vCenter alone, no VMware Cloud Foundation (VCF) Automation. Read it as a lab route, not as a reference architecture; part 2 has the list of what the full VCF stack adds.
 
-A disclosure, as always: I work at Broadcom as a solution architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. The Anthropic numbers below come through Anthropic's OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
+A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. The Anthropic numbers below come through Anthropic's OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
 
 {{< tldr >}}
 - **Passthrough without a reboot.** One `esxcli` line on the host switched the card to passthrough; ESX took the audio function along and reported both owned by "VM" at once.
