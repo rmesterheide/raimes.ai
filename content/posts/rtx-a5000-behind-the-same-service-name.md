@@ -9,7 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu"]
 summary: "Part 3 of my route to Private AI Services 3.0: a refurbished RTX A5000 goes into the single-host lab, passthrough without a reboot, the platform switches from CPU only to GPU with one kubectl patch, and the first local model is ready six minutes after apply. Then the numbers: the same model on 16 CPU cores and on the card, a 27B model, Ollama on my workstation and Claude, all through the same gateway, one request and eight at once. And what passthrough cannot do, which is where part 4 starts."
-linkedin: ""
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7520939694763872256/"
 ---
 
 [Part 2](/posts/private-ai-services-without-a-gpu/) ended with a promise: the RTX 3090 moves from the Ubuntu GPU instance into the ESX server. It did not. The 3090 found a new home, and I could not resist a refurbished RTX A5000 for the lab instead: 24 GB, 230 W, one power connector, on the vSphere compatibility list for both passthrough and vGPU. The last point is the reason. The 3090 could only ever do passthrough; this card can do both, which is what parts 4 and later need. And since the A5000 has an NVLink connector, a sibling may follow one day.
