@@ -151,6 +151,8 @@ Three things I take from the table.
 
 **The platform costs a second you can see.** The engine's own log shows the first token after 0.1 seconds; through the gateway the first token of a streamed answer took 1.1 to 1.5 seconds. Part 2 measured the gateway hops at about 30 milliseconds, so this is not the token check. My guess is buffering in the ingress or in the nginx sidecar in front of llama-server, and I have not proven it yet. Ollama behind the same gateway streams its first token after 0.14 seconds, so the gateway can do better. Open item.
 
+**Why llama.cpp and not vLLM.** PAIS 3.0 bundles vLLM v0.20.0, and for many concurrent users that is the engine to use: continuous batching and paged attention are built for exactly the eight-client case above. I used llama.cpp because the models are GGUF files I could compare one-to-one with the CPU run and with Ollama on the 4090, and because the 27B model only fits the card as a 4-bit GGUF. So read the concurrency numbers as what llama.cpp makes of the card, not as the card's ceiling. The same models on vLLM, with an FP8 build of a smaller model, are the next measurement.
+
 One more honest note on the Gemma row: the eight-request run gave 351 tokens per second from my MacBook and 200 from the Mac mini twenty minutes later, same endpoint, same prompt. I show the range rather than pick the number I like.
 
 ## The swap
