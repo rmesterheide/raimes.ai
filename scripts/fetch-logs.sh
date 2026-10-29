@@ -33,7 +33,8 @@ lftp -u "$USER_NAME," -e "set sftp:connect-program 'ssh -a -x -i $KEY -o BatchMo
   mirror --only-newer --verbose=0 $REMOTE_DIR/ $RAW/; quit" "sftp://$HOST:22"
 
 new=()
-for f in "$RAW"/*; do
+# access logs only; the Apache error logs are mirrored too but goaccess cannot parse them
+for f in "$RAW"/access.log*; do
   [ -f "$f" ] || continue
   name=$(basename "$f")
   grep -qxF "$name" "$DONE" || new+=("$f")
@@ -47,9 +48,10 @@ fi
 echo "$(date '+%F %T') processing ${#new[@]} new file(s): ${new[*]##*/}"
 restore=""
 [ -n "$(ls -A "$DB")" ] && restore="--restore"
+# goaccess parses month names with the system locale; on the German Mini "Oct" fails (2026-10-22), so force English
 for f in "${new[@]}"; do
   case "$f" in *.gz) gzcat "$f";; *) cat "$f";; esac
-done | goaccess - \
+done | LC_ALL=en_US.UTF-8 goaccess - \
   --log-format="$LOG_FORMAT" \
   --persist $restore --db-path="$DB" \
   --ignore-crawlers --no-query-string \
