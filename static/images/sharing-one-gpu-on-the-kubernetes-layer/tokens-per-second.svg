@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 302" width="820" height="302" font-family="Inter, -apple-system, Helvetica, Arial, sans-serif" font-size="13" role="img" aria-label="One RTX A5000, Gemma 4 12B: tokens per second with four requests per instance">
+<rect width="820" height="302" fill="#ffffff"/>
+<text x="290" y="22" font-size="15" font-weight="500" fill="#2c2c2a">One RTX A5000, Gemma 4 12B: tokens per second with four requests per instance</text>
+<rect x="290" y="34" width="10" height="10" rx="2" fill="#b4b2a9"/><text x="306" y="43" fill="#6b6a66">one instance gets</text>
+<rect x="420" y="34" width="10" height="10" rx="2" fill="#76557e"/><text x="436" y="43" fill="#6b6a66">the card delivers in total</text>
+<line x1="290" y1="54" x2="290" y2="250" stroke="#e1e0d9" stroke-width="1"/>
+<text x="290" y="268" text-anchor="middle" fill="#6b6a66" font-size="12">0 tok/s</text>
+<line x1="382" y1="54" x2="382" y2="250" stroke="#e1e0d9" stroke-width="1"/>
+<text x="382" y="268" text-anchor="middle" fill="#6b6a66" font-size="12">50 tok/s</text>
+<line x1="474" y1="54" x2="474" y2="250" stroke="#e1e0d9" stroke-width="1"/>
+<text x="474" y="268" text-anchor="middle" fill="#6b6a66" font-size="12">100 tok/s</text>
+<line x1="566" y1="54" x2="566" y2="250" stroke="#e1e0d9" stroke-width="1"/>
+<text x="566" y="268" text-anchor="middle" fill="#6b6a66" font-size="12">150 tok/s</text>
+<line x1="658" y1="54" x2="658" y2="250" stroke="#e1e0d9" stroke-width="1"/>
+<text x="658" y="268" text-anchor="middle" fill="#6b6a66" font-size="12">200 tok/s</text>
+<line x1="750" y1="54" x2="750" y2="250" stroke="#e1e0d9" stroke-width="1"/>
+<text x="750" y="268" text-anchor="middle" fill="#6b6a66" font-size="12">250 tok/s</text>
+<text x="280" y="70" text-anchor="end" fill="#2c2c2a">One instance, whole card (control)</text>
+<rect x="290" y="54" width="370.9" height="11" fill="#b4b2a9"/>
+<text x="666.9" y="63" fill="#6b6a66" font-size="12">201.6</text>
+<rect x="290" y="67" width="370.9" height="11" fill="#76557e"/>
+<text x="666.9" y="76" fill="#6b6a66" font-size="12">201.6</text>
+<text x="280" y="106" text-anchor="end" fill="#2c2c2a">Two instances, time-slicing, one busy</text>
+<rect x="290" y="90" width="373.3" height="11" fill="#b4b2a9"/>
+<text x="669.3" y="99" fill="#6b6a66" font-size="12">202.9</text>
+<rect x="290" y="103" width="373.3" height="11" fill="#76557e"/>
+<text x="669.3" y="112" fill="#6b6a66" font-size="12">202.9</text>
+<text x="280" y="142" text-anchor="end" fill="#2c2c2a">Two instances, time-slicing, both busy</text>
+<rect x="290" y="126" width="176.6" height="11" fill="#b4b2a9"/>
+<text x="472.6" y="135" fill="#6b6a66" font-size="12">96</text>
+<rect x="290" y="139" width="353.3" height="11" fill="#76557e"/>
+<text x="649.3" y="148" fill="#6b6a66" font-size="12">192</text>
+<text x="280" y="178" text-anchor="end" fill="#2c2c2a">Two instances, MPS 50/50, both busy</text>
+<rect x="290" y="162" width="195.2" height="11" fill="#b4b2a9"/>
+<text x="491.2" y="171" fill="#6b6a66" font-size="12">106.1</text>
+<rect x="290" y="175" width="390.4" height="11" fill="#76557e"/>
+<text x="686.4" y="184" fill="#6b6a66" font-size="12">212.2</text>
+<text x="280" y="214" text-anchor="end" fill="#2c2c2a">Two VMs, vGPU 12 GB each (part 4)</text>
+<text x="296" y="207" fill="#6b6a66" font-size="12">pending</text>
+<text x="296" y="220" fill="#6b6a66" font-size="12">pending</text>
+<text x="290" y="290" fill="#6b6a66" font-size="11">llama.cpp server-cuda-b11913, Gemma 4 12B QAT q4_0, 400 tokens per answer, 16k context, four parallel requests per instance; one request alone: 75.9 tok/s. VKS 1.36.4, GPU Operator 26.7.2, DRA driver 0.5.1. Lab numbers, one card, one evening.</text>
+</svg>
