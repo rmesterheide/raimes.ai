@@ -9,6 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "kubernetes"]
 summary: "A detour on the route to Private AI Services 3.0: while the vGPU entitlement sits in an NVIDIA support queue, the RTX A5000 and a fresh vSphere Kubernetes Service cluster answer the question every platform team gets, how many models fit on one card. Dynamic Resource Allocation (DRA) on Kubernetes 1.36, NVIDIA's new operator mode with the DRA driver built in, two llama.cpp instances on one GPU with time-slicing and then with the Multi-Process Service (MPS), measured against the single-tenant baseline. Plus the two traps that cost the evening, and a companion repository to rebuild it from zero."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7522055231984115712/"
 ---
 
 [Part 3](/posts/rtx-a5000-behind-the-same-service-name/) ended with the plan for part 4: NVIDIA vGPU on the same card, so that several vSphere Kubernetes Service (VKS) workers share the A5000 and the platform can hand out slices instead of whole GPUs. The 90-day NVIDIA AI Enterprise (NVAIE) evaluation was approved within hours. Then NVIDIA's own portal could not attach it to my account. Their support answered quickly and confirmed a known issue on their side; the fix is in the works, and the card has time until then. The card was ready, the weekend was free, and the question behind part 4 does not need vGPU to be asked: **how do you share one GPU between several workloads, and what does each way cost?**
