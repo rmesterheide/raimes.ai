@@ -8,7 +8,7 @@ cover:
   alt: "Route to Private AI Services 3.0, part 2: a private AI gateway without a GPU, with Claude behind it"
 categories: ["vmware"]
 tags: ["private-ai", "homelab"]
-summary: "Part 2 of my route to Private AI Services 3.0 on vCenter alone. The service registered on the second try, the instance was ready four minutes after the last click, and the first model behind my own gateway was not a local one: Claude, through Anthropic's OpenAI-compatible endpoint, on day zero without a GPU. The exact YAML, the three traps, why the route says Ready False and works anyway, and a small tool-using app that lets Opus inspect the lab through the gateway."
+summary: "Part 2 of my route to Private AI Services 3.0 on plain vSphere and vCenter. The service registered on the second try, the instance was ready four minutes after the last click, and the first model behind my own gateway was not a local one: Claude, through Anthropic's OpenAI-compatible endpoint, on day zero without a GPU. The exact YAML, the three traps, why the route says Ready False and works anyway, and a small tool-using app that lets Opus inspect the lab through the gateway."
 linkedin: ""
 ---
 
@@ -16,7 +16,7 @@ Yesterday, in [part 1](/posts/kubernetes-api-on-vsphere-in-one-evening/), a sing
 
 That is not a workaround. It is the point I made on stage at VMware Explore on Tour last week: private AI does not mean "no public models". It means you decide which model sees which data, behind a gateway you own. Day zero without a single GPU is a supported start. When the GPU arrives, you repoint.
 
-**To be clear about the route:** for an enterprise, the preferred way to run Private AI Services is a full VMware Cloud Foundation (VCF) deployment with VCF Automation. That is where the things live that a company needs and my lab does not:
+**About the setting:** PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what this lab rebuilds. A full VMware Cloud Foundation (VCF) deployment with VCF Automation adds what a company with many teams needs and my lab does not:
 
 - **Multi-tenancy:** organizations and projects, so teams share one platform without seeing each other.
 - **Self-service:** a catalog and a consumption portal, instead of an administrator in vCenter.
@@ -24,7 +24,7 @@ That is not a workaround. It is the point I made on stage at VMware Explore on T
 - **Network isolation:** NSX with virtual private clouds per tenant, instead of shared VLANs.
 - **Operations at scale:** lifecycle management, fleet operations and monitoring across many hosts and clusters.
 
-For one server in my homelab, with one user, the lightweight way (vCenter, a distributed switch and the built-in load balancer) is enough, and it is the quickest way to see how the pieces fit. Read this series as a lab route, not as an enterprise reference architecture.
+I would like to have the multi-tenancy and the NSX-based virtual private clouds as well, but the lab is small: one server, one user. For that, vCenter, a distributed switch and the built-in load balancer are enough, and they are the quickest way to see how the pieces fit.
 
 A disclosure: I work at Broadcom. This is my homelab and my own reading of public documentation, not an official statement. The Anthropic endpoint I use here is their OpenAI compatibility layer, which Anthropic itself describes as intended for testing and comparing models, not as a long-term production path.
 
@@ -47,7 +47,7 @@ The Private AI Services download for VCF 9.1.1 contains two service definitions,
 
 The first one expects the bundle in a depot inside the Supervisor, which VCF's content distribution fills. On a vCenter-only Supervisor that depot is empty, which is most likely why my first, quick attempt failed. The `-external` file pulls from Broadcom's registry, so the Supervisor needs credentials for it: **Supervisor → Configure → Container Registries → Add**, host `pais-docker.packages.broadcom.com`, user name your Broadcom Support Portal e-mail, password a registry token from the portal (My Downloads → Registry Tokens).
 
-**Trap 1: the registry test that lies.** Before typing the token into vCenter I wanted to know it works. A plain `curl -u` against the package path answered 401 with a perfectly good token, because the registry wants the bearer flow that Docker and the Supervisor use. `curl -u` is only meaningful against `/v2/` itself. This one-liner does the real thing, asks for the token and keeps it out of the shell history:
+**Trap 1: a registry test that fails for the wrong reason.** Before typing the token into vCenter I wanted to know it works. A plain `curl -u` against the package path answered 401 with a perfectly good token, because the registry wants the bearer flow that Docker and the Supervisor use. `curl -u` is only meaningful against `/v2/` itself. This one-liner does what the Supervisor does, asks for the token and keeps it out of the shell history:
 
 ```bash
 # on your workstation; replace <portal-email>. Expect 200.
@@ -137,7 +137,7 @@ Type: Reachable       Status: True   External backend is reachable
 Type: ModelAvailable  Status: False  Backend returned an HTTP error for /models. HTTP status: 400
 ```
 
-PAIS checks a remote backend by listing its models. Anthropic's compatibility layer covers `chat/completions`, but `/v1/models` is Anthropic's native endpoint and answers `anthropic-version: header is required`. The chat path works with the same key. Whether a route that reports Ready False keeps routing in later versions is not something I would bet production on; for a lab it is fine, and a tiny proxy that answers `/models` in OpenAI format would turn it green.
+PAIS checks a remote backend by listing its models. Anthropic's compatibility layer covers `chat/completions`, but `/v1/models` is Anthropic's native endpoint and answers `anthropic-version: header is required`. The chat path works with the same key. Whether a route that reports Ready False keeps routing in later versions is not something I would rely on in production; for a lab it is fine, and a tiny proxy that answers `/models` in OpenAI format would turn it green.
 
 **Trap 3: API tokens are off after a UI activation.** The PAIS 3.0 release notes list it as a known issue. Two commands fix it and give the instance its name:
 
@@ -208,11 +208,11 @@ PAIS token:
 
 Six tool calls, chosen by the model, then a short report. The platform is healthy, all three PAIS pods run, the deployments at zero replicas are the features I switched off, and the vSphere Kubernetes Service control plane VM is up with its two disks attached. It even found the storage warnings from the first minutes of the rollout in the event list and correctly called them resolved.
 
-And then the best line of the morning. Opus reported, in bold, that **no model in the namespace is usable**, because the only route, `claude-opus-5-5`, is not Ready. It wrote that while being served through exactly that route. It is the Ready False from trap 2, seen from the inside: the model can only read the status, not know that the status is wrong.
+Then the most interesting line of the morning. Opus reported, in bold, that **no model in the namespace is usable**, because the only route, `claude-opus-5-5`, is not Ready. It wrote that while being served through exactly that route. It is the Ready False from trap 2, seen from the inside: the model can only read the status, not know that the status is wrong.
 
-Its suggested fix was wrong as well, and honestly labelled: "my assumption, not verified". It proposed adding `/v1` to the base URL; the API reference says the opposite, PAIS appends `/v1` itself. That is the behaviour I want from an assistant on a platform: look first, separate what it saw from what it guesses, and leave the change to me.
+Its suggested fix was wrong as well, and labelled as such: "my assumption, not verified". It proposed adding `/v1` to the base URL; the API reference says the opposite, PAIS appends `/v1` itself. That is the behaviour I want from an assistant on a platform: look first, separate what it saw from what it guesses, and leave the change to me.
 
-The cost side, because the gateway is the place where you see it: almost 100,000 input tokens for one question, because every tool result (pods, events, a whole `PAISConfiguration`) goes back to the model as JSON. With a public model that is real money per question; with a local model in part 3 it is only GPU time. The concierge does not change for that. Only `--model` does.
+The cost side, because the gateway is the place where you see it: almost 100,000 input tokens for one question, because every tool result (pods, events, a whole `PAISConfiguration`) goes back to the model as JSON. With a public model that is a noticeable cost per question; with a local model in part 3 it is only GPU time. The concierge does not change for that. Only `--model` does.
 
 
 ## What I would do differently
@@ -220,6 +220,6 @@ The cost side, because the gateway is the place where you see it: almost 100,000
 - **Test credentials the way the consumer uses them.** Both of my "failed" tests in this part were tests that could not succeed: basic auth against a bearer registry, and a model list against an API that only mirrors chat completions.
 - **Read the YAML pane in the wizard.** It shows exactly which fields the UI sets, and which ones it does not (API tokens).
 - **Start with a public model on purpose.** It proves the whole chain (DNS, load balancer, gateway, auth, token) before any GPU is in the box. In part 3 the only change for the client is the model name.
-- **Trim tool results before they reach the model.** The concierge already drops `managedFields`; it should also cut events and status down to what matters. Tokens are the bill.
+- **Trim tool results before they reach the model.** The concierge already drops `managedFields`; it should also cut events and status down to what matters. Tokens are what you pay for.
 
 Part 3 brings the RTX 3090 into the server, a VM class with the GPU in passthrough, and a local model next to Claude behind the same gateway. Then the concierge asks the same question twice, once per model, and we compare answers, tokens and time.

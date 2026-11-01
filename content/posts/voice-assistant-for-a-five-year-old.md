@@ -28,7 +28,7 @@ Notice what is missing: the RTX 4090 workstation and the Mac mini that I had ben
 
 Setup was ten minutes. Home Assistant found the box as an ESPHome device, I picked the cloud pipeline and the wake word "Okay Nabu", and the first "what time is it" worked.
 
-Then it felt bad. Sitting sixty centimetres from the box with the TV off, the wake word was ignored half the time, and when it did trigger, the beginning of my sentence was missing. The debug view in Home Assistant showed speech recognition at 0.02 to 0.14 seconds and intent matching under half a second. The pipeline was not the problem.
+Then the problems started. Sitting sixty centimetres from the box with the TV off, the wake word was ignored half the time, and when it did trigger, the beginning of my sentence was missing. The debug view in Home Assistant showed speech recognition at 0.02 to 0.14 seconds and intent matching under half a second. The pipeline was not the problem.
 
 Three device settings were:
 
@@ -74,7 +74,7 @@ Costs: with the system prompt cached, a question is about half a cent to one cen
 
 - **Fix the device settings before anything else.** Sensitivity, wake sound, pause detection. I spent an evening suspecting the pipeline when the defaults were the problem.
 - **Aliases first, models later.** Most commands never need a language model if the entities have names people actually say.
-- **Measure before buying hardware.** I ran a 2,259-clip Whisper benchmark on two machines to decide where recognition should run. The honest answer was: nowhere at home, for now. The cloud is faster and the privacy decision is separate from the speed decision.
+- **Measure before buying hardware.** I ran a 2,259-clip Whisper benchmark on two machines to decide where recognition should run. The answer was: nowhere at home, for now. The cloud is faster and the privacy decision is separate from the speed decision.
 - **Test the kid's questions before the kid does.** Death, scary things, swear words, "when is Christmas". The system prompt alone is not a filter.
 
-Next on the list is a local voice. The cloud voice sounds great and costs two seconds. Piper on the Pi takes under half a second and sounds like 2015. Somewhere between the two there is a model that runs on the Mac mini, and that is the next measurement.
+Next on the list is a local voice. The cloud voice sounds great and costs two seconds. Piper on the Pi takes under half a second and sounds dated. Somewhere between the two there is a model that runs on the Mac mini, and that is the next measurement.

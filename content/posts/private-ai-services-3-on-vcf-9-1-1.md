@@ -21,9 +21,9 @@ A disclosure: I work at Broadcom. This is my own reading of public documentation
 - **Model sharing** is the headline. The gateway and the model no longer have to live in the same namespace. One PAIS instance can expose a local model, a self-managed endpoint, a model borrowed from another instance and a public cloud model side by side.
 - **Public models are first-class endpoints.** Google Gemini, Gemini Enterprise Agent Platform and any OpenAI-compatible API, with token usage tracking per consumer.
 - **Tenants without GPUs.** Each team keeps its own PAIS instance as the security and data boundary. The GPUs sit in one provider instance and are shared.
-- **Three ways to log in:** direct OIDC, OIDC via VCF Automation, local accounts. Two are for production, one is for the first afternoon.
+- **Three ways to log in:** direct OpenID Connect (OIDC), OIDC via VCF Automation, local accounts. Two are for production, one is for the first afternoon.
 - **Less friction:** the agent layer is optional, and activation works from the vCenter UI without VCF Automation.
-- **Under the hood nothing changed.** Whatever you pass through pins the VM to the host. Choose that on purpose.
+- **At the GPU layer nothing changed.** Whatever you pass through pins the VM to the host. Choose that on purpose.
 {{< /tldr >}}
 
 ## PAIS in one paragraph
@@ -52,19 +52,19 @@ PAIS 3.0 makes this a platform feature. Two consequences I find useful:
 - **Day zero without a GPU.** Start with a public endpoint. When your GPUs arrive, repoint the model. The application does not change.
 - **Token usage tracking for cloud models.** You see what the public model costs you, per consumer, in the same place as your local models.
 
-## 3. Teams keep their walls, the GPUs lose theirs
+## 3. Teams stay separated, the GPUs are shared
 
 A PAIS instance is the security and data boundary. Whoever can log in sees all models and all data sources of that instance. Separating teams therefore means separate instances. Until now, separate instances meant separate GPUs.
 
-I checked the logs of my own GPU box before the talk. A handful of requests per week. One service had exactly one job in fourteen days. The card was powered on around the clock. That is what a dedicated GPU per team looks like, at any scale.
+I checked the logs of my own GPU box before the talk. A handful of requests per week. One service had exactly one job in fourteen days. The card was powered on around the clock. That is what a dedicated GPU per team looks like.
 
-With 3.0, two organisations run PAIS without GPUs: only the lightweight gateway pods, their own vector database, their own tools and agents. Both point at one provider instance that runs the models. Users and data stay separated. The GPUs are shared. And no, this needs no special hardware. All of it lives on the same vSphere cluster, in different namespaces.
+With 3.0, two organisations run PAIS without GPUs: only the lightweight gateway pods, their own vector database, their own tools and agents. Both point at one provider instance that runs the models. Users and data stay separated. The GPUs are shared. This needs no special hardware. All of it lives on the same vSphere cluster, in different namespaces.
 
 ## 4. Three ways to log in
 
 | Option | Fit | Cost |
 |---|---|---|
-| Direct OIDC | One company, production | Every new instance is a new IdP integration. Scripts fetch and refresh their own tokens. Shared instances need all users in one directory. |
+| Direct OIDC | One company, production | Every new instance is a new identity provider (IdP) integration. Scripts fetch and refresh their own tokens. Shared instances need all users in one directory. |
 | VCF Automation OIDC | Many tenants, production | VCF Automation is the issuer and federates to each tenant's IdP. Long-lived API tokens for scripts. You declare which organisations may use an instance. |
 | Local accounts | Proof of concept | Embedded issuer, personal access tokens, no IdP, no VCF Automation. Not for production. |
 
@@ -72,7 +72,7 @@ The second option is the one that fits the shared-GPU pattern above. VCF Automat
 
 Two known issues from the 3.0 release notes if you demo this: API tokens are not enabled when PAIS is activated through the UI, and the default base URL for local accounts cannot be set in the UI.
 
-## 5. Under the hood: the one rule
+## 5. The GPU layer: the one rule
 
 The model endpoint carries a VM class, and the VM class decides how the GPU reaches the VM. Three options on a single host:
 

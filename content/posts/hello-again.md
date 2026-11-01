@@ -23,12 +23,12 @@ Over the last year most of my evenings went into three things that turned
 out to be one thing:
 
 1. **Claude Code** as the tool I actually get work done with. Not demos,
-   the daily grind: how I structure projects, what I put in memory, which
+   the daily work: how I structure projects, what I put in memory, which
    skills I wrote and which ones I deleted again.
 2. **Private AI** at home. A 4090 in a workstation, a Mac mini as the
    always-on brain, and the question of what is worth running locally.
 3. **The homelab** that holds it together. DNS, backups, power, the boring
-   stuff that breaks at 2 a.m.
+   parts that break at night.
 
 I keep notes on all of this anyway. Publishing them forces me to tidy them
 up, and maybe saves someone else a weekend.

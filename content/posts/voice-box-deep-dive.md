@@ -8,7 +8,7 @@ cover:
   alt: "Where the two seconds go: the voice pipeline stage by stage"
 categories: ["homelab-ai"]
 tags: ["private-ai", "homelab"]
-summary: "Three days of timestamps on a Home Assistant voice assistant: cloud versus on-prem on one device, a local voice that ties with Azure in a blind test, a 4090 that finally earns its place, and a filler word in the firmware that changed nothing in the numbers and everything in the conversation."
+summary: "Three days of timestamps on a Home Assistant voice assistant: cloud versus on-prem on one device, a local voice that ties with Azure in a blind test, a 4090 that finally has a job, and a filler word in the firmware that changed nothing in the numbers and everything in the conversation."
 linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7515347701526421505/"
 ---
 
@@ -36,11 +36,11 @@ What changed is that every stage now has a number. Home Assistant stamps every p
 After the last spoken word, four things happen in sequence.
 
 1. **The box waits for silence**, about a second. Same for both chains, set to the most aggressive option the device offers.
-2. **Speech-to-text.** The cloud needs 0.03 to 0.25 seconds, because it transcribes while you are still talking. Whisper large-v3-turbo on the 4090 needs 0.35 to 0.55, because it starts after you stop. So much for "local is faster".
+2. **Speech-to-text.** The cloud needs 0.03 to 0.25 seconds, because it transcribes while you are still talking. Whisper large-v3-turbo on the 4090 needs 0.35 to 0.55, because it starts after you stop. Local is not faster here.
 3. **The language model until its last token.** Claude Haiku 5.5: 1.3 to 1.8 seconds. qwen3:14b on the 4090: 0.8 to 1.1.
 4. **The handoff to the box**, a tenth of a second or two.
 
-The detail that decides everything sits between 3 and 4: Home Assistant gives the box the audio only after the model's last token. The voice streams, the model streams, and playback still starts at the end. Time to first token is irrelevant. I had optimized for it anyway, and the stopwatch did not care. The levers that actually move the number are answer length and the model's total time.
+The detail that decides everything sits between 3 and 4: Home Assistant gives the box the audio only after the model's last token. The voice streams, the model streams, and playback still starts at the end. Time to first token is irrelevant. I had optimized for it anyway, and it made no difference in the measurement. The levers that actually move the number are answer length and the model's total time.
 
 The second thing that broke was my claim about the cloud voice. Measured from inside the LAN, Azure through Home Assistant Cloud delivers the first byte after 0.38 seconds (0.21 for short sentences), not two. The two seconds were the model finishing. I had blamed the wrong stage.
 
@@ -50,13 +50,13 @@ The second thing that broke was my claim about the cloud voice. Measured from in
 
 ![Time to first audio by engine](/images/voice-box-deep-dive/ttfa_by_engine.png)
 
-Through Home Assistant the local voice loses its head start: 0.45 seconds to first byte, constant, because HA converts the stream with ffmpeg and buffers 64 KiB before sending (core issue #184204, still open). Azure arrives as MP3 and skips that. So in the chain, the local voice is 0.07 seconds slower than the cloud one. I keep it anyway, and the blind test is why.
+Through Home Assistant the local voice loses its advantage: 0.45 seconds to first byte, constant, because Home Assistant converts the stream with ffmpeg and buffers 64 KiB before sending (core issue #184204, still open). Azure arrives as MP3 and skips that. So in the chain, the local voice is 0.07 seconds slower than the cloud one. I keep it anyway, and the blind test is why.
 
 ![Blind listening test](/images/voice-box-deep-dive/listening_test_mos.png)
 
-Sixty clips, twelve sentences times five voices, loudness-normalized, shuffled, rated on the ITU-T P.800 five-point scale. Azure 4.33, Kokoro 4.25, Qwen3-TTS 4.17, Piper 4.08, Qwen3-TTS 0.6B 3.83, and every confidence interval overlaps every other. The evening before, listening to whole answers in the kitchen, I had called the local voice "better than Azure". Isolated sentences say: level. Level, and nothing leaves the house, and no subscription in the loop. That is enough. What the test did show clearly: both Qwen3 models mispronounce the name of our town, which a replacement list will fix, and the 0.6B model slips on names and dates.
+Sixty clips, twelve sentences times five voices, loudness-normalized, shuffled, rated on the ITU-T P.800 five-point scale. Azure 4.33, Kokoro 4.25, Qwen3-TTS 4.17, Piper 4.08, Qwen3-TTS 0.6B 3.83, and every confidence interval overlaps every other. The evening before, listening to whole answers in the kitchen, I had called the local voice "better than Azure". Isolated sentences say: level. Level is enough when nothing leaves the house and no subscription is needed. What the test did show clearly: both Qwen3 models mispronounce the name of our town, which a replacement list will fix, and the 0.6B model slips on names and dates.
 
-**The 4090 earns its place.** It now runs the voice (5 GB of VRAM), Whisper as a Wyoming service (2.5 GB) and Ollama with qwen3:14b (10 GB). The 27B models do not fit next to the voice in 24 GB, which settled that debate. Two chains on one device:
+**The 4090 has a job now.** It now runs the voice (5 GB of VRAM), Whisper as a Wyoming service (2.5 GB) and Ollama with qwen3:14b (10 GB). The 27B models do not fit next to the voice in 24 GB, which settled the question. Two chains on one device:
 
 | Stage | "Okay Nabu" (the kid) | "Hey Jarvis" (on-prem) |
 |---|---|---|
@@ -65,9 +65,9 @@ Sixty clips, twelve sentences times five voices, loudness-normalized, shuffled, 
 | Voice | Qwen3-TTS on the 4090 | the same |
 | Last word to first sound | about 1.8 to 2.0 s | about 0.9 to 1.3 s |
 
-The on-prem chain is a second faster and answers like a 14B model: "the Argentinosaurus was as big as a skyscraper", "there are infinitely many planets, like sand on the beach". The 8B model was worse. Haiku 5.5 gets the facts right, keeps the rule "hard questions go to Mum or Dad", and costs a third of Sonnet. For the child's wake word that is the trade I want. For the adults, the on-prem chain is the one that will keep working when the internet does not.
+The on-prem chain is a second faster and answers like a 14B model: "the Argentinosaurus was as big as a skyscraper", "there are infinitely many planets, like sand on the beach". The 8B model was worse. Haiku 5.5 gets the facts right, keeps the rule "hard questions go to Mum or Dad", and costs a third of Sonnet. For the child's wake word that is the trade-off I want. For the adults, the on-prem chain is the one that will keep working when the internet does not.
 
-**The filler word.** Dialogue researchers call it a backchannel: the "mm-hm" that tells you the other side is still there. The box now plays a short "Okay" or "Hm, let me think", in the same voice it answers with, the instant it detects the end of your sentence, before anything is sent anywhere. A Home Assistant announcement cannot do this, it aborts the running pipeline, I checked. The ESPHome firmware has a hook for exactly that moment, and the device plays embedded sounds without touching the pipeline. Measured latency: unchanged. Perceived latency: the pause became a conversation. My five-year-old's verdict was one word, and it was not a complaint.
+**The filler word.** Dialogue researchers call it a backchannel: the "mm-hm" that tells you the other side is still there. The box now plays a short "Okay" or "Hm, let me think", in the same voice it answers with, the instant it detects the end of your sentence, before anything is sent anywhere. A Home Assistant announcement cannot do this, it aborts the running pipeline, I checked. The ESPHome firmware has a hook for exactly that moment, and the device plays embedded sounds without touching the pipeline. Measured latency: unchanged. Perceived latency: the pause became a conversation. My five-year-old's verdict was one word, and it was positive.
 
 This is the overlay I added to the device's configuration in the ESPHome Device Builder add-on, under the official Nabu Casa package. The FLAC files are five short clips synthesized with the same voice, served from any web server on your LAN while the firmware compiles.
 

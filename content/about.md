@@ -36,4 +36,4 @@ I decide, the agent builds, I check. I pick the topics, run the measurements, gi
 
 Numbers come from my own measurements or from a named public source. Where a number depends on the setup, the post says so, including the hardware it was measured on. When I find an error after publishing, I correct it in the post with a date, not silently.
 
-Posts written this way carry a short note at the end that links here. I keep the note because this site is about working with Claude Code, and the site itself is part of the evidence. If you want to know how the sausage is made: the drafting rules, the editorial plan and the project notes are in the [repository](https://github.com/rmesterheide/raimes.ai).
+Posts written this way carry a short note at the end that links here. I keep the note because this site is about working with Claude Code, and the site itself is part of the evidence. If you want to see how the posts are made: the drafting rules, the editorial plan and the project notes are in the [repository](https://github.com/rmesterheide/raimes.ai).

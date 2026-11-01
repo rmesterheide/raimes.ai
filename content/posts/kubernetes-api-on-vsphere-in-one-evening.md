@@ -8,13 +8,13 @@ cover:
   alt: "Route to Private AI Services 3.0, part 1: from a fresh ESX host to a Kubernetes API in one evening"
 categories: ["vmware"]
 tags: ["homelab"]
-summary: "Part 1 of my route to Private AI Services 3.0 on vCenter alone: one host, one vCenter, no NSX. Within a few hours the platform for a lightweight, vCenter- and distributed-switch-only deployment was in place, and the vSphere Supervisor with the built-in Foundation Load Balancer answered as a Kubernetes API about seven minutes after the last click. What I prepared, what the wizard asks, and the five traps that cost me time."
+summary: "Part 1 of my route to Private AI Services 3.0 on plain vSphere and vCenter: one host, one vCenter, no NSX. Within a few hours the platform for a vCenter- and distributed-switch-only deployment was in place, and the vSphere Supervisor with the built-in Foundation Load Balancer answered as a Kubernetes API about seven minutes after the last click. What I prepared, what the wizard asks, and the five traps that cost me time."
 linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7518036658362155008/"
 ---
 
-I have installed ESX and vCenter by hand more times than I can count. DNS records, NTP, a distributed switch, a storage policy, then the long road to anything that looks like Kubernetes: an NSX Manager or an external load balancer, certificates, a second appliance to babysit. This evening was different. From a freshly installed ESX host to a Kubernetes API that answers on its own name took one evening, and the part I used to dread, the Supervisor activation, was the shortest step of all.
+I have installed ESX and vCenter by hand many times. DNS records, NTP, a distributed switch, a storage policy, then the long road to anything that looks like Kubernetes: an NSX Manager or an external load balancer, certificates, a second appliance to look after. This evening was different. From a freshly installed ESX host to a Kubernetes API that answers on its own name took one evening, and the part I expected to take longest, the Supervisor activation, was the shortest step of all.
 
-This is part 1 of 3 on my route to Private AI Services (PAIS) 3.0, deployed the lightweight way: vCenter and a vSphere Distributed Switch only, no NSX, no VMware Cloud Foundation (VCF) Automation. Within a few hours we had every platform prerequisite for that deployment in place: the Supervisor with its load balancer, the Kubernetes Service, the Local Consumption Interface in vCenter, a content library with Kubernetes releases, a namespace for PAIS and a registry appliance. Part 2 activates PAIS without a GPU and puts a public model (Claude) behind its gateway, part 3 brings the local GPU.
+This is part 1 of 3 on my route to Private AI Services (PAIS) 3.0 on a plain vSphere and vCenter basis: vCenter and a vSphere Distributed Switch, no NSX, no VMware Cloud Foundation (VCF) Automation. PAIS 3.0 is fully supported on that basis, and that is what the lab rebuilds. I would like to have the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) networking of VCF as well, but the lab is small. Within a few hours we had every platform prerequisite for that deployment in place: the Supervisor with its load balancer, the Kubernetes Service, the Local Consumption Interface in vCenter, a content library with Kubernetes releases, a namespace for PAIS and a registry appliance. Part 2 activates PAIS without a GPU and puts a public model (Claude) behind its gateway, part 3 brings the local GPU.
 
 ![vSphere Client inventory at the end of the evening: cluster01 with the ESX host, the namespaces pais, svc-cci-ns, svc-tkg and svc-velero, the load balancer VM flb-sv01, the Supervisor control plane VM, vCenter and the registry appliance vis](/images/kubernetes-api-on-vsphere-in-one-evening/vcenter-inventory.png)
 *The whole lab at the end of the evening: one host, one cluster, the Supervisor with one control plane VM and one load balancer VM, four namespaces, vCenter and a registry appliance.*
@@ -49,7 +49,7 @@ The addresses in this post are examples (`172.16.160.0/24`, `.161`, `.162`), not
 Two decisions made this simple:
 
 1. **Tag only inside vSphere.** The distributed switch uplink (`vmnic2`) sits on a switch port that carries all VLANs tagged. The port groups set the VLAN ID; the physical switch needs no change per port group.
-2. **No DHCP on the VIP and workload VLANs.** My gateway had DHCP enabled on both from an older lab, with a pool covering the whole subnet. Static ranges inside a DHCP pool work until the day they do not. Switch it off, or at least move the pool out of the way.
+2. **No DHCP on the VIP and workload VLANs.** My gateway had DHCP enabled on both from an older lab, with a pool covering the whole subnet. Static ranges inside a DHCP pool work until the first conflicting lease. Switch it off, or at least move the pool out of the way.
 
 Before the wizard, check that nothing answers on the planned addresses and that the gateways do. On a Mac or Linux box:
 
@@ -106,7 +106,7 @@ ssh -i ~/.ssh/id_ecdsa_vcf root@esx01.vcf.internal 'esxcli system security fips1
 
 ## The vCenter checklist: four things, ten minutes
 
-The Supervisor Management start page lists the prerequisites itself. On a single host they boil down to this:
+The Supervisor Management start page lists the prerequisites itself. On a single host they come down to this:
 
 1. **Distributed switch with three port groups** (table above). VDS → Actions → Distributed Port Group → New, VLAN type "VLAN", one per role.
 2. **A tag-based storage policy.** Without vSAN there is no default policy for the Supervisor. I created a tag category `k8s-storage` with a tag `supervisor`, put the tag on the NVMe datastore and created the VM storage policy `k8s-990pro` with "tag based placement". The storage compatibility page of the policy wizard should list exactly the datastore you meant.
@@ -152,7 +152,7 @@ for i in {1..120}; do
 done
 ```
 
-The log tells the story: the first control plane address answered after three minutes, the FLB management address at minute seven, and in the same check the API on the first VIP. vCenter showed 8 of 9 conditions done shortly after and Running a few minutes later.
+The log shows the sequence: the first control plane address answered after three minutes, the FLB management address at minute seven, and in the same check the API on the first VIP. vCenter showed 8 of 9 conditions done shortly after and Running a few minutes later.
 
 ## Proof that it works
 

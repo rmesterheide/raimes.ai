@@ -12,9 +12,9 @@ summary: "Part 3 of my route to Private AI Services 3.0: a refurbished RTX A5000
 linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7520939694763872256/"
 ---
 
-[Part 2](/posts/private-ai-services-without-a-gpu/) ended with a promise: the RTX 3090 moves from the Ubuntu GPU instance into the ESX server. It did not. The 3090 found a new home, and I could not resist a refurbished RTX A5000 for the lab instead: 24 GB, 230 W, one power connector, on the vSphere compatibility list for both passthrough and vGPU. The last point is the reason. The 3090 could only ever do passthrough; this card can do both, which is what parts 4 and later need. And since the A5000 has an NVLink connector, a sibling may follow one day.
+[Part 2](/posts/private-ai-services-without-a-gpu/) ended with a promise: the RTX 3090 moves from the Ubuntu GPU instance into the ESX server. It did not. The 3090 found a new home, and I bought a refurbished RTX A5000 for the lab instead: 24 GB, 230 W, one power connector, on the vSphere compatibility list for both passthrough and vGPU. The last point is the reason. The 3090 could only ever do passthrough; this card can do both, which is what parts 4 and later need. And since the A5000 has an NVLink connector, a second card may follow one day.
 
-So this part is the one with a GPU inside the platform. The setting is unchanged from parts 1 and 2: one EPYC host with ESX 9.1.1, a vSphere Supervisor, Private AI Services (PAIS) 3.0 activated from vCenter alone, no VMware Cloud Foundation (VCF) Automation. Read it as a lab route, not as a reference architecture; part 2 has the list of what the full VCF stack adds.
+So this part is the one with a GPU inside the platform. The setting is unchanged from parts 1 and 2: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and Private AI Services (PAIS) 3.0 activated from vCenter. PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what the lab rebuilds. I would like to use the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) features of VMware Cloud Foundation (VCF) as well, but this is a small lab; part 2 has the list of what the full VCF stack adds.
 
 A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. The Anthropic numbers below come through Anthropic's OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
 
@@ -28,7 +28,7 @@ A disclosure, as always: I work at Broadcom as a solutions architect for infrast
 
 ## The card goes in, the host stays up
 
-The physical part was the easy part: shut the lab down in the right order (the Supervisor keeps resurrecting VMs you power off under it, so vCenter goes first), open the box, seat the card in the x16 slot, boot. ESX saw it right away:
+The physical part was the easy part: shut the lab down in the right order (the Supervisor keeps restarting VMs you power off under it, so vCenter goes first), open the box, seat the card in the x16 slot, boot. ESX saw it right away:
 
 ```text
 0000:c1:00.0 VGA compatible controller: NVIDIA Corporation GA102GL [RTX A5000]
@@ -109,11 +109,11 @@ spec:
               "--reasoning-budget", "0", "--jinja", "--metrics"]
 ```
 
-Two lines in there are traps I walked into.
+Two lines in there are traps I ran into.
 
 **Trap 1: the bundled llama.cpp is CPU only.** PAIS 3.0 ships llama.cpp `b9309` without CUDA. Without the `engineImage` override the endpoint would come up on the GPU node and run on its eight vCPUs. The release notes say so, in one sentence; I read it after the fact. The public CUDA image from the llama.cpp project works as a drop-in, and PAIS pulls it from `ghcr.io` without further configuration.
 
-**Trap 2: thinking models answer with nothing.** My CPU baseline earlier the same day returned empty answers through the gateway. Gemma 4 and Qwen3.8 both reason before they answer, and with a small `max_tokens` the reasoning eats the whole budget. `--reasoning-budget 0` on the engine, or `reasoning_effort: none` per request, fixes it. For a service name that application teams consume, I would set it on the engine: the client should not need to know which model family is behind `lab-fast`.
+**Trap 2: thinking models answer with nothing.** My CPU baseline earlier the same day returned empty answers through the gateway. Gemma 4 and Qwen3.8 both reason before they answer, and with a small `max_tokens` the reasoning uses up the whole budget. `--reasoning-budget 0` on the engine, or `reasoning_effort: none` per request, fixes it. For a service name that application teams consume, I would set it on the engine: the client should not need to know which model family is behind `lab-fast`.
 
 Then the timeline, from `kubectl apply`:
 
@@ -145,15 +145,15 @@ Everything below went through the same gateway, with the same prompt (an essay r
 
 Three things I take from the table.
 
-**Same model, same artifact, 7.6 times faster.** The Gemma rows are the like-for-like pair: the identical GGUF file from Harbor, llama.cpp in both cases, once on 16 vCPUs of the EPYC, once on the card. 9.3 against 72.6 tokens per second, and the 250-token answer arrives in 3.5 seconds instead of 27. The CPU side was not tuned, so treat the factor as a floor, not a benchmark.
+**Same model, same artifact, 7.6 times faster.** The Gemma rows are the like-for-like pair: the identical GGUF file from Harbor, llama.cpp in both cases, once on 16 vCPUs of the EPYC, once on the card. 9.3 against 72.6 tokens per second, and the 250-token answer arrives in 3.5 seconds instead of 27. The CPU side was not tuned, so treat the factor as a lower bound, not a benchmark.
 
-**One user cannot tell the backends apart; eight can.** For a single request the A5000, the 4090 and Haiku land within 70 to 84 tokens per second. The difference is what happens under load. Eight clients get five times the single-client throughput out of the A5000, because llama.cpp batches them across its slots. Ollama on the workstation serialises and drops to 103 in total. The provider does not care and delivers 700 and more. That is the honest shape of the comparison: a local card wins on data locality and on cost per token once it is busy, the provider wins on burst and on scale.
+**One user cannot tell the backends apart; eight can.** For a single request the A5000, the 4090 and Haiku land within 70 to 84 tokens per second. The difference is what happens under load. Eight clients get five times the single-client throughput out of the A5000, because llama.cpp batches them across its slots. Ollama on the workstation serialises and drops to 103 in total. The provider is not affected and delivers 700 and more. That is the shape of the comparison: a local card wins on data locality and on cost per token once it is busy, the provider wins on burst and on scale.
 
 **The platform costs a second you can see.** The engine's own log shows the first token after 0.1 seconds; through the gateway the first token of a streamed answer took 1.1 to 1.5 seconds. Part 2 measured the gateway hops at about 30 milliseconds, so this is not the token check. My guess is buffering in the ingress or in the nginx sidecar in front of llama-server, and I have not proven it yet. Ollama behind the same gateway streams its first token after 0.14 seconds, so the gateway can do better. Open item.
 
 **Why llama.cpp and not vLLM.** PAIS 3.0 bundles vLLM v0.20.0, and for many concurrent users that is the engine to use: continuous batching and paged attention are built for exactly the eight-client case above. I used llama.cpp because the models are GGUF files I could compare one-to-one with the CPU run and with Ollama on the 4090, and because the 27B model only fits the card as a 4-bit GGUF. So read the concurrency numbers as what llama.cpp makes of the card, not as the card's ceiling. The same models on vLLM, with an FP8 build of a smaller model, are the next measurement.
 
-One more honest note on the Gemma row: the eight-request run gave 351 tokens per second from my MacBook and 200 from the Mac mini twenty minutes later, same endpoint, same prompt. I show the range rather than pick the number I like.
+One more note on the Gemma row: the eight-request run gave 351 tokens per second from my MacBook and 200 from the Mac mini twenty minutes later, same endpoint, same prompt. I show the range rather than pick the number I like.
 
 ## The swap
 
@@ -192,7 +192,7 @@ Then the concierge from part 2, unchanged, asked its question twice. With `--mod
 request (46894 tokens) exceeds the available context size (16384 tokens), try increasing it
 ```
 
-**Trap 4: the context window is a sizing decision, not a model property.** The deployment list of the namespace, even with `managedFields` stripped, is bigger than the 16k context I gave the endpoint. Opus took the same payload without blinking, and it costs real money per question for exactly that reason. The fix is on my side: `--ctx-size 65536` on the engine (the 12B model leaves room for it on the card), and a concierge that trims tool results to what the question needs, which part 2 already listed as a lesson. The honest result tonight is that the same client works against the public model and fails against the local one, and the gateway told me precisely why.
+**Trap 4: the context window is a sizing decision, not a model property.** The deployment list of the namespace, even with `managedFields` stripped, is bigger than the 16k context I gave the endpoint. Opus took the same payload without a problem, and it costs real money per question for exactly that reason. The fix is on my side: `--ctx-size 65536` on the engine (the 12B model leaves room for it on the card), and a concierge that trims tool results to what the question needs, which part 2 already listed as a lesson. The result tonight is that the same client works against the public model and fails against the local one, and the gateway told me precisely why.
 
 
 ## What passthrough cannot do
@@ -206,7 +206,7 @@ For one model that fills the card this is fine, and it is the cheapest possible 
 - **Activate on CPU, add the GPU later.** It costs nothing and it is one patch. Do not wait for the card to start the platform.
 - **Pin the engine image and the thinking switch on the endpoint, not on the client.** The bundled llama.cpp is CPU only, and reasoning models return empty answers; both belong in the manifest.
 - **Measure under concurrency, not alone.** The single-request numbers hide the whole story.
-- **Write the shutdown order down.** On a single host the Supervisor and vCenter fight you if you power things off in the wrong order; I lost half an hour and collected eight orphaned pod VMs before I got it right.
+- **Write the shutdown order down.** On a single host the Supervisor and vCenter work against you if you power things off in the wrong order; I lost half an hour and collected eight orphaned pod VMs before I got it right.
 
 ## What comes next
 
