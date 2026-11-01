@@ -8,12 +8,12 @@ cover:
   alt: "Where the two seconds go: the voice pipeline stage by stage"
 categories: ["homelab-ai"]
 tags: ["private-ai", "homelab"]
-summary: "Three days of timestamps on a Home Assistant voice assistant: cloud versus on-prem on one device, a local voice that ties with Azure in a blind test, a 4090 that finally has a job, and a filler word in the firmware that changed nothing in the numbers and everything in the conversation."
+summary: "Three days of timestamps on a Home Assistant voice assistant: cloud versus on-prem on one device, a local voice that ties with Azure in a blind test, a 4090 that finally has a job, and a filler word in the firmware that changed no number but made the conversation feel natural."
 linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7515347701526421505/"
 ---
 
 {{< tldr >}}
-- Home Assistant plays the answer only after the language model's last token. Streaming saves nothing; answer length and the model's total time are the only levers.
+- Home Assistant plays the answer only after the language model's last token. Streaming saves nothing; only the answer length and the model's total time change the delay.
 - Cloud speech recognition is faster than local Whisper after the last word (0.05 s vs. 0.4 s), because it transcribes while you talk. Local recognition buys privacy and proper names, not speed.
 - The cloud voice never cost two seconds. Azure through Home Assistant: 0.38 s to first byte. The two seconds were the model finishing.
 - A local Qwen3-TTS voice on the RTX 4090 delivers first audio in 0.11 s and ties with Azure in a blind listening test. Through Home Assistant it loses 0.3 s to an ffmpeg buffer.
@@ -40,9 +40,9 @@ After the last spoken word, four things happen in sequence.
 3. **The language model until its last token.** Claude Haiku 5.5: 1.3 to 1.8 seconds. qwen3:14b on the 4090: 0.8 to 1.1.
 4. **The handoff to the box**, a tenth of a second or two.
 
-The detail that decides everything sits between 3 and 4: Home Assistant gives the box the audio only after the model's last token. The voice streams, the model streams, and playback still starts at the end. Time to first token is irrelevant. I had optimized for it anyway, and it made no difference in the measurement. The levers that actually move the number are answer length and the model's total time.
+The detail that decides everything sits between 3 and 4: Home Assistant gives the box the audio only after the model's last token. The voice streams, the model streams, and playback still starts at the end. Time to first token is irrelevant. I had optimized for it anyway, and it made no difference in the measurement. Only the answer length and the model's total time change the delay.
 
-The second thing that broke was my claim about the cloud voice. Measured from inside the LAN, Azure through Home Assistant Cloud delivers the first byte after 0.38 seconds (0.21 for short sentences), not two. The two seconds were the model finishing. I had blamed the wrong stage.
+The second thing that broke was my claim about the cloud voice. Measured from inside the local network (LAN), Azure through Home Assistant Cloud delivers the first byte after 0.38 seconds (0.21 for short sentences), not two. The two seconds were the model finishing. I had blamed the wrong stage.
 
 ## What fixed it
 
@@ -56,7 +56,7 @@ Through Home Assistant the local voice loses its advantage: 0.45 seconds to firs
 
 Sixty clips, twelve sentences times five voices, loudness-normalized, shuffled, rated on the ITU-T P.800 five-point scale. Azure 4.33, Kokoro 4.25, Qwen3-TTS 4.17, Piper 4.08, Qwen3-TTS 0.6B 3.83, and every confidence interval overlaps every other. The evening before, listening to whole answers in the kitchen, I had called the local voice "better than Azure". Isolated sentences say: level. Level is enough when nothing leaves the house and no subscription is needed. What the test did show clearly: both Qwen3 models mispronounce the name of our town, which a replacement list will fix, and the 0.6B model slips on names and dates.
 
-**The 4090 has a job now.** It now runs the voice (5 GB of VRAM), Whisper as a Wyoming service (2.5 GB) and Ollama with qwen3:14b (10 GB). The 27B models do not fit next to the voice in 24 GB, which settled the question. Two chains on one device:
+**The 4090 has a job now.** It now runs the voice (5 GB of video memory), Whisper as a Wyoming service (2.5 GB) and Ollama with qwen3:14b (10 GB). The 27B models do not fit next to the voice in 24 GB, which settled the question. Two chains on one device:
 
 | Stage | "Okay Nabu" (the kid) | "Hey Jarvis" (on-prem) |
 |---|---|---|
@@ -67,11 +67,11 @@ Sixty clips, twelve sentences times five voices, loudness-normalized, shuffled, 
 
 The on-prem chain is a second faster and answers like a 14B model: "the Argentinosaurus was as big as a skyscraper", "there are infinitely many planets, like sand on the beach". The 8B model was worse. Haiku 5.5 gets the facts right, keeps the rule "hard questions go to Mum or Dad", and costs a third of Sonnet. For the child's wake word that is the trade-off I want. For the adults, the on-prem chain is the one that will keep working when the internet does not.
 
-**The filler word.** Dialogue researchers call it a backchannel: the "mm-hm" that tells you the other side is still there. The box now plays a short "Okay" or "Hm, let me think", in the same voice it answers with, the instant it detects the end of your sentence, before anything is sent anywhere. A Home Assistant announcement cannot do this, it aborts the running pipeline, I checked. The ESPHome firmware has a hook for exactly that moment, and the device plays embedded sounds without touching the pipeline. Measured latency: unchanged. Perceived latency: the pause became a conversation. My five-year-old's verdict was one word, and it was positive.
+**The filler word.** Dialogue researchers call it a backchannel: the "mm-hm" that tells you the other side is still there. The box now plays a short "Okay" or "Hm, let me think", in the same voice it answers with, the instant it detects the end of your sentence, before anything is sent anywhere. A Home Assistant announcement cannot do this, it aborts the running pipeline, I checked. The ESPHome firmware has a hook for exactly that moment, and the device plays embedded sounds without touching the pipeline. Measured latency is unchanged. The pause now feels like part of a conversation. My five-year-old reacted with one word, and it was positive.
 
 This is the overlay I added to the device's configuration in the ESPHome Device Builder add-on, under the official Nabu Casa package. The FLAC files are five short clips synthesized with the same voice, served from any web server on your LAN while the firmware compiles.
 
-**Update, the same evening.** The first version played the clip through the firmware's own `play_sound` script, which uses the announcement channel, and that was a mistake I only heard on the on-prem chain: a short "O" and then silence. The pipeline timestamps explained it. Home Assistant sends the answer's streaming URL to the device as soon as the model has produced about sixty characters, 0.4 s after the end of speech with a local Whisper and a 14B model, and the firmware starts that URL as a new announcement at once, even though the audio only arrives after the last token. A new announcement replaces the running one, so it cut the filler. On the cloud chain the first tokens arrived 0.3 s later and "Okay" squeezed through. The fix is a third input on the device's audio mixer with its own small media player, which the answer cannot touch, plus clips trimmed of their leading silence. This is the version that runs now:
+**Update, the same evening.** The first version played the clip through the firmware's own `play_sound` script, which uses the announcement channel, and that was a mistake I only heard on the on-prem chain: a short "O" and then silence. The pipeline timestamps explained it. Home Assistant sends the answer's streaming URL to the device as soon as the model has produced about sixty characters, 0.4 s after the end of speech with a local Whisper and a 14B model, and the firmware starts that URL as a new announcement at once, even though the audio only arrives after the last token. A new announcement replaces the running one, so it cut the filler. On the cloud chain the first tokens arrived 0.3 s later and "Okay" was played in full. The fix is a third input on the device's audio mixer with its own small media player, which the answer cannot touch, plus clips trimmed of their leading silence. This is the version that runs now:
 
 ```yaml
 # Appended to home-assistant-voice-<id>.yaml below the official package.
@@ -134,22 +134,22 @@ voice_assistant:
                 .set_announcement(true).perform();
 ```
 
-Runs on the Voice PE after "Install, on the network" in the Device Builder; the first compile on a Pi 5 takes ten to twenty minutes, later ones a few. `!extend` works on list entries like the mixer but not on the single `voice_assistant` block, where ESPHome merges the lists anyway. `buffer_size` on the extra media player is rejected by ESPHome 2026.9.1. The clips must be mono, 48 kHz, and trimmed: the TTS put a third of a second of silence in front of every clip, which is exactly what you do not want from a backchannel. The switch gives you an off button in Home Assistant.
+Runs on the Voice PE after "Install, on the network" in the Device Builder; the first compile on a Pi 5 takes ten to twenty minutes, later ones a few. `!extend` works on list entries like the mixer but not on the single `voice_assistant` block, where ESPHome merges the lists anyway. `buffer_size` on the extra media player is rejected by ESPHome 2026.9.1. The clips must be mono, 48 kHz, and trimmed: the text-to-speech engine put a third of a second of silence in front of every clip, which is exactly what you do not want from a backchannel. The switch gives you an off button in Home Assistant.
 
 ## What broke on the way, none of it AI
 
 - Home Assistant 2026.9.4 rejected Claude 5 models with thinking off and failed every follow-up question with thinking on (invalid thinking-block signature, because the replayed prefix had changed). 2026.10.0 fixed both; until then Sonnet 4.6 with thinking off was the workaround.
 - A `{{ now() }}` template in the system prompt changed the prompt every minute and defeated Anthropic's prompt caching. Removing it brought the first token from 1.22 to 0.95 seconds. Home Assistant adds the time itself.
 - Home Assistant caches synthesized speech by text, cloud and Wyoming alike, even with `cache: false`. Benchmarks and listening tests need fresh sentences or they measure a cache.
-- PyAV 19 is incompatible with faster-whisper 1.2.1, and older PyAV wheels would not build on the box. One removed keyword argument in the library later, Whisper ran.
+- PyAV 19 is incompatible with faster-whisper 1.2.1, and older PyAV wheels would not build on the box. After I removed one keyword argument in the library, Whisper ran.
 - The pipeline debug store keeps ten runs per pipeline. If you want a series, record the events yourself.
 
 ## What I would do differently
 
 - **Instrument first, optimize second.** The timestamps were there all along; one websocket call would have saved me an evening of tuning the wrong stage.
-- **Decide the voice with your ears and your values, not a leaderboard.** No public TTS ranking measures German naturalness, and my own blind test could not separate five voices. "Level and local" is a decision, not a measurement.
-- **Give the GPU jobs that change the experience.** Voice, on-prem chain, filler word. Not speech recognition for the sake of it.
+- **Decide the voice with your ears and your values, not a leaderboard.** No public TTS ranking measures German naturalness, and my own blind test could not separate five voices. I chose "level and local" as a decision, because the measurement could not separate the voices.
+- **Give the GPU jobs that change the experience.** The jobs are the voice, the on-prem chain and the filler word, not speech recognition for its own sake.
 - **Keep the cloud where it is better than you can be at home**, which for me is the model that talks to my child.
-- **Ask what the user is actually measuring.** My five-year-old does not time the first token. He waits for a sign of life. A one-second "Okay" from flash memory was worth more than every model swap on this list.
+- **Ask what the user is actually measuring.** My five-year-old does not time the first token, he waits for a sign of life. A one-second "Okay" from flash memory helped more than every model swap on this list.
 
 Next: a second rater for the listening test, a 30-run series per chain, and the adults' chain fully offline.

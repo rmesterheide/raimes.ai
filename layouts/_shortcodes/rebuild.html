@@ -1,0 +1,8 @@
+{{- /* "Rebuild it" box under the TL;DR: points to the companion repository. Usage:
+     {{< rebuild repo="rmesterheide/pais-vgpu" >}}one sentence on what the repo holds{{< /rebuild >}}
+     Styles: .rebuild in extend_head.html. */ -}}
+{{- $repo := .Get "repo" -}}
+<aside class="rebuild">
+  <span class="rebuild-label">Rebuild it</span>
+  <p><a href="https://github.com/{{ $repo }}">github.com/{{ $repo }}</a>: {{ .Inner | .Page.RenderString }} Every lab value is a variable, so it runs against your own hosts and namespaces.</p>
+</aside>

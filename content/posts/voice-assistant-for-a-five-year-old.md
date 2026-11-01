@@ -17,12 +17,12 @@ This is what I built in two evenings, what went wrong, and what I measured.
 
 ## The parts
 
-- **Home Assistant Voice Preview Edition** as the microphone and speaker. Wake word detection runs on the device, it has echo cancellation and a hardware mute switch. A small Creative Pebble speaker hangs off the 3.5 mm jack because the built-in one is weak.
+- **Home Assistant Voice Preview Edition (Voice PE)** as the microphone and speaker. Wake word detection runs on the device, it has echo cancellation and a hardware mute switch. A small Creative Pebble speaker is connected to the 3.5 mm jack because the built-in one is weak.
 - **Home Assistant** on a Raspberry Pi 5 as the dispatcher. It owns the pipeline: wake word, speech-to-text, conversation agent, text-to-speech.
 - **Claude** as the conversation agent, through the official Anthropic integration and an API key. Not through a subscription, more on that below.
 - **Nabu Casa cloud** for speech recognition and the voice, for now.
 
-Notice what is missing: the RTX 4090 workstation and the Mac mini that I had benchmarked for weeks as the future home of local speech recognition. They do nothing in this setup. That turned out to be the most useful finding.
+Notice what is missing: the RTX 4090 workstation and the Mac mini that I had benchmarked for weeks as the future home of local speech recognition. They do nothing in this setup.
 
 ## Evening one: it hears you, but not well
 
@@ -46,7 +46,7 @@ First question, "how big was a T. rex", came back with a bus-and-house compariso
 
 **Thinking blocks and follow-up questions.** With a Claude 5 model and extended thinking on, the first question works and the second fails with an API error about an invalid thinking-block signature. Home Assistant replays the conversation history on follow-ups, and the signatures no longer match. Setting thinking to "none" on a 5 model fails for a different reason: the integration sends the old parameter format. The fix for now is Claude Sonnet 4.6 with thinking off. Follow-ups work, answers take 1.6 seconds. This is a Home Assistant integration issue in Core 2026.9, not a model issue, and it will go away with an update.
 
-**Everything went to Claude, including "switch off the plug".** With "prefer local command processing" on, Home Assistant matches sentence patterns first and only sends the rest to the model. Good in theory. In practice the model got 114 exposed entities as context on every call, local commands slowed from 0.08 to 1.6 seconds, and a misheard "make it dark in the dining room" produced a polite description of the lamp states instead of an action.
+**Everything went to Claude, including "switch off the plug".** With "prefer local command processing" on, Home Assistant matches sentence patterns first and only sends the rest to the model. That sounds sensible, but the model got 114 exposed entities as context on every call, local commands slowed from 0.08 to 1.6 seconds, and a misheard "make it dark in the dining room" produced a polite description of the lamp states instead of an action.
 
 So I split it. **Two wake words, two personas.** The Voice PE supports a second wake word, and each wake word selects its own pipeline:
 

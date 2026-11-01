@@ -18,6 +18,8 @@ So this part is the one with a GPU inside the platform. The setting is unchanged
 
 A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. The Anthropic numbers below come through Anthropic's OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
 
+{{< rebuild repo="rmesterheide/pais-route" >}}the passthrough switch on the host, the GPU patch, the model push to a registry, the endpoint manifests, the route swap, the verification and benchmark scripts and the raw numbers of this post, in the folder `part3-gpu`.{{< /rebuild >}}
+
 {{< tldr >}}
 - **Passthrough without a reboot.** One `esxcli` line on the host switched the card to passthrough; ESX took the audio function along and reported both owned by "VM" at once.
 - **From "CPU only" to GPU is one patch.** The platform was activated a week before the card existed. Adding three fields to the `PAISConfiguration` installed the NVIDIA GPU Operator in 30 seconds. No re-activation, the routes kept answering.
@@ -62,11 +64,11 @@ kubectl -n pais patch paisconfiguration default --type merge -p '{
 
 Thirty seconds later the GPU Operator, its node-feature-discovery pods and a job that upgrades the custom resource definitions (CRDs) were running in the vSphere Kubernetes Service (VKS) cluster behind the instance, and the `PAISConfiguration` reported `GPUOperatorReady=True`. The three public routes from part 2 answered throughout. The driver itself does not appear yet at this point: the driver daemonset only starts when a node with a GPU exists, and that comes with the first endpoint.
 
-Start on CPU, add the card later, patch three fields. I would put that sentence on the slide.
+Starting on CPU and adding the card later takes one patch of three fields.
 
 ## The VM class, the only click
 
-The one thing that lives in the vSphere Client is the VM class that carries the GPU. Mine is called `a5000-passthrough`: 8 vCPUs, 64 GB of memory, **fully reserved**, which DirectPath I/O requires, the RTX A5000 as a Dynamic DirectPath I/O device, and two advanced parameters for memory-mapped I/O (MMIO), because the card maps more than 16 GB:
+The one thing that lives in the vSphere Client is the VM class that carries the GPU. Mine is called `a5000-passthrough`: 8 virtual CPUs (vCPUs), 64 GB of memory, **fully reserved**, which DirectPath I/O requires, the RTX A5000 as a Dynamic DirectPath I/O device, and two advanced parameters for memory-mapped I/O (MMIO), because the card maps more than 16 GB:
 
 ```text
 pciPassthru.use64bitMMIO        = true
@@ -147,9 +149,9 @@ Three things I take from the table.
 
 **Same model, same artifact, 7.6 times faster.** The Gemma rows are the like-for-like pair: the identical GGUF file from Harbor, llama.cpp in both cases, once on 16 vCPUs of the EPYC, once on the card. 9.3 against 72.6 tokens per second, and the 250-token answer arrives in 3.5 seconds instead of 27. The CPU side was not tuned, so treat the factor as a lower bound, not a benchmark.
 
-**One user cannot tell the backends apart; eight can.** For a single request the A5000, the 4090 and Haiku land within 70 to 84 tokens per second. The difference is what happens under load. Eight clients get five times the single-client throughput out of the A5000, because llama.cpp batches them across its slots. Ollama on the workstation serialises and drops to 103 in total. The provider is not affected and delivers 700 and more. That is the shape of the comparison: a local card wins on data locality and on cost per token once it is busy, the provider wins on burst and on scale.
+**One user cannot tell the backends apart; eight can.** For a single request the A5000, the 4090 and Haiku land within 70 to 84 tokens per second. The difference is what happens under load. Eight clients get five times the single-client throughput out of the A5000, because llama.cpp batches them across its slots. Ollama on the workstation serialises and drops to 103 in total. The provider is not affected and delivers 700 and more. A local card wins on data locality and on cost per token once it is busy; the provider wins on burst and on scale.
 
-**The platform costs a second you can see.** The engine's own log shows the first token after 0.1 seconds; through the gateway the first token of a streamed answer took 1.1 to 1.5 seconds. Part 2 measured the gateway hops at about 30 milliseconds, so this is not the token check. My guess is buffering in the ingress or in the nginx sidecar in front of llama-server, and I have not proven it yet. Ollama behind the same gateway streams its first token after 0.14 seconds, so the gateway can do better. Open item.
+**The platform adds about a second to the first token.** The engine's own log shows the first token after 0.1 seconds; through the gateway the first token of a streamed answer took 1.1 to 1.5 seconds. Part 2 measured the gateway hops at about 30 milliseconds, so this is not the token check. My guess is buffering in the ingress or in the nginx sidecar in front of llama-server, and I have not proven it yet. Ollama behind the same gateway streams its first token after 0.14 seconds, so the gateway can do better.
 
 **Why llama.cpp and not vLLM.** PAIS 3.0 bundles vLLM v0.20.0, and for many concurrent users that is the engine to use: continuous batching and paged attention are built for exactly the eight-client case above. I used llama.cpp because the models are GGUF files I could compare one-to-one with the CPU run and with Ollama on the 4090, and because the 27B model only fits the card as a 4-bit GGUF. So read the concurrency numbers as what llama.cpp makes of the card, not as the card's ceiling. The same models on vLLM, with an FP8 build of a smaller model, are the next measurement.
 
@@ -159,7 +161,7 @@ One more note on the Gemma row: the eight-request run gave 351 tokens per second
 
 This is the demo the whole series was building towards. In part 2, `lab-fast` was Claude Haiku. Since then it has pointed to Ollama on my workstation. Tonight it points at the card inside the platform.
 
-PAIS creates an `InferenceGatewayRoute` for every endpoint; its backend is the endpoint's Kubernetes service, with mutual TLS. Repointing a service name means giving the `lab-fast` route that backend:
+PAIS creates an `InferenceGatewayRoute` for every endpoint; its backend is the endpoint's Kubernetes service, with mutual Transport Layer Security (TLS). Repointing a service name means giving the `lab-fast` route that backend:
 
 ```yaml
 apiVersion: pais.vmware.com/v1alpha1
@@ -181,7 +183,7 @@ spec:
 
 **Trap 3: the engine of a route is immutable.** My first `kubectl apply` came back with `Model engine is immutable`. The route had been created with engine `OpenAI` for Haiku and later for Ollama, and PAIS will not let it become `LlamaCPP`. Delete and recreate, which leaves the name unroutable for a few seconds. For a real platform that means: a service name that may ever move between engine types is a delete-and-create operation, so plan the second of downtime, or keep two routes and switch clients between them.
 
-Ten seconds after the recreate, the first request to `lab-fast` with a fresh prompt answered: "I am Gemma 4, a large language model developed by Google DeepMind." No client changed. The concierge from part 2, the curl examples from the bare-minimum notes, the service name: all the same. One more quirk, the same family as the `Ready False` of part 2: the route reports `ModelAvailable=False`, because the monitor's model check does not find `gemma-4-12b-a5000` in what llama-server advertises, while every request works. `/models` lists `lab-fast` as `UNAVAILABLE` and answers through it anyway. The status is a hint, not a gate.
+Ten seconds after the recreate, the first request to `lab-fast` with a fresh prompt answered: "I am Gemma 4, a large language model developed by Google DeepMind." No client changed: the concierge from part 2, the curl examples from the bare-minimum notes and the service name stayed the same. One more quirk, the same family as the `Ready False` of part 2: the route reports `ModelAvailable=False`, because the monitor's model check does not find `gemma-4-12b-a5000` in what llama-server advertises, while every request works. `/models` lists `lab-fast` as `UNAVAILABLE` and answers through it anyway.
 
 ![Diagram: client, Foundation Load Balancer, pais-ingress, pais-api and the ModelEndpoint on the GPU node from left to right; below, what changed since part 2, the service-name table with lab-fast pointing at gemma-4-12b-a5000, and api.anthropic.com still behind lab-balanced and lab-deep; the measured numbers in a band at the bottom](/images/rtx-a5000-behind-the-same-service-name/pais-gateway-request-path-gpu.svg)
 *The same request path as in the bare-minimum diagram, now with the card at the end of it. Built from the lab's configuration and the measurements of 27 October 2026.*
@@ -194,18 +196,17 @@ request (46894 tokens) exceeds the available context size (16384 tokens), try in
 
 **Trap 4: the context window is a sizing decision, not a model property.** The deployment list of the namespace, even with `managedFields` stripped, is bigger than the 16k context I gave the endpoint. Opus took the same payload without a problem, and it costs real money per question for exactly that reason. The fix is on my side: `--ctx-size 65536` on the engine (the 12B model leaves room for it on the card), and a concierge that trims tool results to what the question needs, which part 2 already listed as a lesson. The result tonight is that the same client works against the public model and fails against the local one, and the gateway told me precisely why.
 
-
 ## What passthrough cannot do
 
 With the 12B model loaded, `nvidia-smi` showed 8.7 GB used and 15 GB free. I could not give those 15 GB to anyone. Passthrough binds the card to one VM, the VM is one VKS node, and PAIS runs one endpoint per node. When I wanted to measure Gemma after Qwen, the Qwen endpoint had to go first; the second worker could not even power on while the first held the card. There is no vMotion for a passthrough VM either, and on my single host no high availability anyway.
 
-For one model that fills the card this is fine, and it is the cheapest possible path: no NVIDIA licence, public driver, public operator. For two small models, for an embedding model next to a chat model, for a knowledge base and an agent on the same card, it is not. That is what vGPU is for, and that is part 4.
+For one model that fills the card this is fine, and it is the cheapest possible path: no NVIDIA licence, public driver, public operator. For two small models, for an embedding model next to a chat model, for a knowledge base and an agent on the same card, it is not. vGPU addresses this, and part 4 covers it.
 
 ## What I would do differently
 
 - **Activate on CPU, add the GPU later.** It costs nothing and it is one patch. Do not wait for the card to start the platform.
 - **Pin the engine image and the thinking switch on the endpoint, not on the client.** The bundled llama.cpp is CPU only, and reasoning models return empty answers; both belong in the manifest.
-- **Measure under concurrency, not alone.** The single-request numbers hide the whole story.
+- **Measure under concurrency, not alone.** The single-request numbers look alike across the backends and say little about load.
 - **Write the shutdown order down.** On a single host the Supervisor and vCenter work against you if you power things off in the wrong order; I lost half an hour and collected eight orphaned pod VMs before I got it right.
 
 ## What comes next

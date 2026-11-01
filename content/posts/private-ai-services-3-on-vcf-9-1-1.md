@@ -18,28 +18,28 @@ A disclosure: I work at Broadcom. This is my own reading of public documentation
 
 {{< tldr >}}
 - VCF 9.1.1 and PAIS 3.0 have been generally available since 3 September 2026. Everything below is released, not a preview.
-- **Model sharing** is the headline. The gateway and the model no longer have to live in the same namespace. One PAIS instance can expose a local model, a self-managed endpoint, a model borrowed from another instance and a public cloud model side by side.
+- **Model sharing** is the main change. The gateway and the model no longer have to live in the same namespace. One PAIS instance can expose a local model, a self-managed endpoint, a model borrowed from another instance and a public cloud model side by side.
 - **Public models are first-class endpoints.** Google Gemini, Gemini Enterprise Agent Platform and any OpenAI-compatible API, with token usage tracking per consumer.
 - **Tenants without GPUs.** Each team keeps its own PAIS instance as the security and data boundary. The GPUs sit in one provider instance and are shared.
 - **Three ways to log in:** direct OpenID Connect (OIDC), OIDC via VCF Automation, local accounts. Two are for production, one is for the first afternoon.
 - **Less friction:** the agent layer is optional, and activation works from the vCenter UI without VCF Automation.
-- **At the GPU layer nothing changed.** Whatever you pass through pins the VM to the host. Choose that on purpose.
+- **At the GPU layer nothing changed.** Whatever you pass through pins the VM to the host.
 {{< /tldr >}}
 
 ## PAIS in one paragraph
 
 PAIS is a supervisor service in VCF. You enable it per vSphere namespace, one instance per namespace. An instance consists of an inference gateway, a PAIS-managed vSphere Kubernetes Service (VKS) cluster that runs the models, and an optional agent layer with Agent Builder and Data Indexing. A model endpoint is defined by two things: the model URI, pulled from Harbor or another OCI registry, and a VM class that encapsulates the GPU configuration. Developers get an OpenAI-compatible API. They never see the Kubernetes underneath.
 
-## 1. Model sharing: four homes for one model
+## 1. Model sharing: four places for one model
 
 Until 3.0, a model had to run inside the PAIS instance that served it. With model sharing, the gateway in the middle keeps one list of models, but the models can live in four places:
 
-1. **Next door.** A do-it-yourself VKS cluster in the same namespace. Useful when you need something PAIS does not do natively yet, such as KV-cache-aware routing. The gateway only routes there.
-2. **Far away.** A public model behind an OpenAI-compatible API, or Gemini.
-3. **The next team.** A model endpoint of another PAIS instance.
-4. **At home.** The local PAIS-managed cluster, as before.
+1. **Same namespace.** A do-it-yourself VKS cluster in the same namespace. Useful when you need something PAIS does not do natively yet, such as routing that is aware of the key-value (KV) cache. The gateway only routes there.
+2. **Public.** A public model behind an OpenAI-compatible API, or Gemini.
+3. **Another team.** A model endpoint of another PAIS instance.
+4. **Local.** The local PAIS-managed cluster, as before.
 
-The application sees one endpoint, one login, one place for rate limits and logging. Where the request goes is configuration.
+The application sees one endpoint, one login, one place for rate limits and logging. Where the request goes is a matter of configuration.
 
 ## 2. Private does not mean no public models
 
@@ -56,9 +56,9 @@ PAIS 3.0 makes this a platform feature. Two consequences I find useful:
 
 A PAIS instance is the security and data boundary. Whoever can log in sees all models and all data sources of that instance. Separating teams therefore means separate instances. Until now, separate instances meant separate GPUs.
 
-I checked the logs of my own GPU box before the talk. A handful of requests per week. One service had exactly one job in fourteen days. The card was powered on around the clock. That is what a dedicated GPU per team looks like.
+I checked the logs of my own GPU box before the talk. It served a handful of requests per week, one service had exactly one job in fourteen days, and the card was powered on around the clock.
 
-With 3.0, two organisations run PAIS without GPUs: only the lightweight gateway pods, their own vector database, their own tools and agents. Both point at one provider instance that runs the models. Users and data stay separated. The GPUs are shared. This needs no special hardware. All of it lives on the same vSphere cluster, in different namespaces.
+With 3.0, two organisations run PAIS without GPUs: only the lightweight gateway pods, their own vector database, their own tools and agents. Both point at one provider instance that runs the models. Users and data stay separated, and the GPUs are shared. This needs no special hardware. All of it lives on the same vSphere cluster, in different namespaces.
 
 ## 4. Three ways to log in
 
@@ -76,22 +76,22 @@ Two known issues from the 3.0 release notes if you demo this: API tokens are not
 
 The model endpoint carries a VM class, and the VM class decides how the GPU reaches the VM. Three options on a single host:
 
-- **Own the host.** Full passthrough of all GPUs and NVSwitches. Kubernetes sees bare metal. No vMotion, no DRS, no HA.
-- **Own the card.** DirectPath with DRS placement. DRS picks the host once, then nobody moves. No sharing of one GPU, no HGX systems.
+- **Own the host.** Full passthrough of all GPUs and NVSwitches. Kubernetes sees bare metal. No vMotion, no Distributed Resource Scheduler (DRS), no high availability (HA).
+- **Own the card.** DirectPath with DRS placement. DRS picks the host once, and the VM stays there. No sharing of one GPU, no HGX systems.
 - **Own a slice.** vGPU profiles from the host driver. You keep vMotion and clean host maintenance, as long as you do not need unified memory. The price is coupling: host and guest driver stay on the same branch, for every tenant, plus the NVIDIA AI Enterprise licence.
 
 The rule that runs through all of them: whatever you pass through pins the VM to the host. More virtualisation buys more vSphere features and more driver and licence coupling.
 
-One lesson from home on sizing a vGPU profile. A 27B model on my 24 GB card lost 12 percent of its memory to another process, less than one gigabyte. Speed dropped from 99 to 56 tokens per second. No error, no warning. Then I doubled the context window from 64k to 128k. The KV cache grew from four to eight gigabytes and no longer fit. Speed dropped from 98 to 27. Consumer hardware and Ollama, so the numbers do not carry over. The rule does: size the profile for the model plus its context, not for the model file.
+One lesson from home on sizing a vGPU profile. A 27B model on my 24 GB card lost 12 percent of its memory to another process, less than one gigabyte. Speed dropped from 99 to 56 tokens per second, with no error and no warning. Then I doubled the context window from 64k to 128k. The KV cache grew from four to eight gigabytes and no longer fit. Speed dropped from 98 to 27. Consumer hardware and Ollama, so the numbers do not carry over. The rule does: size the profile for the model plus its context, not for the model file.
 
 ## What I would decide first
 
 In this order, before anyone buys a GPU:
 
-1. **What do you offer?** Model endpoints or agents on top. Start from what your developers ask for on Monday morning. If the answer is "give me an endpoint", ship endpoints first.
+1. **What do you offer?** Model endpoints or agents on top. Start from what your developers ask for. If the answer is "give me an endpoint", ship endpoints first.
 2. **Where does each model run?** Local, self-managed, borrowed, public. Decide per model which one may see which data.
 3. **How many tenants?** One instance per security boundary. Share the GPUs behind a provider instance.
-4. **How does the GPU reach the VM?** Passthrough or vGPU. Pick it knowing what it pins.
+4. **How does the GPU reach the VM?** Passthrough or vGPU, depending on which vSphere features you need to keep.
 
 ## Watch the original
 

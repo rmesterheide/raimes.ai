@@ -14,7 +14,7 @@ linkedin: ""
 
 Yesterday, in [part 1](/posts/kubernetes-api-on-vsphere-in-one-evening/), a single EPYC server went from a fresh ESX install to a vSphere Supervisor with a Kubernetes API in one evening. This morning's part puts Private AI Services (PAIS) 3.0 on top of it. The GPU is still in the other machine; that is part 3. So the first model behind my private gateway is a public one: Claude.
 
-That is not a workaround. It is the point I made on stage at VMware Explore on Tour last week: private AI does not mean "no public models". It means you decide which model sees which data, behind a gateway you own. Day zero without a single GPU is a supported start. When the GPU arrives, you repoint.
+That is not a workaround, it is the point I made on stage at VMware Explore on Tour last week: private AI does not mean "no public models". It means you decide which model sees which data, behind a gateway you own. Starting on day zero without a single GPU is supported. When the GPU arrives, the route points to a local model instead.
 
 **About the setting:** PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what this lab rebuilds. A full VMware Cloud Foundation (VCF) deployment with VCF Automation adds what a company with many teams needs and my lab does not:
 
@@ -27,6 +27,8 @@ That is not a workaround. It is the point I made on stage at VMware Explore on T
 I would like to have the multi-tenancy and the NSX-based virtual private clouds as well, but the lab is small: one server, one user. For that, vCenter, a distributed switch and the built-in load balancer are enough, and they are the quickest way to see how the pieces fit.
 
 A disclosure: I work at Broadcom. This is my homelab and my own reading of public documentation, not an official statement. The Anthropic endpoint I use here is their OpenAI compatibility layer, which Anthropic itself describes as intended for testing and comparing models, not as a long-term production path.
+
+{{< rebuild repo="rmesterheide/pais-route" >}}the registry token test, the API token patch, the route and secret for a public model, the service-name catalogue and the concierge, in the folder `part2-gateway`.{{< /rebuild >}}
 
 {{< tldr >}}
 - PAIS 3.0 comes as a Supervisor Service. Without VCF Automation, upload the definition with **`-external`** in its file name: the other one pulls its package from a Supervisor-internal depot that only a full VCF stack fills.
@@ -78,10 +80,10 @@ The namespace `pais` from part 1 already had the storage policy and a few VM cla
 ![PAIS UI with Data Indexing and Retrieval, MCP, Agent Builder and Observability locked, and the message "Data Indexing and Retrieval is not available"](/images/private-ai-services-without-a-gpu/data-indexing-not-available.jpg)
 *What "Model Runtime only" looks like from the inside: everything except the gateway is locked until an administrator switches it on.*
 
-"Create Private AI Instance" at 10:33, **Ready (paisAvailable) at 10:37**. The ingress got the next free virtual IP from the Foundation Load Balancer; vCenter shows it as "Private AI Services UI IP" together with the OpenAI-compatible base URL. One DNS record later, the PAIS UI answered on its name. The question I had after part 1, whether the built-in L4 load balancer is enough for PAIS, has its answer: for the gateway, yes.
+"Create Private AI Instance" at 10:33, **Ready (paisAvailable) at 10:37**. The ingress got the next free virtual IP from the Foundation Load Balancer; vCenter shows it as "Private AI Services UI IP" together with the OpenAI-compatible base URL. One DNS record later, the PAIS UI answered on its name. After part 1 I wanted to know whether the built-in L4 load balancer is enough for PAIS. For the gateway, it is.
 
 ![vCenter inventory: namespace pais with the VKS cluster pais-30695622, its control plane VM and the pods pais-api, pais-igr-monitor and pais-ingress](/images/private-ai-services-without-a-gpu/vcenter-inventory-pais.jpg)
-*The instance in vCenter: one small VKS cluster for the control plane, plus the API, gateway monitor and ingress as vSphere Pods. The host barely notices.*
+*The instance in vCenter: one small VKS cluster for the control plane, plus the API, gateway monitor and ingress as vSphere Pods. The load on the host is small.*
 
 ![Private AI Services login page](/images/private-ai-services-without-a-gpu/pais-login.jpg)
 *One DNS record later: the login page on its own name.*
@@ -169,7 +171,7 @@ HTTP 200, 29 tokens in, 440 out, and three pterosaurs: Pteranodon, Quetzalcoatlu
 
 ## The highlight: Opus explains my lab, through my own gateway
 
-A single chat answer proves the plumbing. I wanted to see something a gateway is really for: an application with tools, written once against my platform, that does not care which model sits behind it. So I wrote a small "lab concierge": about 100 lines of Python, standard library only, OpenAI-compatible request format, pointed at `pais.vcf.internal`. The model gets exactly one tool, and it is read-only:
+A single chat answer shows that the connection works. I wanted to see something a gateway is really for: an application with tools, written once against my platform, that does not care which model sits behind it. So I wrote a small "lab concierge": about 100 lines of Python, standard library only, OpenAI-compatible request format, pointed at `pais.vcf.internal`. The model gets exactly one tool, and it is read-only:
 
 ```python
 TOOLS = [{
@@ -210,16 +212,15 @@ Six tool calls, chosen by the model, then a short report. The platform is health
 
 Then the most interesting line of the morning. Opus reported, in bold, that **no model in the namespace is usable**, because the only route, `claude-opus-5-5`, is not Ready. It wrote that while being served through exactly that route. It is the Ready False from trap 2, seen from the inside: the model can only read the status, not know that the status is wrong.
 
-Its suggested fix was wrong as well, and labelled as such: "my assumption, not verified". It proposed adding `/v1` to the base URL; the API reference says the opposite, PAIS appends `/v1` itself. That is the behaviour I want from an assistant on a platform: look first, separate what it saw from what it guesses, and leave the change to me.
+Its suggested fix was wrong as well, and labelled as such: "my assumption, not verified". It proposed adding `/v1` to the base URL; the API reference says the opposite, PAIS appends `/v1` itself. It looked first, separated what it saw from what it guessed, and left the change to me.
 
-The cost side, because the gateway is the place where you see it: almost 100,000 input tokens for one question, because every tool result (pods, events, a whole `PAISConfiguration`) goes back to the model as JSON. With a public model that is a noticeable cost per question; with a local model in part 3 it is only GPU time. The concierge does not change for that. Only `--model` does.
-
+The cost side, because the gateway is the place where you see it: almost 100,000 input tokens for one question, because every tool result (pods, events, a whole `PAISConfiguration`) goes back to the model as JSON. With a public model that is a noticeable cost per question; with a local model in part 3 it is only GPU time. The concierge stays the same, only the `--model` argument changes.
 
 ## What I would do differently
 
 - **Test credentials the way the consumer uses them.** Both of my "failed" tests in this part were tests that could not succeed: basic auth against a bearer registry, and a model list against an API that only mirrors chat completions.
 - **Read the YAML pane in the wizard.** It shows exactly which fields the UI sets, and which ones it does not (API tokens).
 - **Start with a public model on purpose.** It proves the whole chain (DNS, load balancer, gateway, auth, token) before any GPU is in the box. In part 3 the only change for the client is the model name.
-- **Trim tool results before they reach the model.** The concierge already drops `managedFields`; it should also cut events and status down to what matters. Tokens are what you pay for.
+- **Trim tool results before they reach the model.** The concierge already drops `managedFields`; it should also cut events and status down to what matters, because input tokens are billed.
 
-Part 3 brings the RTX 3090 into the server, a VM class with the GPU in passthrough, and a local model next to Claude behind the same gateway. Then the concierge asks the same question twice, once per model, and we compare answers, tokens and time.
+Part 3 brings the RTX 3090 into the server, a VM class with the GPU in passthrough, and a local model next to Claude behind the same gateway. Then the concierge asks the same question twice, once per model, and I compare answers, tokens and time.

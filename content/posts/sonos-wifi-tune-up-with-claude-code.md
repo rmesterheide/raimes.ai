@@ -8,7 +8,7 @@ cover:
   alt: "From 125 ms spikes to 1 ms: a Sonos and Wi-Fi tune-up with Claude Code"
 categories: ["homelab-ai"]
 tags: ["homelab", "claude-code"]
-summary: "Thirteen Sonos players, nine access points, one Sunday. The speakers were fine. The air was the problem: a soundbar stuck on 2.4 GHz, a mesh I never asked for, and access points jamming each other. What the measurements showed, the cable that made it worse, and the two settings that fixed it."
+summary: "Thirteen Sonos players, nine access points, one Sunday. The speakers were fine, the Wi-Fi was not: a soundbar stuck on 2.4 GHz, a mesh I never asked for, and access points that interfered with each other. What the measurements showed, the cable that made it worse, and the two settings that fixed it."
 linkedin: ""
 ---
 
@@ -22,7 +22,7 @@ I asked Claude Code one question on a Sunday afternoon: "check the latency betwe
 
 ## Starting point
 
-Thirteen Sonos players across two households on one UniFi network: a soundbar with a sub in the living room, a stereo pair in the attic office, four Era 100s, three old Play:3s, a One in the bathroom. Nine access points, four floors, concrete and brick. Everything on Wi-Fi, nothing wired, every channel on automatic. My feeling was "the living room hesitates when it is grouped with the kitchen". A feeling is not a measurement.
+Thirteen Sonos players across two households on one UniFi network: a soundbar with a sub in the living room, a stereo pair in the attic office, four Era 100s, three old Play:3s, a One in the bathroom. Nine access points, four floors, concrete and brick. Everything on Wi-Fi, nothing wired, every channel on automatic. My feeling was "the living room hesitates when it is grouped with the kitchen". I had no measurement yet.
 
 ## What broke
 
@@ -36,7 +36,7 @@ Claude Code did not need the Sonos app. Every player answers HTTP on port 1400 w
 
 ## The cable that made it worse
 
-The obvious fix was a cable to the soundbar. I plugged it in. The soundbar dropped to 1 ms. Good.
+The obvious fix was a cable to the soundbar. I plugged it in and the soundbar dropped to 1 ms.
 
 The next measurement showed six other players, the office pair, the three Play:3s and the bathroom One, had left 5 GHz. They were on SonosNet now, 2.4 GHz, channel 1. Sonos does this by design: the moment one SonosNet-capable player is wired, every other capable player joins the mesh; the Era 100s stayed on Wi-Fi only because they cannot do SonosNet. The office pair went from 3 ms to 7 to 11 ms. The Play:3s showed the spikes the soundbar used to have, 90 to 140 ms, one sample at 580 ms. On a 2.4 GHz band that was already full, the mesh had no free airtime.
 
@@ -48,7 +48,7 @@ Claude Code then read the Sonos sources. The answer was six weeks old. Sonos app
 
 SonosNet off in the app, office cable pulled, soundbar stays wired. Two minutes later every player was back on 5 GHz except the soundbar on its cable, and the numbers were the best of the day.
 
-Then the Wi-Fi. Reading the controller through my browser session, Claude Code found that automatic channel selection had put six of nine access points on 40 MHz in 2.4 GHz (each occupies two of the three usable channels), that all nine radios broadcast five network names (the beacons alone take a large share of 2.4 GHz airtime), and that seven of nine 5 GHz radios sat in the 36 to 48 block while the outdoor unit ran 160 MHz at 66 % busy. We drew a plan from the floor plan: 2.4 GHz on 20 MHz with fixed channels 1, 6 and 11 so that no two radios on the same floor or directly above each other share one, lower power where a radio has no clients, 5 GHz on 40 MHz with the two non-radar channels reserved for the two access points that carry most Sonos players. Minimum data rate on 2.4 GHz up to 6 Mbit/s, one unused network deleted, two legacy ones limited to the three access points that still have their devices. Claude Code applied the plan through the controller's API in one go; the radios came back within a minute.
+Then the Wi-Fi. Reading the controller through my browser session, Claude Code found that automatic channel selection had put six of nine access points on 40 MHz in 2.4 GHz (each occupies two of the three usable channels), that all nine radios broadcast five network names (the beacons alone take a large share of 2.4 GHz airtime), and that seven of nine 5 GHz radios sat in the 36 to 48 block while the outdoor unit ran 160 MHz at 66 % busy. Claude Code and I drew a plan from the floor plan: 2.4 GHz on 20 MHz with fixed channels 1, 6 and 11 so that no two radios on the same floor or directly above each other share one, lower power where a radio has no clients, 5 GHz on 40 MHz with the two non-radar channels reserved for the two access points that carry most Sonos players. Minimum data rate on 2.4 GHz up to 6 Mbit/s, one unused network deleted, two legacy ones limited to the three access points that still have their devices. Claude Code applied the plan through the controller's API in one go; the radios came back within a minute.
 
 ![Sonos latency before and after](/images/sonos-wifi-tune-up/sonos-latency.svg)
 

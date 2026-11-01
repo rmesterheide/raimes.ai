@@ -11,8 +11,8 @@ summary: "Why this site exists, what it replaces and how it is built."
 ---
 
 This domain has had a WordPress install on it since 2015. Four posts, all
-of them tests, the last one from 2022. That is not a blog, that is a
-reminder that WordPress needs attention I was never going to give it.
+of them tests, the last one from 2022. That is not a blog. WordPress needs regular attention,
+and I was never going to give it.
 
 So here is the restart. Static site, Markdown in Git, no database, nothing
 to patch.
@@ -26,12 +26,12 @@ out to be one thing:
    the daily work: how I structure projects, what I put in memory, which
    skills I wrote and which ones I deleted again.
 2. **Private AI** at home. A 4090 in a workstation, a Mac mini as the
-   always-on brain, and the question of what is worth running locally.
-3. **The homelab** that holds it together. DNS, backups, power, the boring
-   parts that break at night.
+   always-on server, and the question of what is worth running locally.
+3. **The homelab** that holds it together. DNS, backups and power, the parts
+   that break at night.
 
 I keep notes on all of this anyway. Publishing them forces me to tidy them
-up, and maybe saves someone else a weekend.
+up.
 
 ## How this site is built
 
@@ -43,9 +43,7 @@ up, and maybe saves someone else a weekend.
 - Posts are plain Markdown files. Claude Code writes the first draft from my
   notes more often than not, I edit, Git keeps the history.
 
-The whole setup took one evening, including writing this post. That is
-roughly the time I used to spend per year ignoring WordPress update
-notifications.
+The whole setup took one evening, including writing this post.
 
 ## What happens to the old posts
 

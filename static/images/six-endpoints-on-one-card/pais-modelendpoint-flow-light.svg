@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="830" viewBox="0 0 1200 830">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#475569" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="830" fill="#ffffff"/>
+<text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a" text-anchor="start">From one ModelEndpoint to a running model</text>
+<text x="40" y="80" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#475569" text-anchor="start">My lab on 1 Nov 2026: vSphere 9.1.1, PAIS 3.0, one RTX A5000 in vGPU mode. PAIS runs the Kubernetes cluster itself; I only apply the endpoint.</text>
+<rect x="40" y="108" width="1120" height="210" rx="14" fill="#f1f5f9" stroke="#e2e8f0"/>
+<text x="56" y="130" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c3aed" text-anchor="start">SUPERVISOR NAMESPACE pais: what I apply and what PAIS makes of it</text>
+<rect x="64" y="148" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="64" y="148" width="330" height="4" rx="2" fill="#7c3aed"/>
+<circle cx="372" cy="174" r="12" fill="#7c3aed"/>
+<text x="372" y="178.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="80" y="180" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">ModelEndpoint</text>
+<text x="80" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#7c3aed" text-anchor="start">one YAML object</text>
+<text x="80" y="222" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#0f172a" text-anchor="start">kubectl apply -f endpoint.yaml</text>
+<text x="80" y="241" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">model as an OCI reference in Harbor,</text>
+<text x="80" y="260" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">engine llama.cpp or Infinity,</text>
+<text x="80" y="279" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">VM class, here a5000-vgpu-4c</text>
+<rect x="435" y="148" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="435" y="148" width="330" height="4" rx="2" fill="#7c3aed"/>
+<circle cx="743" cy="174" r="12" fill="#7c3aed"/>
+<text x="743" y="178.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<text x="451" y="180" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">PAIS operator</text>
+<text x="451" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#7c3aed" text-anchor="start">no cluster of mine</text>
+<text x="451" y="222" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">reads the endpoint and picks</text>
+<text x="451" y="241" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">the VKS cluster it created at</text>
+<text x="451" y="260" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">activation and lifecycles since:</text>
+<text x="451" y="279" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#0f172a" text-anchor="start">pais-30695622</text>
+<rect x="806" y="148" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="806" y="148" width="330" height="4" rx="2" fill="#7c3aed"/>
+<circle cx="1114" cy="174" r="12" fill="#7c3aed"/>
+<text x="1114" y="178.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="822" y="180" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">MachineDeployment</text>
+<text x="822" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#7c3aed" text-anchor="start">inside that cluster</text>
+<text x="822" y="222" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">one node pool per endpoint,</text>
+<text x="822" y="241" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">one replica, the VM class</text>
+<text x="822" y="260" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">becomes the node size.</text>
+<text x="822" y="279" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">Delete the endpoint, the pool goes.</text>
+<line x1="398" y1="223.0" x2="429" y2="223.0" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="769" y1="223.0" x2="800" y2="223.0" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="40" y="348" width="1120" height="210" rx="14" fill="#f1f5f9" stroke="#e2e8f0"/>
+<text x="56" y="370" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0284c7" text-anchor="start">vCENTER AND THE ESX HOST: the node is a VM like any other</text>
+<rect x="806" y="388" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="806" y="388" width="330" height="4" rx="2" fill="#0284c7"/>
+<circle cx="1114" cy="414" r="12" fill="#0284c7"/>
+<text x="1114" y="418.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+<text x="822" y="420" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">VirtualMachine</text>
+<text x="822" y="440" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0284c7" text-anchor="start">Supervisor object</text>
+<text x="822" y="462" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">Cluster API asks vm-operator</text>
+<text x="822" y="481" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">for a VM of that class: 4 vCPU,</text>
+<text x="822" y="500" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">16 GB fully reserved, one</text>
+<text x="822" y="519" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#0f172a" text-anchor="start">nvidia_rtxa5000-4c profile</text>
+<rect x="435" y="388" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="435" y="388" width="330" height="4" rx="2" fill="#0284c7"/>
+<circle cx="743" cy="414" r="12" fill="#0284c7"/>
+<text x="743" y="418.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+<text x="451" y="420" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">Placement</text>
+<text x="451" y="440" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0284c7" text-anchor="start">where the fifth slice failed</text>
+<text x="451" y="462" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">PlaceVmsXCluster looks for a host</text>
+<text x="451" y="481" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">with a free vGPU slot. Mixed-size</text>
+<text x="451" y="500" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">mode offers four 4C slots</text>
+<text x="451" y="519" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">(IDs 0 8 12 20), same-size six.</text>
+<rect x="64" y="388" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="64" y="388" width="330" height="4" rx="2" fill="#0284c7"/>
+<circle cx="372" cy="414" r="12" fill="#0284c7"/>
+<text x="372" y="418.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+<text x="80" y="420" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">VM powers on</text>
+<text x="80" y="440" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0284c7" text-anchor="start">clock starts</text>
+<text x="80" y="462" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">vGPU attached, node image boots,</text>
+<text x="80" y="481" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">kubeadm join with a token that</text>
+<text x="80" y="500" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">lives 15 minutes. Boot later and</text>
+<text x="80" y="519" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">the node never joins (Check 3).</text>
+<line x1="971.0" y1="302" x2="971.0" y2="382" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="802" y1="463.0" x2="771" y2="463.0" stroke="#0284c7" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="431" y1="463.0" x2="400" y2="463.0" stroke="#0284c7" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="40" y="588" width="1120" height="210" rx="14" fill="#f1f5f9" stroke="#e2e8f0"/>
+<text x="1144" y="610" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#d97706" text-anchor="end">VKS CLUSTER pais-30695622, CREATED AND RUN BY PAIS: the node becomes a model</text>
+<rect x="64" y="628" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="64" y="628" width="330" height="4" rx="2" fill="#d97706"/>
+<circle cx="372" cy="654" r="12" fill="#d97706"/>
+<text x="372" y="658.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">7</text>
+<text x="80" y="660" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">Node joins</text>
+<text x="80" y="680" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#d97706" text-anchor="start">about two minutes</text>
+<text x="80" y="702" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">GPU Operator labels the node,</text>
+<text x="80" y="721" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">guest driver 580.105.08 against</text>
+<text x="80" y="740" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">host 580.178.05 (Check 1),</text>
+<text x="80" y="759" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">licence from CLS (Check 2)</text>
+<rect x="435" y="628" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="435" y="628" width="330" height="4" rx="2" fill="#d97706"/>
+<circle cx="743" cy="654" r="12" fill="#d97706"/>
+<text x="743" y="658.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">8</text>
+<text x="451" y="660" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">Engine pod</text>
+<text x="451" y="680" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#d97706" text-anchor="start">pull time = model size</text>
+<text x="451" y="702" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">llama.cpp CUDA or Infinity pulls</text>
+<text x="451" y="721" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">the model from Harbor over the</text>
+<text x="451" y="740" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">lab CA, loads it into the slice,</text>
+<text x="451" y="759" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#0f172a" text-anchor="start">--reasoning-budget 0 and friends</text>
+<rect x="806" y="628" width="330" height="150" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="806" y="628" width="330" height="4" rx="2" fill="#d97706"/>
+<circle cx="1114" cy="654" r="12" fill="#d97706"/>
+<text x="1114" y="658.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">9</text>
+<text x="822" y="660" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" text-anchor="start">Ready=True</text>
+<text x="822" y="680" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#d97706" text-anchor="start">the gateway knows it</text>
+<text x="822" y="702" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">pais-api registers the model,</text>
+<text x="822" y="721" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">the ingress routes model: &lt;name&gt;</text>
+<text x="822" y="740" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">to this pod. Six to eight minutes</text>
+<text x="822" y="759" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#475569" text-anchor="start">after step 1 in the lab.</text>
+<line x1="229.0" y1="542" x2="229.0" y2="622" stroke="#0284c7" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="398" y1="703.0" x2="429" y2="703.0" stroke="#d97706" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="769" y1="703.0" x2="800" y2="703.0" stroke="#d97706" stroke-width="1.6" marker-end="url(#a)"/>
+<text x="1160" y="816" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">raimes.ai, Route to Private AI Services 3.0, part 4</text>
+</svg>

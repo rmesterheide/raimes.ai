@@ -51,7 +51,7 @@ One note on sizing a slice, from my own card. Parallel requests share a GPU well
 
 One host is not always enough. Before connecting hosts, sixty seconds on how GPUs talk inside one.
 
-NVLink is a private lane between GPUs. Data moves from one GPU to the next without touching PCIe or the CPU. An H100 has eighteen of these links, together about 900 gigabytes per second. That is roughly nine 400-gigabit network ports. Per GPU. Note the units: NVLink is quoted in gigabytes, networks in gigabits.
+NVLink is a private lane between GPUs. Data moves from one GPU to the next without touching PCIe or the CPU. An H100 has eighteen of these links, together about 900 gigabytes per second. That is roughly nine 400-gigabit network ports per GPU. Note the units: NVLink is quoted in gigabytes, networks in gigabits.
 
 NVSwitch is the junction. Without it, each GPU divides its links among its neighbours. With it, every GPU reaches every other at full speed. Eight cards with 80 gigabytes each then behave almost like one device with 640 gigabytes. That is how a model too large for one card still runs fast.
 
@@ -67,10 +67,10 @@ Five options, two decisions. Do you pass the GPU through or use vGPU? That is th
 
 | | GPU passed through (A) | vGPU (B) |
 |---|---|---|
-| **Physical NIC (1)** | A-1: bare metal behaviour on vSphere. GPUs of two hosts exchange data directly over remote direct memory access (RDMA). No vMotion. If the host fails, the VM is gone. For one tenant doing distributed training or very large inference. | B-1: simple guest, one vGPU profile, host handles NVLink below the VM. NVIDIA AI Enterprise licence, matching drivers on host and guest. For when your NICs or your VCF version cannot do the virtualised variant yet. |
+| **Physical network interface card (NIC) (1)** | A-1: bare metal behaviour on vSphere. GPUs of two hosts exchange data directly over remote direct memory access (RDMA). No vMotion. If the host fails, the VM is gone. For one tenant doing distributed training or very large inference. | B-1: simple guest, one vGPU profile, host handles NVLink below the VM. NVIDIA AI Enterprise licence, matching drivers on host and guest. For when your NICs or your VCF version cannot do the virtualised variant yet. |
 | **Virtual NIC (2)** | A-2: same GPUs, NIC virtualised inside a Virtual Private Cloud (VPC). You keep RDMA and the workload sits in a normal tenant network. For providers who hand whole GPU hosts to tenants and re-wire the network when a host changes hands. | B-2: both virtualised. DRS places the workload. vMotion stays, as long as you do not use unified memory or NVLink between GPUs. In my view this is where the platform is heading. |
 
-And the option that does not fit the grid, which is really the everyday case. **Option C:** no HGX, no NVSwitch, normal servers with PCIe cards. Several GPU VMs per host. The GPU is passed through, the network card is virtualised. No vGPU licence. Dense, cost-efficient model serving. Most teams start here, and it is a good place to start.
+And the option that does not fit the grid, which is really the everyday case. **Option C:** no HGX, no NVSwitch, normal servers with PCIe cards. Several GPU VMs per host. The GPU is passed through, the network card is virtualised. No vGPU licence. Dense, cost-efficient model serving. Most teams start here.
 
 ## Enhanced DirectPath: the one exception
 
@@ -84,9 +84,9 @@ So for the accelerators you would buy for model serving, the rule holds. What En
 
 ## The details that cost time when you build it
 
-- **RDMA needs a lossless network.** Either InfiniBand, which is lossless by design, or RoCE on Ethernet with priority flow control and ECN configured. That is a job for your network team, not a vSphere setting.
+- **RDMA needs a lossless network.** Either InfiniBand, which is lossless by design, or RDMA over Converged Ethernet (RoCE) with priority flow control and Explicit Congestion Notification (ECN) configured. That is a job for your network team, not a vSphere setting.
 - **GPU and NIC on the same NUMA (Non-Uniform Memory Access) node.** Direct NIC-to-GPU transfers only work when both devices sit under the same PCIe root complex. HGX boards pair them for this reason. The VM has to reproduce that pairing.
-- **At most 128 vCPUs for GPUDirect VMs.** Beyond that, a VM needs a virtual IOMMU, and that must be off here.
+- **At most 128 vCPUs for GPUDirect VMs.** Beyond that, a VM needs a virtual input-output memory management unit (IOMMU), and that must be off here.
 - **Do not "disable ACS".** ACS (PCIe Access Control Services) stays enabled in ESX. Peer-to-peer is allowed per VM class, in the VM's advanced settings.
 - **"No MIG" in option C is about the option, not the card.** It hands out whole cards. The RTX PRO 6000 Blackwell Server Edition does support MIG.
 
@@ -94,7 +94,7 @@ So for the accelerators you would buy for model serving, the rule holds. What En
 
 1. Which of the three server kinds do you have, or are you buying? That removes half the options.
 2. Do you need vMotion for GPU VMs? If yes, you need vGPU, with the licence and the driver coupling that comes with it.
-3. Does one model fit one host? If yes, stop at NVLink. Multi-host RDMA is a network project before it is a GPU project.
+3. Does one model fit one host? If yes, stop at NVLink. Multi-host RDMA needs network planning first.
 4. Pass-through or vGPU, physical or virtual NIC. Pick the letter and the number knowing what each one pins.
 
 ## Watch the original
