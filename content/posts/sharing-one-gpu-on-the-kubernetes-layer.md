@@ -28,6 +28,8 @@ A disclosure, as always: I work at Broadcom as a solutions architect for infrast
 - **What it means for PAIS:** PAIS owns its GPU Operator and still uses the device plugin, so DRA is not a weekend job there. The sharing model that PAIS endpoints get today is one card per worker; this post shows what the next step looks like.
 {{< /tldr >}}
 
+{{< rebuild repo="rmesterheide/vks-gpu-sharing" >}}the VKS cluster and GPU Operator setup, the DRA manifests for time-slicing and MPS, the benchmark script and the raw numbers of this post.{{< /rebuild >}}
+
 ## Why share a card at all
 
 A 24 GB card runs a 12B model with room to spare, 8.7 GB in part 3. The rest of the card idles unless a second model moves in. In a platform that hands out "a model behind a service name", that is the normal case: several small models, few of them busy at the same time. Three answers exist, and they live on different layers:
