@@ -304,7 +304,7 @@ Push aus `raimes.ai/CLAUDE.md` (jeder Push auf `main` deployt), hier nicht ausge
 
 Zweite Runde über alle 15 Artikel, je Artikel ein lesender Sonnet-Unteragent, Ersetzungen per Skript mit exakten Zeichenketten. Aus 139 Vorschlägen wurden 120 eingearbeitet; nicht übernommen: „tenant“ in den beiden Mandanten-Artikeln (`private-ai-services-3-on-vcf-9-1-1`, `gpu-architecture-for-model-serving-on-vcf`, dort sind echte Mandanten gemeint), Ausschreibungen erlaubter Abkürzungen (GPU, VM, API, CPU, PCIe), ein Ratschlag in 4a („start it a week before you need it“) und eine Ersetzung, die eine Anweisung in eine Feststellung verwandelt hätte. Drei Ersetzungen wurden glatter formuliert als vorgeschlagen. Keine Gedankenstriche mehr in den Artikeln, Hugo baut.
 
-Treffer je Artikel: `private-ai-services-3-on-vcf-9-1-1` 16, `sharing-one-gpu-on-the-kubernetes-layer` 14, `voice-box-deep-dive` 12, `my-homelab-in-five-layers` 11, `model-as-a-service-with-private-ai-services` 10, `rtx-a5000-behind-the-same-service-name` 10, `private-ai-services-without-a-gpu` 9, `gpu-architecture-for-model-serving-on-vcf` 6, `kubernetes-api-on-vsphere-in-one-evening` 6, `one-evening-to-vgpu-three-checks-first` 6, `hello-again` 5, `one-card-three-endpoints-the-numbers` 4, `sonos-wifi-tune-up-with-claude-code` 4, `voice-assistant-for-a-five-year-old` 4, `six-endpoints-on-one-card` 3.
+Treffer je Artikel: `private-ai-services-3-on-vcf-9-1-1` 16, `sharing-one-gpu-on-the-kubernetes-layer` 14, `voice-box-deep-dive` 12, `my-homelab-in-five-layers` 11, `model-as-a-service-with-private-ai-services` 10, `rtx-a5000-behind-the-same-service-name` 10, `private-ai-services-without-a-gpu` 9, `gpu-architecture-for-model-serving-on-vcf` 6, `kubernetes-api-on-vsphere-in-one-evening` 6, `from-passthrough-to-vgpu-slices-in-one-evening` 6, `hello-again` 5, `one-card-cut-into-slices` 4, `sonos-wifi-tune-up-with-claude-code` 4, `voice-assistant-for-a-five-year-old` 4, `six-endpoints-on-one-card` 3.
 
 ### `gpu-architecture-for-model-serving-on-vcf.md`: 6 Ersetzungen
 - (staccato) „That is roughly nine 400-gigabit network ports. Per GPU. Note the units:“ → „That is roughly nine 400-gigabit network ports per GPU. Note the units:“
@@ -364,13 +364,13 @@ notifications.“ → „The whole setup took one evening, including writing thi
 - (staccato) „Change the SVG, run the command again, done.“ → „To update the card, change the SVG and run the command again.“
 - (punchline) „Drawn before, it would have saved the detour through two GPU machines.“ → „If I had drawn it before, I would have skipped the detour through two GPU machines.“
 
-### `one-card-three-endpoints-the-numbers.md`: 4 Ersetzungen
+### `one-card-cut-into-slices.md`: 4 Ersetzungen
 - (abbreviation) „Same method as part 3 and the DRA detour: Gemma 4 12B QAT in 4-bit on llama.cpp“ → „Same method as part 3 and the Dynamic Resource Allocation (DRA) detour: Gemma 4 12B QAT (quantisation-aware training) in 4-bit on llama.cpp“
 - (abbreviation) „its own VKS worker VM“ → „its own vSphere Kubernetes Service (VKS) worker VM“
 - (abbreviation) „ECC is on, which costs each slice“ → „ECC (error-correcting code memory) is on, which costs each slice“
 - (punchline) „The charts in those pieces will come from Operations, not from a text file.“ → „The charts in those pieces will come from Operations.“
 
-### `one-evening-to-vgpu-three-checks-first.md`: 6 Ersetzungen
+### `from-passthrough-to-vgpu-slices-in-one-evening.md`: 6 Ersetzungen
 - (punchline) „The route took one evening once the three checks were done.“ → „“
 - (punchline) „Nothing in that chain is mine to run. The three checks of this post sit at fixed places in it:“ → „The three checks of this post sit at fixed places in that chain:“
 - (staccato) „No cluster manifest, no node pool, no driver install is mine to write.“ → „I do not write a cluster manifest, a node pool or a driver install.“

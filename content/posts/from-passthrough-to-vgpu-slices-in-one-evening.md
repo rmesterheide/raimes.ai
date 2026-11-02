@@ -4,7 +4,7 @@ date: 2026-11-01T12:00:00+01:00
 draft: true
 written_with_claude: true
 cover:
-  image: "/images/covers/one-evening-to-vgpu-three-checks-first.jpg"
+  image: "/images/covers/from-passthrough-to-vgpu-slices-in-one-evening.jpg"
   alt: "Route to Private AI Services 3.0, part 4a: from one passthrough VM to vGPU slices in one evening"
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "vgpu"]
@@ -14,7 +14,7 @@ summary: "Part 4 of my route to Private AI Services 3.0 comes in three pieces, p
 [Part 3](/posts/rtx-a5000-behind-the-same-service-name/) ended with 15 GB of the RTX A5000 sitting idle because passthrough gives the whole card to one VM. While NVIDIA sorted out my licence entitlement, I took an unplanned [detour on the Kubernetes layer](/posts/sharing-one-gpu-on-the-kubernetes-layer/): Dynamic Resource Allocation (DRA) on a vSphere Kubernetes Service (VKS) cluster, two model instances sharing the card with time-slicing and MPS, no licence and no host driver involved. That detour gave me numbers to compare against, and it raised the question: what does vGPU add on top? Part 4 answers it, in three pieces published together:
 
 - **4a, this piece:** the route from passthrough to vGPU slices on one host, and the three checks I would do first.
-- **[4b, one card cut into slices, what each endpoint gets, measured](/posts/one-card-three-endpoints-the-numbers/):** one endpoint, two endpoints, three endpoints on one card, with the curves from the host.
+- **[4b, one card cut into slices, what each endpoint gets, measured](/posts/one-card-cut-into-slices/):** one endpoint, two endpoints, three endpoints on one card, with the curves from the host.
 - **[4c, six model endpoints on one 24 GB card, all busy at once](/posts/six-endpoints-on-one-card/):** six 4 GB slices, the two limits I hit on the way (the host's vGPU mode and the licence pool), and two more checks for the list.
 
 NVIDIA vGPU splits the card into slices, each slice goes into its own VKS worker, and Private AI Services (PAIS) 3.0 runs a model endpoint per slice. In the vSphere community this is seen as the Königsdisziplin, the supreme discipline: NVIDIA, Broadcom, Kubernetes and the model engine all have to fit together before the first slice works. In my lab that took one evening on one host. This piece describes the route and names three things I would check before starting, because they would have saved me two hours.
@@ -128,7 +128,7 @@ Check 3 only makes sense with one thing about PAIS in view. When I activated PAI
 
 The three checks of this post sit at fixed places in that chain: Check 1 and Check 2 on the host, before any VM boots; Check 3 at the join.
 
-{{< figure src="/images/one-evening-to-vgpu-three-checks-first/pais-modelendpoint-flow.svg" alt="Diagram in three lanes: the Supervisor namespace with ModelEndpoint, PAIS operator and MachineDeployment; vCenter and the ESX host with VirtualMachine, placement and power-on; the VKS cluster run by PAIS with node join, engine pod and Ready=True. Nine numbered steps, the three checks marked at steps 6 and 7." caption="From one ModelEndpoint to a running model. Lane one is what I apply, lanes two and three are what PAIS, Cluster API and vCenter do with it. The three checks of this post sit at steps 6 and 7." >}}
+{{< figure src="/images/from-passthrough-to-vgpu-slices-in-one-evening/pais-modelendpoint-flow.svg" alt="Diagram in three lanes: the Supervisor namespace with ModelEndpoint, PAIS operator and MachineDeployment; vCenter and the ESX host with VirtualMachine, placement and power-on; the VKS cluster run by PAIS with node join, engine pod and Ready=True. Nine numbered steps, the three checks marked at steps 6 and 7." caption="From one ModelEndpoint to a running model. Lane one is what I apply, lanes two and three are what PAIS, Cluster API and vCenter do with it. The three checks of this post sit at steps 6 and 7." >}}
 
 ## Check 3: create the endpoint when the host is ready
 
@@ -161,7 +161,7 @@ Five seconds from request to lease. Inside the pod, `nvidia-smi` showed `NVIDIA 
 
 All of the above is host and `kubectl` work. The platform team does not read `nvidia-smi` on the host, it reads a dashboard, so the next morning I put VMware Cloud Foundation (VCF) Operations 9.1.1 next to the standalone vCenter. Deploying it is routine for anyone who has run vSphere: one OVA, the vCenter as an account, done. The point here is what it shows about the shared card without a management pack and without anything installed in the guests. The vCenter adapter delivers a GPU metric group per host (compute utilisation, power, temperature, memory held) and a vGPU group per VM (the compute and memory utilisation of its own slice), and the 9.1.1 appliance ships four Private AI dashboards: GPU Overview, GPU Consumers, GPU Equipped Clusters, GPU Providers.
 
-{{< figure src="/images/one-evening-to-vgpu-three-checks-first/gpu-heatmaps.jpg" alt="VCF Operations dashboard GPU Overview: three heat maps for the one RTX A5000, temperature in orange at the 70 degree band, memory usage and compute utilisation in green" caption="GPU Overview in VCF Operations, the heat-map row: temperature, memory usage and compute utilisation of the one card, with the colour bands below each map. One card is one tile; a GPU cluster fills the row." >}}
+{{< figure src="/images/from-passthrough-to-vgpu-slices-in-one-evening/gpu-heatmaps.jpg" alt="VCF Operations dashboard GPU Overview: three heat maps for the one RTX A5000, temperature in orange at the 70 degree band, memory usage and compute utilisation in green" caption="GPU Overview in VCF Operations, the heat-map row: temperature, memory usage and compute utilisation of the one card, with the colour bands below each map. One card is one tile; a GPU cluster fills the row." >}}
 
 The GPU Consumers dashboard is the one I would show an endpoint: it lists the VM classes from Check 2 as `nvidia_rtxa5000-12c` and `nvidia_rtxa5000-4c` per VM, and it is the first place where a slice is visible without `kubectl`. Part 4b has the curves from the same instance under load.
 
@@ -175,4 +175,4 @@ The GPU Consumers dashboard is the one I would show an endpoint: it lists the VM
 
 ## What comes next
 
-With the chain in place, the card ran a chat endpoint on a 12 GB slice, then two chat endpoints, then a chat endpoint next to an embedding endpoint. [Part 4b](/posts/one-card-three-endpoints-the-numbers/) has the tokens per second for each of these, the sizing rule that came out of the one run that did not work, and the same evening as curves in VCF Operations. [Part 4c](/posts/six-endpoints-on-one-card/) takes the same card to six slices and adds two checks to the three above. The scripts and manifests are in the repository, and the checklist is above.
+With the chain in place, the card ran a chat endpoint on a 12 GB slice, then two chat endpoints, then a chat endpoint next to an embedding endpoint. [Part 4b](/posts/one-card-cut-into-slices/) has the tokens per second for each of these, the sizing rule that came out of the one run that did not work, and the same evening as curves in VCF Operations. [Part 4c](/posts/six-endpoints-on-one-card/) takes the same card to six slices and adds two checks to the three above. The scripts and manifests are in the repository, and the checklist is above.

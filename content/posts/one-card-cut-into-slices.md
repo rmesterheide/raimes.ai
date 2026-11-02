@@ -4,14 +4,14 @@ date: 2026-11-01T11:30:00+01:00
 draft: true
 written_with_claude: true
 cover:
-  image: "/images/covers/one-card-three-endpoints-the-numbers.jpg"
+  image: "/images/covers/one-card-cut-into-slices.jpg"
   alt: "Route to Private AI Services 3.0, part 4b: one card cut into slices, what each endpoint gets, measured"
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "vgpu", "benchmark"]
 summary: "Second of three pieces of part 4. The RTX A5000 is cut into NVIDIA vGPU slices, and Private AI Services 3.0 runs one, two and then three model endpoints on it. One 12 GB slice alone is the whole card. Two busy 12 GB slices share it exactly in half. A 4 GB embedding endpoint next to a 12 GB chat endpoint costs the chat endpoint three percent. A 12B model in 4-bit does not fit an 8 GB slice. Plus the same load as curves in VCF Operations, per card and per slice, with no management pack."
 ---
 
-This is the second of three pieces of part 4, published together. [Part 4a](/posts/one-evening-to-vgpu-three-checks-first/) is the route from passthrough to NVIDIA vGPU slices on one host and the three checks to do first. This piece has the numbers for one to three endpoints, first from `nvidia-smi` on the host, then as curves from VCF Operations. [Part 4c](/posts/six-endpoints-on-one-card/) goes on to six.
+This is the second of three pieces of part 4, published together. [Part 4a](/posts/from-passthrough-to-vgpu-slices-in-one-evening/) is the route from passthrough to NVIDIA vGPU slices on one host and the three checks to do first. This piece has the numbers for one to three endpoints, first from `nvidia-smi` on the host, then as curves from VCF Operations. [Part 4c](/posts/six-endpoints-on-one-card/) goes on to six.
 
 The setting in one sentence: one EPYC host with ESX 9.1.1, a vSphere Supervisor, Private AI Services (PAIS) 3.0, and a refurbished RTX A5000 with 24 GB, now in vGPU mode with the host scheduler on its default, best effort. PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what I rebuild here. I would like to use the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) features of VMware Cloud Foundation (VCF) as well, but this is a small lab.
 
@@ -39,7 +39,7 @@ Three runs, in this order:
 
 ## The numbers
 
-![Tokens per second from one RTX A5000 as vGPU slices](/images/one-card-three-endpoints-the-numbers/tokens-per-second.svg)
+![Tokens per second from one RTX A5000 as vGPU slices](/images/one-card-cut-into-slices/tokens-per-second.svg)
 
 | Load | one 12 GB slice alone | two 12 GB slices, both busy | passthrough, whole card (part 3) |
 |---|---|---|---|
@@ -65,9 +65,9 @@ The host under full load: 229 W of the 230 W cap, 74 °C, 96 percent utilisation
 
 Every number above came from `nvidia-smi` samples in a text file on the host. A platform team does not read `nvidia-smi`, it reads a dashboard with history, so the next morning VMware Cloud Foundation (VCF) Operations 9.1.1 went next to the standalone vCenter of the lab. The deployment is routine (one OVA, the vCenter as an account) and not the topic here. The topic is what it shows: the vCenter adapter delivers a GPU metric group per host and a vGPU group per VM, and the appliance ships four Private AI dashboards, all without a management pack and without anything installed in the guests. I ran the mixed load again for 45 minutes, eight parallel chat completions against the 12 GB slice and four embedding workers against the 4 GB slice, and these are the results from the platform layer.
 
-{{< figure src="/images/one-card-three-endpoints-the-numbers/host-gpu-metrics.jpg" alt="VCF Operations, host esx01, Metrics tab: four charts for GPU 0000:c1:00.0, compute utilisation rising from 0 to 89 percent, power from 90 to 222 watts, temperature from 60 to 78 degrees, memory used flat" caption="The host view: compute, power, temperature and memory of the one card during the 45-minute run. The memory line is flat because the host counts the whole slice." >}}
+{{< figure src="/images/one-card-cut-into-slices/host-gpu-metrics.jpg" alt="VCF Operations, host esx01, Metrics tab: four charts for GPU 0000:c1:00.0, compute utilisation rising from 0 to 89 percent, power from 90 to 222 watts, temperature from 60 to 78 degrees, memory used flat" caption="The host view: compute, power, temperature and memory of the one card during the 45-minute run. The memory line is flat because the host counts the whole slice." >}}
 
-{{< figure src="/images/one-card-three-endpoints-the-numbers/vm-vgpu-metrics.jpg" alt="VCF Operations, the worker VM of the 12 GB slice, Metrics tab: vGPU 3D/compute utilisation 0 to 84.6 percent and vGPU memory utilisation 0 to 80.6 percent" caption="The per-VM view: the VM that holds the 12 GB slice, its own compute share and its own memory use." >}}
+{{< figure src="/images/one-card-cut-into-slices/vm-vgpu-metrics.jpg" alt="VCF Operations, the worker VM of the 12 GB slice, Metrics tab: vGPU 3D/compute utilisation 0 to 84.6 percent and vGPU memory utilisation 0 to 80.6 percent" caption="The per-VM view: the VM that holds the 12 GB slice, its own compute share and its own memory use." >}}
 
 Two numbers differ from the `nvidia-smi` samples, and both are expected. First, utilisation: `nvidia-smi` said 93 to 96 percent for the whole run, Operations says 89 percent at the plateau. The load loop runs eight requests, waits for the slowest, then starts the next batch, so the card idles for a second or two between batches. `nvidia-smi` samples every two seconds and I read the busy ones; Operations averages five minutes and counts the gaps. For a benchmark the two-second view is the right one, for a capacity decision the five-minute view, because it is what the card delivered, gaps included. Second, memory: the host reports the memory a slice holds, 15.6 GB from the first sample to the last, because a vGPU slice holds its frame buffer from the moment the VM powers on ([Broadcom KB 439680](https://knowledge.broadcom.com/external/article/439680/gpu-utilization-metrics-are-reported-inc.html) says so). The VM reports the memory it uses, 0 to 80.6 percent. The host number is for capacity planning (how many slices fit), the VM number for right-sizing an endpoint (does it use its slice). Operations has both on different objects, and the GPU Consumers dashboard shows them one click apart.
 

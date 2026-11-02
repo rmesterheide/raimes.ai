@@ -3,7 +3,7 @@
 #   bash scripts/publish-post.sh <slug> [<slug> ...] [de.raimes.<launchagent-label>]
 # Several slugs are published in the given order, one minute apart in the date stamp, so the LAST slug sits on top
 # of the list (newest date). Example for part 4 on 2026-11-04: six-endpoints-on-one-card, then
-# one-card-three-endpoints-the-numbers, then one-evening-to-vgpu-three-checks-first.
+# one-card-cut-into-slices, then from-passthrough-to-vgpu-slices-in-one-evening.
 # DRY=1 prints the plan and changes nothing. When a LaunchAgent label is given, the agent removes itself after the run.
 # Runs on the Mac mini as user raiko; the push uses the git credentials stored in the keychain.
 set -u

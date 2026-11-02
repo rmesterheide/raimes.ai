@@ -5,7 +5,7 @@ what the card delivers in total. Plain SVG, no libraries, same style as chart-gp
 homelab/vcf-lab/benchmarks/vgpu-a5000-2026-10-31.md.
 Usage: scripts/chart-vgpu-endpoints.py -> static/images/<slug>/tokens-per-second.svg"""
 import os
-SLUG = "one-card-three-endpoints-the-numbers"
+SLUG = "one-card-cut-into-slices"
 OUT = os.path.join(os.path.dirname(__file__), "..", "static", "images", SLUG)
 ONE, SUM, INK, MUTED, GRID = "#b4b2a9", "#76557e", "#2c2c2a", "#6b6a66", "#e1e0d9"
 # label, what one tenant gets (tok/s), what the card delivers in total (tok/s)
