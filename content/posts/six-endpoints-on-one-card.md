@@ -1,11 +1,11 @@
 ---
-title: "Route to Private AI Services 3.0, part 4c: six endpoints on one card"
+title: "Route to Private AI Services 3.0, part 4c: six model endpoints on one 24 GB card, all busy at once"
 date: 2026-11-01T22:30:00+01:00
 draft: true
 written_with_claude: true
 cover:
   image: "/images/covers/six-endpoints-on-one-card.jpg"
-  alt: "Route to Private AI Services 3.0, part 4c: six endpoints on one card"
+  alt: "Route to Private AI Services 3.0, part 4c: six model endpoints on one 24 GB card, all busy at once"
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "vgpu", "benchmark", "licensing"]
 summary: "Third piece of part 4. The RTX A5000 is cut into six 4 GB vGPU slices, and Private AI Services 3.0 runs six model endpoints on it: three chat and three embedding. The fifth slice only came after I switched the card out of mixed-size mode. Five of six slices ran slowly until I made the licence pool larger. vCenter shows the limit for the first problem on a page I had not opened before. With six endpoints busy at once, each keeps about a quarter of the card."

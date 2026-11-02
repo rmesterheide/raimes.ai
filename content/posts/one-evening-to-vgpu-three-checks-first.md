@@ -1,11 +1,11 @@
 ---
-title: "Route to Private AI Services 3.0, part 4a: one evening to vGPU, three checks first"
+title: "Route to Private AI Services 3.0, part 4a: from one passthrough VM to vGPU slices in one evening"
 date: 2026-11-01T12:00:00+01:00
 draft: true
 written_with_claude: true
 cover:
   image: "/images/covers/one-evening-to-vgpu-three-checks-first.jpg"
-  alt: "Route to Private AI Services 3.0, part 4a: one evening to vGPU, three checks first"
+  alt: "Route to Private AI Services 3.0, part 4a: from one passthrough VM to vGPU slices in one evening"
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "vgpu"]
 summary: "Part 4 of my route to Private AI Services 3.0 comes in three pieces, published together. This first piece is the route from a passthrough card to NVIDIA vGPU slices on one host in one evening: the licence side, the version chain, and three checks that would have saved me two hours. For each step I note the log line I used to check it, and a VCF Operations instance next to the vCenter shows the result without extra setup. Part 4b has the numbers for one to three endpoints, part 4c pushes the card to six."
@@ -14,8 +14,8 @@ summary: "Part 4 of my route to Private AI Services 3.0 comes in three pieces, p
 [Part 3](/posts/rtx-a5000-behind-the-same-service-name/) ended with 15 GB of the RTX A5000 sitting idle because passthrough gives the whole card to one VM. While NVIDIA sorted out my licence entitlement, I took an unplanned [detour on the Kubernetes layer](/posts/sharing-one-gpu-on-the-kubernetes-layer/): Dynamic Resource Allocation (DRA) on a vSphere Kubernetes Service (VKS) cluster, two model instances sharing the card with time-slicing and MPS, no licence and no host driver involved. That detour gave me numbers to compare against, and it raised the question: what does vGPU add on top? Part 4 answers it, in three pieces published together:
 
 - **4a, this piece:** the route from passthrough to vGPU slices on one host, and the three checks I would do first.
-- **[4b, the numbers](/posts/one-card-three-endpoints-the-numbers/):** one endpoint, two endpoints, three endpoints on one card, with the curves from the host.
-- **[4c, six endpoints on one card](/posts/six-endpoints-on-one-card/):** six 4 GB slices, the two limits I hit on the way (the host's vGPU mode and the licence pool), and two more checks for the list.
+- **[4b, one card cut into slices: what each endpoint gets, measured](/posts/one-card-three-endpoints-the-numbers/):** one endpoint, two endpoints, three endpoints on one card, with the curves from the host.
+- **[4c, six model endpoints on one 24 GB card, all busy at once](/posts/six-endpoints-on-one-card/):** six 4 GB slices, the two limits I hit on the way (the host's vGPU mode and the licence pool), and two more checks for the list.
 
 NVIDIA vGPU splits the card into slices, each slice goes into its own VKS worker, and Private AI Services (PAIS) 3.0 runs a model endpoint per slice. In the vSphere community this is seen as the Königsdisziplin, the supreme discipline: NVIDIA, Broadcom, Kubernetes and the model engine all have to fit together before the first slice works. In my lab that took one evening on one host. This piece describes the route and names three things I would check before starting, because they would have saved me two hours.
 
