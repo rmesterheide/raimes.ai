@@ -1,7 +1,7 @@
 ---
 title: "Route to Private AI Services 3.0, part 4b: one card cut into slices, what each endpoint gets, measured"
-date: 2026-11-01T11:30:00+01:00
-draft: true
+date: 2026-11-03T08:31:03+01:00
+draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/one-card-cut-into-slices.jpg"

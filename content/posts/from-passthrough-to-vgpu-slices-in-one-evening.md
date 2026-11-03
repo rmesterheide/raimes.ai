@@ -1,7 +1,7 @@
 ---
 title: "Route to Private AI Services 3.0, part 4a: from one passthrough VM to vGPU slices in one evening"
-date: 2026-11-01T12:00:00+01:00
-draft: true
+date: 2026-11-03T08:32:03+01:00
+draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/from-passthrough-to-vgpu-slices-in-one-evening.jpg"

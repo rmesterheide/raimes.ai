@@ -1,7 +1,7 @@
 ---
 title: "Route to Private AI Services 3.0, part 4c: six model endpoints on one 24 GB card, all busy at once"
-date: 2026-11-01T22:30:00+01:00
-draft: true
+date: 2026-11-03T08:30:03+01:00
+draft: false
 written_with_claude: true
 cover:
   image: "/images/covers/six-endpoints-on-one-card.jpg"
