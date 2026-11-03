@@ -54,13 +54,13 @@ params:
     Content: >
       I help enterprise customers get a private cloud platform used, from
       Kubernetes to private AI, operating model included. At home I run a small
-      version: one GPU, local models, a Mac mini with Claude Code around the
+      version: two GPUs, local models, a Mac mini with Claude Code around the
       clock. Every post is one learning and a measurement you can repeat.
       I decide, the agent builds, I check.
 
 
-      New here? Start with [the voice box for my five-year-old](/posts/voice-assistant-for-a-five-year-old/)
-      or [the one rule for GPU design](/posts/gpu-architecture-for-model-serving-on-vcf/).
+      New here? Start with [my homelab in five layers](/posts/my-homelab-in-five-layers-november-2026/),
+      then follow [the route to Private AI Services 3.0](/posts/kubernetes-api-on-vsphere-in-one-evening/).
 
   socialIcons:
     - name: github
