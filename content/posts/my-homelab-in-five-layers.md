@@ -1,5 +1,5 @@
 ---
-title: "My homelab in five layers, November 2026"
+title: "My homelab in five layers, October 2026"
 date: 2026-10-15T22:05:00+02:00
 draft: false
 written_with_claude: true
@@ -8,30 +8,18 @@ cover:
   alt: "My homelab in five layers"
 categories: ["homelab-ai"]
 tags: ["homelab", "claude-code", "private-ai"]
-summary: "One picture of everything that runs in my house, from the cloud down to a kitchen tablet, and the rule that made it calm: the layer that holds the context is the one that is always on. Updated in November: the big server is back on, with a job."
+summary: "One picture of everything that runs in my house, from Google Cloud down to a kitchen tablet, and the rule that made it calm: the layer that holds the context is the one that is always on."
 ---
 
 Every few months I draw the whole setup on one page. Not because anything is finished, but because the drawing shows what the week-by-week work hides: which parts have one job, which parts have three, and where the house would notice if a machine went away.
 
-Here is the November 2026 version, with five layers. The first version of this post appeared on 15 October 2026. Three weeks later three of the five layers had changed enough that the picture was wrong, so this is the same post with a new card and a section on what changed. The [October card](/images/homelab-october-2026/architecture-card.svg) stays online for comparison.
+Here is the October 2026 version, with five layers. *Update 3 November 2026: there is a [November version of this post](/posts/my-homelab-in-five-layers-november-2026/) with a new card and a section on what changed.*
 
-![My homelab in five layers, November 2026](/images/homelab-november-2026/architecture-card.svg)
+![My homelab in five layers, October 2026](/images/homelab-october-2026/architecture-card.svg)
 
-[Full-size PNG](/images/homelab-november-2026/architecture-card.png), 2400 × 3000 px.
+[Full-size PNG](/images/homelab-october-2026/architecture-card.png), 2400 × 3000 px.
 
-## What changed since October
-
-**The big server is back on, with a job.** In October the EPYC server was the grey box in the compute layer: 32 cores, 512 GB of memory, not switched on this year. Since 19 October it runs vSphere 9.1.1 with a Supervisor cluster, vSphere Kubernetes Service (VKS) and Private AI Services (PAIS) 3.0. A used RTX A5000 went in on 27 October, first in passthrough, since 31 October as NVIDIA virtual GPU (vGPU). Today the card is cut into six slices and each slice serves one model endpoint behind the same gateway. VMware Cloud Foundation (VCF) Operations watches the card. The whole route is written up in the series that starts with [part 1](/posts/kubernetes-api-on-vsphere-in-one-evening/). The lab has its own VLANs and its own DNS zone, it is started and stopped by script, and nothing in the house depends on it. That last sentence is the rule from October, and it still holds.
-
-**One gateway instead of two.** The network layer used to be a UDM Pro Max behind the provider's 10G router, which meant double network address translation (NAT) and no IPv6 in the house. On 20 October a UniFi Cloud Gateway Fiber replaced both. It dials the Point-to-Point Protocol over Ethernet (PPPoE) connection itself. The public IPv4 address sits on the gateway, and IPv6 arrived on 23 October. The daily speed test from the 4090 now reads about 8 Gbit/s down and 6 Gbit/s up, against a tariff of 10 and 1. The old chain capped the upload at 1 Gbit/s, so the limit was the second router, not the provider. The camera recordings moved to a separate UniFi Network Video Recorder (UNVR). The 10G backbone is unchanged, the EPYC host now hangs on it too.
-
-**The 3090 is gone.** In October it was retired and for sale. It was sold on 22 October, and the plan to move its card into the EPYC server was replaced by the A5000. The 4090 workstation, which in October "ran only on demand", has run around the clock since 4 October. It carries the voice chain, and at night it draws the pictures and the ten-second clips for the kitchen tablet.
-
-**The cloud layer has two new boxes the lab depends on.** NVIDIA's licensing portal hands out the vGPU licences (an evaluation until January 2027, with a cloud licence server and 24-hour leases), and Broadcom's registry delivers the PAIS images. Both are lab dependencies, not household ones. The rule for the house is unchanged: nothing in it needs the cloud layer.
-
-**Smaller changes.** My five-year-old now talks to the voice box through Whisper on the 4090 instead of a cloud speech-to-text service, because the cloud service misheard one-word answers. The kitchen tablet shows twenty jungle animals until 7 November, then the dinosaurs return. Home Assistant shows the blog's visitor numbers as five circles.
-
-The rest of the post is the October text, corrected where the facts changed.
+*Card refreshed 2026-10-17: the network layer now shows the fibre uplink (10 Gbit/s down, 1 Gbit/s up by tariff, 8 Gbit/s measured at a client) and the full 10G matrix, 9.4 Gbit/s between any two of the four 10G hosts. Same evening: the cloud layer now names Hetzner as the blog host, after the move off GitHub Pages.*
 
 ## Starting point: everything ran on the laptop
 
@@ -53,13 +41,13 @@ Three things, each in its own layer.
 
 **One always-on node holds the context.** The Mac mini became the command post. Claude Code runs there, headless, encrypted disk, on the 10 Gbit switch. Two accounts split the roles. One account runs the interactive sessions with full context: projects, memory, skills, SSH keys to every other machine. The other account runs the unattended jobs as LaunchDaemons: morning report, a news radar, the workers for the two cloud apps, a sensor for the kitchen tablet, a nightly git backup of all documentation. That account has no mail, no passwords and read-only rules. The MacBook and the iPhone only steer. The session never leaves the Mini, and a small mod above the prompt shows the host name and account so I can see where I am.
 
-**Every other layer got exactly one job.** The RTX 4090 workstation does the heavy work for voice and images and runs around the clock. Whisper transcribes a spoken command in 0.07 seconds, a local 14B model answers, a local text-to-speech engine speaks. The old 3090 that used to share these jobs was sold. The third machine in that layer is a 32-core EPYC server with 512 GB of error-correcting code (ECC) memory and local NVMe, built in 2024 for nested VCF Holodeck deployments ([the build story is on Medium](https://medium.com/@rmesterheide/why-i-switched-from-intel-to-amd-epyc-for-my-homelab-9cc182dfe230)). In October it was powered off. Now it is the vSphere lab with the A5000, see above. The NAS got a second volume on two datacenter SSDs with power-loss protection and no drop in write speed, and since October it also serves a Network File System (NFS) datastore to the lab. Home Assistant stays on a Raspberry Pi. It is the broker in the voice path, not the compute, so it never needed more hardware.
+**Every other layer got exactly one job.** The RTX 4090 workstation does the heavy work for voice and images and runs only on demand, woken from the Mini. Whisper transcribes a spoken command in 0.07 seconds, a local 14B model answers, a local text-to-speech engine speaks. The old 3090 that used to share these jobs is retired and for sale. The third machine in that layer is a 32-core EPYC server with 512 GB of error-correcting code (ECC) memory and local NVMe, built in 2024 for nested VMware Cloud Foundation (VCF) Holodeck deployments ([the build story is on Medium](https://medium.com/@rmesterheide/why-i-switched-from-intel-to-amd-epyc-for-my-homelab-9cc182dfe230)). It has not been switched on since Claude Code took over the lab. It stays in the picture because the picture should show what is there. The NAS got a second volume on two datacenter SSDs with power-loss protection and no drop in write speed. Home Assistant stays on a Raspberry Pi. It is the broker in the voice path, not the compute, so it never needed more hardware.
 
 **The cloud got a cap and a cache.** The apps now serve reads from memory and write through only on changes. Bucket operations fell from about 5,600 per two minutes to under ten. A budget function detaches billing from the project at 50 € and was tested with a fake alert before I trusted it. The rest of the cloud layer is kept simple on purpose: GitHub holds the private repos, receives the nightly documentation backup and pushes this blog to a Hetzner web host through Actions (the server writes anonymised logs, so I get visitor numbers without a tracker; moved on 2026-10-17, GitHub Pages before); GoDaddy holds the domains and DNS. I built it so that nothing in the house depends on the cloud layer.
 
 ## The layer the family touches
 
-The bottom layer is the only one anybody else in the house notices. A Home Assistant Voice box in the kitchen with two wake words: one chain listens through Whisper on the 4090 and answers through Claude Haiku for my five-year-old, the other stays entirely in the house and answers in about a second. In practice only the five-year-old talks to the box. Next to it stands a kitchen tablet. It shows animal cards, a new story every morning and a short clip per animal, and it has a quiz and a counting game where the box asks and the child answers. The box speaks only when a button is pressed. I chose this on purpose.
+The bottom layer is the only one anybody else in the house notices. A Home Assistant Voice box in the kitchen with two wake words: one chain goes through the cloud and Claude Haiku for my five-year-old, the other stays entirely in the house and answers in about a second. Next to it a kitchen tablet with dinosaur cards, a new story every morning, and a quiz where the box asks and the kid answers. The box speaks only when a button is pressed. I chose this on purpose.
 
 The four layers above keep this one running when I am not home.
 
@@ -82,12 +70,12 @@ The picture above is not a screenshot of a diagram tool. It is an SVG written by
 </head><body><img src="file://<path-to>/card.svg" width="1200" height="1500"></body></html>
 ```
 
-Expected result: a 2400 × 3000 px PNG, crisp text, no scrollbar, the same file every time you run it. To update the card, change the SVG and run the command again. This November version took one evening: edit the text in the script, run it, render, done. The source of my card is in the private homelab repo; the SVG itself is [linked above](/images/homelab-november-2026/architecture-card.svg) if you want a starting point.
+Expected result: a 2400 × 3000 px PNG, crisp text, no scrollbar, the same file every time you run it. To update the card, change the SVG and run the command again. The source of my card is in the private homelab repo; the SVG itself is [linked above](/images/homelab-october-2026/architecture-card.svg) if you want a starting point.
 
 ## What I would do differently
 
 Benchmark the drives before blaming the network. The 10 Gbit gear had been in place for years and was never the problem. A month of measurements proved that, and the fix was two SSDs.
 
-Decide the always-on node before buying GPUs. The two workstations were bought as the future home of everything. In the October picture they did one job each, one of them was leaving, and the biggest machine in the house was powered off. In the November picture the biggest machine is back on, but as a lab with a question to answer, not as the home of everything.
+Decide the always-on node before buying GPUs. The two workstations were bought as the future home of everything. In the final picture they do one job each, one of them is leaving, and the biggest machine in the house is powered off.
 
-And draw the card earlier. Drawn after the move, the picture makes the one-job-per-layer rule look obvious. If I had drawn it before, I would have skipped the detour through two GPU machines. Redrawing it three weeks later showed something else: the layers held, only the boxes inside them changed.
+And draw the card earlier. Drawn after the move, the picture makes the one-job-per-layer rule look obvious. If I had drawn it before, I would have skipped the detour through two GPU machines.
