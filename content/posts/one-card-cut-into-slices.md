@@ -9,6 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "vgpu", "benchmark"]
 summary: "Second of three pieces of part 4. The RTX A5000 is cut into NVIDIA vGPU slices, and Private AI Services 3.0 runs one, two and then three model endpoints on it. One 12 GB slice alone is the whole card. Two busy 12 GB slices share it exactly in half. A 4 GB embedding endpoint next to a 12 GB chat endpoint costs the chat endpoint three percent. A 12B model in 4-bit does not fit an 8 GB slice. Plus the same load as curves in VCF Operations, per card and per slice, with no management pack."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7523287868069298176/"
 ---
 
 This is the second of three pieces of part 4, published together. [Part 4a](/posts/from-passthrough-to-vgpu-slices-in-one-evening/) is the route from passthrough to NVIDIA vGPU slices on one host and the three checks to do first. This piece has the numbers for one to three endpoints, first from `nvidia-smi` on the host, then as curves from VCF Operations. [Part 4c](/posts/six-endpoints-on-one-card/) goes on to six.

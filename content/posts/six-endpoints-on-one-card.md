@@ -9,6 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "vgpu", "benchmark", "licensing"]
 summary: "Third piece of part 4. The RTX A5000 is cut into six 4 GB vGPU slices, and Private AI Services 3.0 runs six model endpoints on it: three chat and three embedding. The fifth slice only came after I switched the card out of mixed-size mode. Five of six slices ran slowly until I made the licence pool larger. vCenter shows the limit for the first problem on a page I had not opened before. With six endpoints busy at once, each keeps about a quarter of the card."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7523287868069298176/"
 ---
 
 [Part 4a](/posts/from-passthrough-to-vgpu-slices-in-one-evening/) was the route to NVIDIA vGPU on one host and the three checks I would do first. [Part 4b](/posts/one-card-cut-into-slices/) ran one, two and three endpoints on the card and measured them. This piece puts six endpoints on the same card: six slices of 4 GB, six Private AI Services (PAIS) model endpoints, all busy at the same time. NVIDIA's table says the RTX A5000 takes six of the 4C profile. Getting there took one host reboot and one visit to the licensing portal.

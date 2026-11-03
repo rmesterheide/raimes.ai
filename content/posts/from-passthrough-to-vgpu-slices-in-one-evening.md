@@ -9,6 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "vgpu"]
 summary: "Part 4 of my route to Private AI Services 3.0 comes in three pieces, published together. This first piece is the route from a passthrough card to NVIDIA vGPU slices on one host in one evening: the licence side, the version chain, and three checks that would have saved me two hours. For each step I note the log line I used to check it, and a VCF Operations instance next to the vCenter shows the result without extra setup. Part 4b has the numbers for one to three endpoints, part 4c pushes the card to six."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7523287868069298176/"
 ---
 
 [Part 3](/posts/rtx-a5000-behind-the-same-service-name/) ended with 15 GB of the RTX A5000 sitting idle because passthrough gives the whole card to one VM. While NVIDIA sorted out my licence entitlement, I took an unplanned [detour on the Kubernetes layer](/posts/sharing-one-gpu-on-the-kubernetes-layer/): Dynamic Resource Allocation (DRA) on a vSphere Kubernetes Service (VKS) cluster, two model instances sharing the card with time-slicing and MPS, no licence and no host driver involved. That detour gave me numbers to compare against, and it raised the question: what does vGPU add on top? Part 4 answers it, in three pieces published together:
