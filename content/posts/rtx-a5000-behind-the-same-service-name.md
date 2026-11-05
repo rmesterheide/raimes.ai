@@ -79,7 +79,7 @@ The sizing rule from the documentation: frame buffer per GPU times number of GPU
 
 ## Harbor, the model gallery, and the endpoint
 
-The models live in a Harbor registry on the VCF Infrastructure Services (VIS) appliance in the lab, which also does DNS. Pushing a model is one command from the VCF command line, run on my workstation where the download lands:
+The models live in a Harbor registry on the VCF Infrastructure Services (VIS) appliance in the lab, which also does DNS. VIS is a community Fling for labs and proofs of concept. It is not a supported way to run Harbor in production. For production, Broadcom documents the [Harbor Supervisor Service](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-1/deploying-private-ai-foundation-with-nvidia/set-up-a-harbor-registry-in-a-connected-environmnet-for-storing-models-for-private-ai-services.html). Pushing a model is one command from the VCF command line, run on my workstation where the download lands:
 
 ```bash
 vcf pais models push --modelStore vis.vcf.internal:9443/models \

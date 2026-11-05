@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1192" viewBox="0 0 1200 1192">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#8a94a3" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="1192" fill="#0b0f14"/>
+<text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#f4f6f8" text-anchor="start">Private AI Services 3.0, the bare minimum: 15 steps on one host to a model endpoint</text>
+<text x="40" y="80" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8a94a3" text-anchor="start">My lab, October 2026: vSphere 9.1.1 on a single host, no NSX, no VMware Cloud Foundation (VCF) Automation. One box is one step, the coloured line says where it happens.</text>
+<rect x="40" y="100" width="1120" height="76" rx="14" fill="#0f141c" stroke="#6fa8dc" stroke-width="1.2"/>
+<text x="56" y="126" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#6fa8dc" text-anchor="start">ONE ESX HOST: vCenter, Supervisor, Private AI Services (PAIS), Harbor, the Kubernetes cluster and every model run on this machine</text>
+<text x="56" y="156" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#f4f6f8" text-anchor="start">Supermicro H12SSL-NT   ·   AMD EPYC 7513, 32 cores   ·   512 GB memory   ·   2 × 4 TB NVMe as local datastores   ·   2 × 10 GbE onboard   ·   one RTX A5000, 24 GB</text>
+<rect x="40" y="196" width="360" height="594" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="56" y="220" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#38bdf8" text-anchor="start">PLATFORM: vSphere and the Supervisor</text>
+<rect x="56" y="236" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="236" width="328" height="4" rx="2" fill="#38bdf8"/>
+<circle cx="362" cy="262" r="12" fill="#38bdf8"/>
+<text x="362" y="266.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">1</text>
+<text x="72" y="267" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">vSphere 9.1.1</text>
+<text x="72" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">ESX installer, vCenter UI</text>
+<text x="72" y="308" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">ESX and vCenter, cluster with DRS and HA,</text>
+<text x="72" y="327" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">switch with three port groups, storage policy</text>
+<line x1="220.0" y1="345" x2="220.0" y2="355" stroke="#38bdf8" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="56" y="360" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="360" width="328" height="4" rx="2" fill="#38bdf8"/>
+<circle cx="362" cy="386" r="12" fill="#38bdf8"/>
+<text x="362" y="390.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">2</text>
+<text x="72" y="391" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Supervisor</text>
+<text x="72" y="410" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">vCenter wizard</text>
+<text x="72" y="432" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">distributed switch networking with the</text>
+<text x="72" y="451" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Foundation Load Balancer, one control plane VM</text>
+<line x1="220.0" y1="469" x2="220.0" y2="479" stroke="#38bdf8" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="56" y="484" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="484" width="328" height="4" rx="2" fill="#38bdf8"/>
+<circle cx="362" cy="510" r="12" fill="#38bdf8"/>
+<text x="362" y="514.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">3</text>
+<text x="72" y="515" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Content library</text>
+<text x="72" y="534" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">vCenter UI</text>
+<text x="72" y="556" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">subscribed Kubernetes releases, assigned to</text>
+<text x="72" y="575" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">the vSphere Kubernetes Service (VKS)</text>
+<line x1="220.0" y1="593" x2="220.0" y2="603" stroke="#38bdf8" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="56" y="608" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="608" width="328" height="4" rx="2" fill="#38bdf8"/>
+<circle cx="362" cy="634" r="12" fill="#38bdf8"/>
+<text x="362" y="638.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">4</text>
+<text x="72" y="639" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Namespace</text>
+<text x="72" y="658" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">vCenter UI</text>
+<text x="72" y="680" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">workload network, storage policy,</text>
+<text x="72" y="699" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">VM classes for control plane and endpoints</text>
+<line x1="220.0" y1="717" x2="220.0" y2="727" stroke="#38bdf8" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="56" y="732" width="328" height="40" rx="20" fill="none" stroke="#38bdf8" stroke-width="1.4"/>
+<text x="74" y="757" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Kubernetes API answers</text>
+<text x="366" y="757" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">part 1</text>
+<rect x="420" y="196" width="360" height="718" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="436" y="220" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#c084fc" text-anchor="start">PRIVATE AI SERVICES (PAIS): Model Runtime only</text>
+<rect x="436" y="236" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="436" y="236" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="742" cy="262" r="12" fill="#c084fc"/>
+<text x="742" y="266.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">5</text>
+<text x="452" y="267" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Registry credentials</text>
+<text x="452" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">Broadcom portal, vCenter UI</text>
+<text x="452" y="308" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">registry token from the portal, added as</text>
+<text x="452" y="327" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">a container registry on the Supervisor</text>
+<line x1="600.0" y1="345" x2="600.0" y2="355" stroke="#c084fc" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="436" y="360" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="436" y="360" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="742" cy="386" r="12" fill="#c084fc"/>
+<text x="742" y="390.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">6</text>
+<text x="452" y="391" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">PAIS Supervisor Service</text>
+<text x="452" y="410" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">vCenter UI</text>
+<text x="452" y="432" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">pais-3.0.0-external.yml</text>
+<text x="452" y="451" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">register, then install on the Supervisor</text>
+<line x1="600.0" y1="469" x2="600.0" y2="479" stroke="#c084fc" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="436" y="484" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="436" y="484" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="742" cy="510" r="12" fill="#c084fc"/>
+<text x="742" y="514.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">7</text>
+<text x="452" y="515" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Activate in the namespace</text>
+<text x="452" y="534" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">vCenter UI</text>
+<text x="452" y="556" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Model Runtime only, CPU only, local user.</text>
+<text x="452" y="575" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">PAIS builds its own VKS cluster</text>
+<line x1="600.0" y1="593" x2="600.0" y2="603" stroke="#c084fc" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="436" y="608" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="436" y="608" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="742" cy="634" r="12" fill="#c084fc"/>
+<text x="742" y="638.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">8</text>
+<text x="452" y="639" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">API tokens and DNS name</text>
+<text x="452" y="658" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">kubectl, DNS, PAIS UI</text>
+<text x="452" y="680" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">one patch for apiTokens, one annotation</text>
+<text x="452" y="699" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">for the name, then generate a token</text>
+<line x1="600.0" y1="717" x2="600.0" y2="727" stroke="#c084fc" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="436" y="732" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="436" y="732" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="742" cy="758" r="12" fill="#c084fc"/>
+<text x="742" y="762.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">9</text>
+<text x="452" y="763" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">First route</text>
+<text x="452" y="782" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">kubectl</text>
+<text x="452" y="804" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">InferenceGatewayRoute</text>
+<text x="452" y="823" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">service name to a remote model, key in a Secret</text>
+<line x1="600.0" y1="841" x2="600.0" y2="851" stroke="#c084fc" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="436" y="856" width="328" height="40" rx="20" fill="none" stroke="#c084fc" stroke-width="1.4"/>
+<text x="454" y="881" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Stop 1: remote models answer</text>
+<text x="746" y="881" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">part 2</text>
+<rect x="800" y="196" width="360" height="900" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="816" y="220" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#f59e0b" text-anchor="start">LOCAL MODELS: registry, endpoint, route</text>
+<rect x="816" y="236" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="816" y="236" width="328" height="4" rx="2" fill="#f59e0b"/>
+<circle cx="1122" cy="262" r="12" fill="#f59e0b"/>
+<text x="1122" y="266.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">10</text>
+<text x="832" y="267" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Harbor registry</text>
+<text x="832" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">vCenter OVF deploy, appliance UI</text>
+<text x="832" y="308" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">VCF Infrastructure Services (VIS) appliance,</text>
+<text x="832" y="327" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">lab and PoC only: CA, registry, project</text>
+<line x1="980.0" y1="345" x2="980.0" y2="355" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="816" y="360" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="816" y="360" width="328" height="4" rx="2" fill="#f59e0b"/>
+<circle cx="1122" cy="386" r="12" fill="#f59e0b"/>
+<text x="1122" y="390.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">11</text>
+<text x="832" y="391" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Trust the registry</text>
+<text x="832" y="410" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">vCenter UI, kubectl</text>
+<text x="832" y="432" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">registry entry with the CA on the Supervisor,</text>
+<text x="832" y="451" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">clientTls.caBundleRefs in PAIS</text>
+<line x1="980.0" y1="469" x2="980.0" y2="479" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="816" y="484" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="816" y="484" width="328" height="4" rx="2" fill="#f59e0b"/>
+<circle cx="1122" cy="510" r="12" fill="#f59e0b"/>
+<text x="1122" y="514.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">12</text>
+<text x="832" y="515" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Push models</text>
+<text x="832" y="534" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">VCF CLI on a workstation</text>
+<text x="832" y="556" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">vcf pais models push</text>
+<text x="832" y="575" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">weights as OCI artifacts in Harbor</text>
+<line x1="980.0" y1="593" x2="980.0" y2="603" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="816" y="608" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1" stroke-dasharray="6 5"/>
+<rect x="816" y="608" width="328" height="4" rx="2" fill="#f59e0b"/>
+<circle cx="1122" cy="634" r="12" fill="#f59e0b"/>
+<text x="1122" y="638.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">13</text>
+<text x="832" y="639" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">GPU in passthrough (optional)</text>
+<text x="832" y="658" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">ESX host, vCenter UI, kubectl</text>
+<text x="832" y="680" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">card to passthrough on the host, VM class,</text>
+<text x="832" y="699" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">nvidiaConfig patch in PAIS</text>
+<rect x="816" y="720" width="328" height="46" rx="10" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="6 5"/>
+<text x="832" y="739" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">vGPU instead: several endpoints share one card,</text>
+<text x="832" y="756" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#8a94a3" text-anchor="start">needs an NVIDIA licence, see part 4a</text>
+<line x1="980.0" y1="769" x2="980.0" y2="785" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="816" y="790" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="816" y="790" width="328" height="4" rx="2" fill="#f59e0b"/>
+<circle cx="1122" cy="816" r="12" fill="#f59e0b"/>
+<text x="1122" y="820.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">14</text>
+<text x="832" y="821" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">ModelEndpoint</text>
+<text x="832" y="840" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">kubectl</text>
+<text x="832" y="862" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">one YAML object: model, engine, VM class.</text>
+<text x="832" y="881" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">PAIS adds the worker node and pulls the model</text>
+<line x1="980.0" y1="899" x2="980.0" y2="909" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="816" y="914" width="328" height="106" rx="12" fill="#161d29" stroke="#f59e0b" stroke-width="2"/>
+<rect x="816" y="914" width="328" height="4" rx="2" fill="#f59e0b"/>
+<circle cx="1122" cy="940" r="12" fill="#f59e0b"/>
+<text x="1122" y="944.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">15</text>
+<text x="832" y="945" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Available on the AI gateway</text>
+<text x="832" y="964" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">kubectl</text>
+<text x="832" y="986" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">the route points the service name to the local</text>
+<text x="832" y="1005" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">model: one URL, one token, no client changes</text>
+<line x1="980.0" y1="1023" x2="980.0" y2="1033" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="816" y="1038" width="328" height="40" rx="20" fill="none" stroke="#f59e0b" stroke-width="1.4"/>
+<text x="834" y="1063" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Stop 2: local models answer</text>
+<text x="1126" y="1063" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="end">parts 3 and 4</text>
+<polyline points="387,752 410,752 410,289.0 431,289.0" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="767,876 790,876 790,289.0 811,289.0" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<rect x="40" y="950" width="740" height="98" rx="14" fill="#0f141c" stroke="#6fa8dc" stroke-width="1.2"/>
+<text x="56" y="976" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#6fa8dc" text-anchor="start">AI GATEWAY OF PAIS: what application teams get for remote and local models</text>
+<text x="56" y="1004" font-family="Menlo, Consolas, monospace" font-size="13.5" font-weight="400" fill="#f4f6f8" text-anchor="start">https://&lt;pais-name&gt;/api/v1/compatibility/openai/v1</text>
+<text x="56" y="1030" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">one OpenAI-compatible URL, one API token, one service name per model</text>
+<line x1="600.0" y1="899" x2="600.0" y2="944" stroke="#c084fc" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="813" y1="954" x2="786" y2="954" stroke="#f59e0b" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="40" y="1114" width="1120" height="52" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="60" y="1136" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#f4f6f8" text-anchor="start">Steps 1 to 9 need no GPU and no registry of your own. Steps 10 to 12 are done once, steps 14 and 15 repeat for every model.</text>
+<text x="60" y="1156" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5d6774" text-anchor="start">A change to the registry credentials or the CA bundle replaces the control plane of the PAIS cluster. In the lab that took 10 to 15 minutes each time.</text>
+</svg>
