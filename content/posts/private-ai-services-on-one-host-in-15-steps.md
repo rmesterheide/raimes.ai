@@ -10,7 +10,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab"]
 summary: "Parts 1 to 4 of this series describe the route to Private AI Services 3.0 in the order I built it, with every detour. This page is the overview of the bare minimum, the smallest configuration that provides models and model endpoints: one diagram with the 15 configuration steps from a fresh ESX host to a local model behind a service name, all on a single host. For each step it says where it happens and which part has the details, plus the two steps that make you wait."
-linkedin: ""
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7524376884713820161/"
 ---
 
 Parts 1 to 4 of this series describe the route to Private AI Services (PAIS) 3.0 in the order I built it. They include the detours and the things I got wrong first, so they are long. What they do not have is a short version: which steps are there, and where does each one happen?
