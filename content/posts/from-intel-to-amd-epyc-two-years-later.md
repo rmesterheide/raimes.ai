@@ -54,7 +54,7 @@ The one lesson from the build that I still tell people: an EPYC CPU that is not 
 
 ## What the host did since
 
-The host did what it was bought for. From the first Holodeck for VCF 5.x to Holodeck 9.0.2, every release went onto this host, and each one was used for tests: upgrades, Kubernetes on the Supervisor, NSX topologies. The [companion post](/posts/vmware-cloud-foundation-on-one-epyc-host-holodeck-and-a-single-host-fleet/) has the details. In October 2026 the host changed its job: it became a plain vSphere 9.1.1 host with a vSphere Supervisor and Private AI Services (PAIS) 3.0, and on 27 October 2026 a refurbished RTX A5000 went in. That story is in [part 1](/posts/kubernetes-api-on-vsphere-in-one-evening/) and [part 3](/posts/rtx-a5000-behind-the-same-service-name/) of the PAIS route, and the short version is on the [15-steps page](/posts/private-ai-services-on-one-host-in-15-steps/).
+The host did what it was bought for. From the first Holodeck for VCF 5.x to Holodeck 9.0.2, every release went onto this host, and each one was used for tests: upgrades, Kubernetes on the Supervisor, NSX topologies. The Holodeck years and the plan for a single-host VCF fleet get their own post once that fleet runs. In October 2026 the host changed its job: it became a plain vSphere 9.1.1 host with a vSphere Supervisor and Private AI Services (PAIS) 3.0, and on 27 October 2026 a refurbished RTX A5000 went in. That story is in [part 1](/posts/kubernetes-api-on-vsphere-in-one-evening/) and [part 3](/posts/rtx-a5000-behind-the-same-service-name/) of the PAIS route, and the short version is on the [15-steps page](/posts/private-ai-services-on-one-host-in-15-steps/).
 
 One number from that time shows what nested labs do to a drive. The 990 PRO that carried the Holodeck hosts had written 459 TB in 331 power-on days when I read its SMART data in November 2026, about 1.4 TB per day. The drive reports 6 percent of its rated life used, so endurance is not the problem. The problem is write latency without power-loss protection, which is the reason for the third new part below.
 
@@ -86,7 +86,7 @@ Three parts are new. Two are delivered, one is on its way. They go into the host
 esxcli memtier enable -d /vmfs/devices/disks/<device> -r 100
 ```
 
-What I will use the tier for is in the [companion post on Holodeck and the single-host fleet](/posts/vmware-cloud-foundation-on-one-epyc-host-holodeck-and-a-single-host-fleet/).
+What I will use the tier for, a nested Holodeck next to a single-host VCF fleet, gets its own post once that is built and measured.
 
 **The vSAN device.** The 990 PRO drives are fast, but they are consumer drives: no power-loss protection, and not on the vSAN compatibility list. Without power-loss protection every synchronous write of etcd, PostgreSQL or the vSAN log waits for the flash. On a single host with no redundancy, a power cut can also cost data. The PM9A3 is an enterprise drive with power-loss protection and it sits on the vSAN list. 3.84 TB is enough for a fleet with room left, and the freed 990 PRO stays for nested experiments. The H12SSL-NT has no U.2 port, so the drive goes on a small PCIe card.
 
