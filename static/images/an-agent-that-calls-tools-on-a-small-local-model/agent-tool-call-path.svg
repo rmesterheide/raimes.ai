@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#8a94a3" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="740" fill="#0b0f14"/>
+<text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#f4f6f8" text-anchor="start">One tool question through a Private AI Services agent</text>
+<text x="40" y="80" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8a94a3" text-anchor="start">My lab on 7 Nov 2026: vSphere 9.1.1, Private AI Services 3.0 with the full set of capabilities, Qwen3 4B on a 4 GB vGPU slice</text>
+<rect x="40" y="150" width="190" height="220" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="40" y="150" width="190" height="4" rx="2" fill="#38bdf8"/>
+<text x="56" y="180" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Client</text>
+<text x="56" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">Mac mini</text>
+<text x="56" y="224" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">curl or any OpenAI</text>
+<text x="56" y="244" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">client library</text>
+<text x="56" y="264" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="56" y="284" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Bearer &lt;PAIS token&gt;</text>
+<text x="56" y="304" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">model: chat-4c-1</text>
+<rect x="270" y="150" width="210" height="220" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="270" y="150" width="210" height="4" rx="2" fill="#c084fc"/>
+<text x="286" y="180" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Agent endpoint</text>
+<text x="286" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">Private AI Services</text>
+<text x="286" y="224" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">PAIS gateway, one URL</text>
+<text x="286" y="244" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">and one token</text>
+<text x="286" y="264" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="286" y="284" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">/v1/agents/&lt;id&gt;/</text>
+<text x="286" y="304" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">chat/completions</text>
+<text x="286" y="324" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="286" y="344" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">OpenAI format</text>
+<rect x="520" y="150" width="240" height="220" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="520" y="150" width="240" height="4" rx="2" fill="#c084fc"/>
+<text x="536" y="180" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Agent runtime</text>
+<text x="536" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">vSphere Pod</text>
+<text x="536" y="224" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Agent Builder</text>
+<text x="536" y="244" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="536" y="264" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">agent = model</text>
+<text x="536" y="284" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">+ instructions</text>
+<text x="536" y="304" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">+ approved tools</text>
+<text x="536" y="324" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="536" y="344" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">runs the loop 1, 2, 3</text>
+<line x1="234" y1="260" x2="264" y2="260" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="484" y1="260" x2="514" y2="260" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="900" y="120" width="260" height="170" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="900" y="120" width="260" height="4" rx="2" fill="#4ade80"/>
+<text x="916" y="150" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Model endpoint</text>
+<text x="916" y="170" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#4ade80" text-anchor="start">PAIS cluster</text>
+<text x="916" y="194" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Qwen3 4B, llama.cpp</text>
+<text x="916" y="214" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">4 GB vGPU slice of the RTX A5000</text>
+<text x="916" y="234" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="916" y="254" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">1  picks the tool</text>
+<text x="916" y="274" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">3  writes the answer</text>
+<rect x="900" y="320" width="260" height="170" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="900" y="320" width="260" height="4" rx="2" fill="#f59e0b"/>
+<text x="916" y="350" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">MCP server lab-test</text>
+<text x="916" y="370" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="start">vSphere Pod</text>
+<text x="916" y="394" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Streamable HTTP, token header</text>
+<text x="916" y="414" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">four tools, each approved once</text>
+<text x="916" y="434" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="916" y="454" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">2  runs lab_hosts and</text>
+<text x="916" y="474" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">   returns the result</text>
+<line x1="764" y1="190" x2="894" y2="190" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="764" y1="250" x2="894" y2="250" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<line x1="764" y1="345" x2="894" y2="345" stroke="#8a94a3" stroke-width="1.6" marker-end="url(#a)"/>
+<circle cx="829" cy="190" r="12" fill="#0b0f14" stroke="#4ade80" stroke-width="1.6"/>
+<text x="829" y="195" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#4ade80" text-anchor="middle">1</text>
+<circle cx="829" cy="250" r="12" fill="#0b0f14" stroke="#4ade80" stroke-width="1.6"/>
+<text x="829" y="255" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#4ade80" text-anchor="middle">3</text>
+<circle cx="829" cy="345" r="12" fill="#0b0f14" stroke="#f59e0b" stroke-width="1.6"/>
+<text x="829" y="350" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#f59e0b" text-anchor="middle">2</text>
+<text x="829" y="222" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#8a94a3" text-anchor="middle">about 0.6 s each</text>
+<text x="829" y="375" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#8a94a3" text-anchor="middle">31 to 88 ms</text>
+<rect x="270" y="420" width="210" height="150" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="270" y="420" width="210" height="4" rx="2" fill="#38bdf8"/>
+<text x="286" y="450" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">PostgreSQL</text>
+<text x="286" y="470" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">vSphere Pod in the lab</text>
+<text x="286" y="494" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">with the pgvector extension</text>
+<text x="286" y="514" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="286" y="534" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">needed for agents, MCP</text>
+<text x="286" y="554" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">and knowledge bases</text>
+<rect x="520" y="420" width="240" height="150" rx="12" fill="#161d29" stroke="#283241"/>
+<rect x="520" y="420" width="240" height="4" rx="2" fill="#38bdf8"/>
+<text x="536" y="450" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Tracing collector</text>
+<text x="536" y="470" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">vSphere Pod in the lab</text>
+<text x="536" y="494" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">Arize Phoenix, OpenTelemetry</text>
+<text x="536" y="514" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start"></text>
+<text x="536" y="534" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">every model call and tool call</text>
+<text x="536" y="554" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">with duration and tokens</text>
+<line x1="640" y1="374" x2="640" y2="414" stroke="#8a94a3" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#a)"/>
+<path d="M560 374 V396 H375 V414" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#a)"/>
+<rect x="40" y="610" width="1120" height="92" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="60" y="642" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#f4f6f8" text-anchor="start">Measured over 30 questions with /no_think as the first line of the instructions:</text>
+<text x="60" y="666" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">30 of 30 answers correct, median 1.4 s per question, 896 tokens in and 91 tokens out per question.</text>
+<text x="60" y="688" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5d6774" text-anchor="start">A tool question is two model calls and one tool call. A question without a tool is one model call.</text>
+</svg>

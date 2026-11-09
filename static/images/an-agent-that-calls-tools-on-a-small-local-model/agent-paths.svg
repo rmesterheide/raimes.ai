@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<rect width="1600" height="1050" fill="#0b0f14"/>
+<text x="40" y="50" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#f4f6f8" text-anchor="start">Glass-box demo: who talks to whom</text>
+<text x="40" y="78" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#8a94a3" text-anchor="start">From the browser through the UI server on the Mac mini to the Private AI Services 3.0 agent, and from the agent to the model endpoint, the knowledge base and the MCP servers. Numbers mark the paths, explained below.</text>
+<rect x="310" y="120" width="310" height="725" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
+<text x="328" y="146" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#38bdf8" text-anchor="start">MAC MINI (control desk)</text>
+<rect x="660" y="120" width="650" height="725" rx="16" fill="#0f141c" stroke="#1b2330" stroke-width="1"/>
+<text x="678" y="146" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#c084fc" text-anchor="start">PRIVATE AI SERVICES 3.0 · vSphere Supervisor sv01, namespace pais</text>
+<rect x="40" y="185" width="240" height="165" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="40" y="185" width="240" height="4" rx="2" fill="#34d399"/>
+<text x="54" y="213" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Browser</text>
+<text x="54" y="235" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">MacBook Chrome or the beamer</text>
+<text x="54" y="254" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">chat left, trace right</text>
+<text x="54" y="273" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">DE / EN, agent switcher</text>
+<text x="54" y="300" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">no token, no lab address</text>
+<text x="54" y="319" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">in the browser</text>
+<rect x="40" y="600" width="240" height="150" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="40" y="600" width="240" height="4" rx="2" fill="#38bdf8"/>
+<text x="54" y="628" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">vCenter vc01</text>
+<text x="54" y="650" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">vc01.vcf.internal</text>
+<text x="54" y="669" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">own service account</text>
+<text x="54" y="688" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">role ReadOnly</text>
+<text x="54" y="707" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">read calls only (pyVmomi)</text>
+<rect x="330" y="185" width="270" height="190" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="330" y="185" width="270" height="4" rx="2" fill="#38bdf8"/>
+<text x="344" y="213" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Agent UI server (glass box)</text>
+<text x="344" y="235" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">Python standard library, port 8790</text>
+<text x="344" y="254" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">http://macmini01.local:8790/</text>
+<text x="344" y="273" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">PAIS token stays on the Mini</text>
+<text x="344" y="292" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">POST /api/chat  -&gt; agent, stream</text>
+<text x="344" y="311" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">GET  /api/trace -&gt; Phoenix</text>
+<text x="344" y="330" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">LaunchAgent de.raimes.agent-ui</text>
+<rect x="330" y="600" width="270" height="215" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="330" y="600" width="270" height="4" rx="2" fill="#38bdf8"/>
+<text x="344" y="628" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">MCP server vcenter-readonly</text>
+<text x="344" y="650" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">VMware-Monitor 2.5.0, community, MIT</text>
+<text x="344" y="669" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">https://macmini01.local:8443/mcp</text>
+<text x="344" y="688" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">Streamable HTTP, bearer token</text>
+<text x="344" y="707" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">certificate from a trusted lab CA</text>
+<text x="344" y="726" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">33 read tools approved,</text>
+<text x="344" y="745" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">11 of them in the agent</text>
+<text x="344" y="764" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">LaunchAgent</text>
+<text x="344" y="783" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">de.raimes.vmware-monitor-mcp</text>
+<rect x="680" y="185" width="250" height="640" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="680" y="185" width="250" height="4" rx="2" fill="#c084fc"/>
+<text x="694" y="213" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Agent Builder runtime</text>
+<text x="694" y="235" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">agent endpoint:</text>
+<text x="694" y="254" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">.../openai/v1/agents/&lt;id&gt;/</text>
+<text x="694" y="273" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">chat/completions, SSE</text>
+<text x="694" y="300" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">agent = model + instructions</text>
+<text x="694" y="319" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">+ tool links</text>
+<text x="694" y="338" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">every tool approved once</text>
+<text x="694" y="365" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">loop per question:</text>
+<text x="694" y="384" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">1 model picks a tool</text>
+<text x="694" y="403" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">2 runtime calls it</text>
+<text x="694" y="422" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">3 model writes the answer</text>
+<text x="694" y="449" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">agents in the demo:</text>
+<text x="694" y="468" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">lab-assistent (Qwen3 8B)</text>
+<text x="694" y="487" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">lab-assistent-claude</text>
+<text x="694" y="506" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">vcenter-assistent-8b</text>
+<text x="694" y="525" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">vcenter-assistent-4090-30b</text>
+<rect x="970" y="185" width="320" height="150" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="970" y="185" width="320" height="4" rx="2" fill="#c084fc"/>
+<text x="984" y="213" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Model endpoints · Inference Gateway</text>
+<text x="984" y="235" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">one URL, one token: pais.vcf.internal</text>
+<text x="984" y="254" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">chat-8c-1  Qwen3 8B     A5000 vGPU slice</text>
+<text x="984" y="273" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">bge-m3     embeddings   A5000 vGPU slice</text>
+<text x="984" y="292" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">route claude-sonnet-5-5     -&gt; Anthropic</text>
+<text x="984" y="311" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">route ollama-4090-qwen3-30b -&gt; RTX 4090</text>
+<circle cx="978" cy="250" r="3" fill="#38bdf8"/>
+<circle cx="978" cy="269" r="3" fill="#38bdf8"/>
+<circle cx="978" cy="288" r="3" fill="#6fa8dc"/>
+<circle cx="978" cy="307" r="3" fill="#38bdf8"/>
+<rect x="970" y="355" width="320" height="170" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="970" y="355" width="320" height="4" rx="2" fill="#c084fc"/>
+<text x="984" y="383" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Knowledge base lab-handbook</text>
+<text x="984" y="405" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">70 handbook pages, 512-token chunks</text>
+<text x="984" y="424" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">bge-m3 index in pgvector</text>
+<text x="984" y="443" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">PostgreSQL as a vSphere Pod</text>
+<text x="984" y="462" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">search tool in the agent: top 3 chunks</text>
+<text x="984" y="481" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">with page and score</text>
+<text x="984" y="500" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">question embedded on bge-m3 (above)</text>
+<rect x="970" y="545" width="320" height="130" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="970" y="545" width="320" height="4" rx="2" fill="#c084fc"/>
+<text x="984" y="573" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">MCP server lab-test</text>
+<text x="984" y="595" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">vSphere Pod, http://&lt;address&gt;/mcp</text>
+<text x="984" y="614" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">Streamable HTTP, bearer token</text>
+<text x="984" y="633" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">add · lab_time · lab_hosts · pais_models</text>
+<text x="984" y="652" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">pais_models reads /models on the gateway</text>
+<rect x="970" y="695" width="320" height="130" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="970" y="695" width="320" height="4" rx="2" fill="#c084fc"/>
+<text x="984" y="723" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Arize Phoenix (LLM tracing)</text>
+<text x="984" y="745" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">vSphere Pod, project pais-lab</text>
+<text x="984" y="764" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">spans: model calls, tool calls, retrievals,</text>
+<text x="984" y="783" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">duration and tokens in / out</text>
+<text x="984" y="802" font-family="Menlo, Consolas, monospace" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">GraphQL, read by the UI server (8)</text>
+<rect x="1335" y="185" width="225" height="95" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="1335" y="185" width="225" height="4" rx="2" fill="#6fa8dc"/>
+<text x="1349" y="213" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Anthropic API (cloud)</text>
+<text x="1349" y="235" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">Claude Sonnet 5.5</text>
+<text x="1349" y="254" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">prompt and tool results</text>
+<text x="1349" y="273" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">leave the lab</text>
+<rect x="1335" y="300" width="225" height="110" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="1335" y="300" width="225" height="4" rx="2" fill="#38bdf8"/>
+<text x="1349" y="328" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#f4f6f8" text-anchor="start">RTX 4090 workstation</text>
+<text x="1349" y="350" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">Ollama, Qwen3 30B-A3B</text>
+<text x="1349" y="369" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">second machine in the lab</text>
+<text x="1349" y="388" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">card must be free</text>
+<text x="1349" y="407" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#8a94a3" text-anchor="start">(Whisper and TTS stopped)</text>
+<polyline points="289.0,265.0 321.0,265.0" fill="none" stroke="#34d399" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="330,265 320.0,270.0 320.0,260.0" fill="#34d399"/>
+<polygon points="280,265 290.0,260.0 290.0,270.0" fill="#34d399"/>
+<circle cx="305.0" cy="247" r="11" fill="#34d399"/>
+<text x="305.0" y="251.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">1</text>
+<polyline points="609.0,235.0 671.0,235.0" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="680,235 670.0,240.0 670.0,230.0" fill="#c084fc"/>
+<polygon points="600,235 610.0,230.0 610.0,240.0" fill="#c084fc"/>
+<circle cx="640.0" cy="217" r="11" fill="#c084fc"/>
+<text x="640.0" y="221.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">2</text>
+<polyline points="939.0,245.0 961.0,245.0" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="970,245 960.0,250.0 960.0,240.0" fill="#c084fc"/>
+<polygon points="930,245 940.0,240.0 940.0,250.0" fill="#c084fc"/>
+<circle cx="950.0" cy="227" r="11" fill="#c084fc"/>
+<text x="950.0" y="231.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">3</text>
+<polyline points="1295.668217625791,281.0091982615245 1329.331782374209,239.49080173847554" fill="none" stroke="#6fa8dc" stroke-width="1.4" stroke-linejoin="round"/>
+<polygon points="1335,232.5 1332.5857591593854,243.41656727930112 1324.8182016721903,237.11854769508895" fill="#6fa8dc"/>
+<polygon points="1290,288 1292.4142408406146,277.08343272069885 1300.1817983278097,283.381452304911" fill="#6fa8dc"/>
+<polyline points="1296.155470159932,313.56583483726075 1328.844529840068,348.43416516273925" fill="none" stroke="#38bdf8" stroke-width="1.4" stroke-linejoin="round"/>
+<polygon points="1335,355.0 1324.5129026904863,351.12433360300577 1331.808274731887,344.2849223141925" fill="#38bdf8"/>
+<polygon points="1290,307 1300.4870973095137,310.87566639699423 1293.191725268113,317.7150776858075" fill="#38bdf8"/>
+<polyline points="939.0,415.0 961.0,415.0" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="970,415 960.0,420.0 960.0,410.0" fill="#c084fc"/>
+<polygon points="930,415 940.0,410.0 940.0,420.0" fill="#c084fc"/>
+<circle cx="950.0" cy="397" r="11" fill="#c084fc"/>
+<text x="950.0" y="401.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">4</text>
+<polyline points="939.0,600.0 961.0,600.0" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="970,600 960.0,605.0 960.0,595.0" fill="#f59e0b"/>
+<polygon points="930,600 940.0,595.0 940.0,605.0" fill="#f59e0b"/>
+<circle cx="950.0" cy="582" r="11" fill="#f59e0b"/>
+<text x="950.0" y="586.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">5</text>
+<polyline points="671.0,670.0 609.0,670.0" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="600,670 610.0,665.0 610.0,675.0" fill="#f59e0b"/>
+<polygon points="680,670 670.0,675.0 670.0,665.0" fill="#f59e0b"/>
+<circle cx="640.0" cy="652" r="11" fill="#f59e0b"/>
+<text x="640.0" y="656.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">6</text>
+<polyline points="321.0,710.0 289.0,710.0" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="280,710 290.0,705.0 290.0,715.0" fill="#f59e0b"/>
+<polygon points="330,710 320.0,715.0 320.0,705.0" fill="#f59e0b"/>
+<polyline points="930,750 961.0,750.0" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linejoin="round"/>
+<polygon points="970,750 960.0,755.0 960.0,745.0" fill="#c084fc"/>
+<circle cx="950.0" cy="732" r="11" fill="#c084fc"/>
+<text x="950.0" y="736.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">7</text>
+<polyline points="1130.0,825 1130.0,867 295,867 295,345 321.0,345.0" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<polygon points="330,345 320.0,350.0 320.0,340.0" fill="#c084fc"/>
+<circle cx="1106.0" cy="867" r="11" fill="#c084fc"/>
+<text x="1106.0" y="871.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">8</text>
+<circle cx="295" cy="595.0" r="11" fill="#c084fc"/>
+<text x="295" y="599.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">8</text>
+<circle cx="51.0" cy="903" r="11" fill="#34d399"/>
+<text x="51.0" y="907.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">1</text>
+<text x="70.0" y="907" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Browser -&gt; UI server: question over HTTP, answer streamed back (SSE). The browser never holds the token.</text>
+<circle cx="51.0" cy="929" r="11" fill="#c084fc"/>
+<text x="51.0" y="933.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">2</text>
+<text x="70.0" y="933" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">UI server -&gt; agent endpoint: HTTPS with the bearer token from the Mini, answer streamed back the same way.</text>
+<circle cx="51.0" cy="955" r="11" fill="#c084fc"/>
+<text x="51.0" y="959.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">3</text>
+<text x="70.0" y="959" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Runtime &lt;-&gt; model endpoint: chat completion plus tool definitions over the gateway route (A5000, Claude or RTX 4090).</text>
+<circle cx="51.0" cy="981" r="11" fill="#c084fc"/>
+<text x="51.0" y="985.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">4</text>
+<text x="70.0" y="985" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Runtime -&gt; knowledge base: question embedded with bge-m3, pgvector search, top 3 chunks go back into the prompt.</text>
+<circle cx="811.0" cy="903" r="11" fill="#f59e0b"/>
+<text x="811.0" y="907.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">5</text>
+<text x="830.0" y="907" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Runtime -&gt; MCP server lab-test: tool call over Streamable HTTP with that server&#x27;s token, result back to the model.</text>
+<circle cx="811.0" cy="929" r="11" fill="#f59e0b"/>
+<text x="811.0" y="933.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">6</text>
+<text x="830.0" y="933" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Runtime -&gt; MCP server on the Mini -&gt; vCenter: read tools only, ReadOnly account; nothing writes into the lab.</text>
+<circle cx="811.0" cy="955" r="11" fill="#c084fc"/>
+<text x="811.0" y="959.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">7</text>
+<text x="830.0" y="959" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">Runtime -&gt; Phoenix: every model call, tool call and retrieval becomes a span with duration and tokens in / out.</text>
+<circle cx="811.0" cy="981" r="11" fill="#c084fc"/>
+<text x="811.0" y="985.5" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0b0f14" text-anchor="middle">8</text>
+<text x="830.0" y="985" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#f4f6f8" text-anchor="start">UI server -&gt; Phoenix GraphQL: polls the trace after the answer and fills the right panel of the page.</text>
+<text x="40" y="1021" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5d6774" text-anchor="start">PAIS = Private AI Services · MCP = Model Context Protocol · SSE = server-sent events · vGPU = virtual GPU · VCF = VMware Cloud Foundation · bearer token = one secret per server, stored on the Mini only</text>
+<text x="1560" y="1021" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5d6774" text-anchor="end">raimes.ai, Route to Private AI Services 3.0, part 5 · lab state of 2026-11-08</text>
+</svg>

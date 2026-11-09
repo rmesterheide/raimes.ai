@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 364" width="980" height="364" font-family="Inter, -apple-system, Helvetica, Arial, sans-serif" font-size="13" role="img" aria-label="One agent with four tools, 30 questions: time and tokens per question">
+<rect width="980" height="364" fill="#ffffff"/>
+<text x="20" y="24" font-size="15" font-weight="500" fill="#2c2c2a">One agent with four tools, 30 questions: time and tokens per question</text>
+<text x="300" y="56" fill="#2c2c2a" font-weight="500">Median time per question</text>
+<text x="590" y="56" fill="#2c2c2a" font-weight="500">Tokens per question</text>
+<rect x="740" y="46" width="10" height="10" rx="2" fill="#b4b2a9"/><text x="756" y="56" fill="#6b6a66">in</text>
+<rect x="780" y="46" width="10" height="10" rx="2" fill="#76557e"/><text x="796" y="56" fill="#6b6a66">out</text>
+<line x1="300" y1="72" x2="300" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="300" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">0 s</text>
+<line x1="590" y1="72" x2="590" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="590" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">0</text>
+<line x1="340" y1="72" x2="340" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="340" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">2 s</text>
+<line x1="638" y1="72" x2="638" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="638" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">500</text>
+<line x1="380" y1="72" x2="380" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="380" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">4 s</text>
+<line x1="686" y1="72" x2="686" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="686" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">1,000</text>
+<line x1="420" y1="72" x2="420" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="420" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">6 s</text>
+<line x1="734" y1="72" x2="734" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="734" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">1,500</text>
+<line x1="460" y1="72" x2="460" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="460" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">8 s</text>
+<line x1="782" y1="72" x2="782" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="782" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">2,000</text>
+<line x1="500" y1="72" x2="500" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="500" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">10 s</text>
+<line x1="830" y1="72" x2="830" y2="278" stroke="#e1e0d9" stroke-width="1"/>
+<text x="830" y="294" text-anchor="middle" fill="#6b6a66" font-size="12">2,500</text>
+<text x="286" y="90" text-anchor="end" fill="#2c2c2a">Qwen3 4B on a 4 GB slice</text>
+<text x="286" y="107" text-anchor="end" fill="#6b6a66" font-size="12">first instructions · 24 of 30 good</text>
+<rect x="300" y="84" width="62.0" height="14" fill="#76557e"/>
+<text x="368.0" y="96" fill="#6b6a66" font-size="12">3.1 s</text>
+<rect x="590" y="84" width="191.1" height="14" fill="#b4b2a9"/>
+<rect x="783.1" y="84" width="24.2" height="14" fill="#76557e"/>
+<text x="813.3" y="96" fill="#6b6a66" font-size="12">1,991 in · 252 out</text>
+<text x="286" y="142" text-anchor="end" fill="#2c2c2a">Qwen3 4B on a 4 GB slice</text>
+<text x="286" y="159" text-anchor="end" fill="#6b6a66" font-size="12">/no_think as first line · 30 of 30 good</text>
+<rect x="300" y="136" width="28.0" height="14" fill="#76557e"/>
+<text x="334.0" y="148" fill="#6b6a66" font-size="12">1.4 s</text>
+<rect x="590" y="136" width="86.0" height="14" fill="#b4b2a9"/>
+<rect x="678.0" y="136" width="8.7" height="14" fill="#76557e"/>
+<text x="692.8" y="148" fill="#6b6a66" font-size="12">896 in · 91 out</text>
+<text x="286" y="194" text-anchor="end" fill="#2c2c2a">Qwen3 14B on the RTX 4090 route</text>
+<text x="286" y="211" text-anchor="end" fill="#6b6a66" font-size="12">thinking stays on · 22 of 30 good</text>
+<rect x="300" y="188" width="198.0" height="14" fill="#76557e"/>
+<text x="504.0" y="200" fill="#6b6a66" font-size="12">9.9 s</text>
+<rect x="590" y="188" width="73.5" height="14" fill="#b4b2a9"/>
+<rect x="665.5" y="188" width="33.2" height="14" fill="#76557e"/>
+<text x="704.8" y="200" fill="#6b6a66" font-size="12">766 in · 346 out</text>
+<text x="286" y="246" text-anchor="end" fill="#2c2c2a">Qwen3 8B on an 8 GB slice</text>
+<text x="286" y="263" text-anchor="end" fill="#6b6a66" font-size="12">first instructions · 30 of 30 good</text>
+<rect x="300" y="240" width="32.0" height="14" fill="#76557e"/>
+<text x="338.0" y="252" fill="#6b6a66" font-size="12">1.6 s</text>
+<rect x="590" y="240" width="84.9" height="14" fill="#b4b2a9"/>
+<rect x="676.9" y="240" width="8.4" height="14" fill="#76557e"/>
+<text x="691.2" y="252" fill="#6b6a66" font-size="12">884 in · 87 out</text>
+<text x="20" y="338" fill="#6b6a66" font-size="11">Private AI Services 3.0 agent endpoint, 30 questions from a list of 12 (8 need a tool), 3 in parallel, max_tokens 400, temperature 0. Tokens from the usage block of each answer.</text>
+<text x="20" y="352" fill="#6b6a66" font-size="11">Local endpoints: llama.cpp, Q4_K_M files, reasoning budget 0, vGPU slices of one RTX A5000. External route: Ollama on an RTX 4090. Lab numbers from one evening, 7 November 2026.</text>
+</svg>
