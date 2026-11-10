@@ -14,9 +14,9 @@ linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7520939694763872
 
 [Part 2](/posts/private-ai-services-without-a-gpu/) ended with a promise: the RTX 3090 moves from the Ubuntu GPU instance into the ESX server. It did not. The 3090 found a new home, and I bought a refurbished RTX A5000 for the lab instead: 24 GB, 230 W, one power connector, on the vSphere compatibility list for both passthrough and vGPU. The last point is the reason. The 3090 could only ever do passthrough; this card can do both, which is what parts 4 and later need. And since the A5000 has an NVLink connector, a second card may follow one day.
 
-So this part is the one with a GPU inside the platform. The setting is unchanged from parts 1 and 2: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and Private AI Services (PAIS) 3.0 activated from vCenter. PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what the lab rebuilds. I would like to use the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) features of VMware Cloud Foundation (VCF) as well, but this is a small lab; part 2 has the list of what the full VCF stack adds.
+So this part is the one with a GPU inside the platform. The setting is unchanged from parts 1 and 2: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and Private AI Services (PAIS) 3.0 activated from vCenter.
 
-A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. The Anthropic numbers below come through Anthropic's OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
+The Anthropic numbers below come through Anthropic's OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
 
 {{< rebuild repo="rmesterheide/pais-route" >}}the passthrough switch on the host, the GPU patch, the model push to a registry, the endpoint manifests, the route swap, the verification and benchmark scripts and the raw numbers of this post, in the folder `part3-gpu`.{{< /rebuild >}}
 

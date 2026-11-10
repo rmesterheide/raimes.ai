@@ -19,7 +19,7 @@ The setting is simple. A platform engineering team runs vSphere or VMware Cloud 
 
 So this post leaves out everything else PAIS can do. No Agent Builder, no knowledge bases, no data indexing, no Model Context Protocol (MCP) servers, no PostgreSQL. Only the model runtime and its gateway, and the question every developer asks first: why not just `pip install` the provider's SDK?
 
-A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. And as in part 2, the Anthropic endpoint behind my routes is their OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
+As in part 2, the Anthropic endpoint behind my routes is their OpenAI compatibility layer, which Anthropic describes as meant for testing and comparing models.
 
 {{< tldr >}}
 - The bare minimum is **"Model Runtime only"**: three small vSphere Pods, no database. App teams get a base URL, a token and a service name.

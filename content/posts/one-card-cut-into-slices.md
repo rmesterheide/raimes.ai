@@ -14,9 +14,8 @@ linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7523287868069298
 
 This is the second of three pieces of part 4, published together. [Part 4a](/posts/from-passthrough-to-vgpu-slices-in-one-evening/) is the route from passthrough to NVIDIA vGPU slices on one host and the three checks to do first. This piece has the numbers for one to three endpoints, first from `nvidia-smi` on the host, then as curves from VCF Operations. [Part 4c](/posts/six-endpoints-on-one-card/) goes on to six.
 
-The setting in one sentence: one EPYC host with ESX 9.1.1, a vSphere Supervisor, Private AI Services (PAIS) 3.0, and a refurbished RTX A5000 with 24 GB, now in vGPU mode with the host scheduler on its default, best effort. PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what I rebuild here. I would like to use the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) features of VMware Cloud Foundation (VCF) as well, but this is a small lab.
+The setting in one sentence: one EPYC host with ESX 9.1.1, a vSphere Supervisor, Private AI Services (PAIS) 3.0, and a refurbished RTX A5000 with 24 GB, now in vGPU mode with the host scheduler on its default, best effort.
 
-A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement.
 
 {{< rebuild repo="rmesterheide/pais-vgpu" >}}the benchmark tools (chat load, embedding load, the mixed run with host watch), the endpoint manifests for the three slices, and the raw result tables of this post.{{< /rebuild >}}
 

@@ -20,9 +20,9 @@ linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7523287868069298
 
 NVIDIA vGPU splits the card into slices, each slice goes into its own VKS worker, and Private AI Services (PAIS) 3.0 runs a model endpoint per slice. In the vSphere community this is seen as the Königsdisziplin, the supreme discipline: NVIDIA, Broadcom, Kubernetes and the model engine all have to fit together before the first slice works. In my lab that took one evening on one host. This piece describes the route and names three things I would check before starting, because they would have saved me two hours.
 
-The setting is the same as in parts 1 to 3: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and PAIS 3.0 activated from vCenter. PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what I rebuild here. I would like to use the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) features of VMware Cloud Foundation (VCF) as well, but this is a small lab. The card is a refurbished RTX A5000 with 24 GB, which NVIDIA's support matrix lists for vGPU on VCF 9.1.
+The setting is the same as in parts 1 to 3: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and PAIS 3.0 activated from vCenter. The card is a refurbished RTX A5000 with 24 GB, which NVIDIA's support matrix lists for vGPU on VMware Cloud Foundation (VCF) 9.1.
 
-A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. The NVIDIA software runs on a 90-day NVIDIA AI Enterprise evaluation that I requested as a private person for this lab.
+The NVIDIA software runs on a 90-day NVIDIA AI Enterprise evaluation that I requested as a private person for this lab.
 
 {{< rebuild repo="rmesterheide/pais-vgpu" >}}the host scripts (install, Shared Direct, scheduler, watch), the licence and endpoint manifests, the settings of the Display Mode Selector VM, and the benchmark tools and raw results of parts 4b and 4c.{{< /rebuild >}}
 

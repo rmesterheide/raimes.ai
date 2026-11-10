@@ -26,7 +26,7 @@ That is not a workaround, it is the point I made on stage at VMware Explore on T
 
 I would like to have the multi-tenancy and the NSX-based virtual private clouds as well, but the lab is small: one server, one user. For that, vCenter, a distributed switch and the built-in load balancer are enough, and they are the quickest way to see how the pieces fit.
 
-A disclosure: I work at Broadcom. This is my homelab and my own reading of public documentation, not an official statement. The Anthropic endpoint I use here is their OpenAI compatibility layer, which Anthropic itself describes as intended for testing and comparing models, not as a long-term production path.
+The Anthropic endpoint I use here is their OpenAI compatibility layer, which Anthropic itself describes as intended for testing and comparing models, not as a long-term production path.
 
 {{< rebuild repo="rmesterheide/pais-route" >}}the registry token test, the API token patch, the route and secret for a public model, the service-name catalogue and the concierge, in the folder `part2-gateway`.{{< /rebuild >}}
 

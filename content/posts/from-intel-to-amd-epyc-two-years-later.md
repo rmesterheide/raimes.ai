@@ -15,7 +15,6 @@ linkedin: ""
 
 In September 2024 I published a post on Medium about my move from Intel consumer CPUs to one AMD EPYC server. I no longer write on Medium, so the post moves here. The original is still there: [Why I Switched from Intel to AMD EPYC for My Homelab](https://medium.com/@rmesterheide/why-i-switched-from-intel-to-amd-epyc-for-my-homelab-9cc182dfe230). This version keeps the reasons from 2024 and adds what happened since: the host ran every VCF Holodeck release for two years, it is now a vSphere 9.1.1 lab with a GPU, and three new parts are waiting to be installed.
 
-A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement.
 
 {{< tldr >}}
 - The 2024 decision still holds: **one host with local NVMe** instead of two hosts on shared NFS.

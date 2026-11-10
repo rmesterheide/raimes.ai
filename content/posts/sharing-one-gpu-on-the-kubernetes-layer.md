@@ -16,9 +16,8 @@ linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7522055231984115
 
 So this is a detour, on purpose. It stays one layer up, in Kubernetes, and it uses what VKS ships today: Kubernetes 1.36 with Dynamic Resource Allocation (DRA), the NVIDIA GPU Operator in its new mode that brings the DRA driver along, and one RTX A5000 in passthrough. No licence server, no entitlement, nothing that waits in a queue. When vGPU arrives, it becomes the third row of the same table.
 
-The setting is the same single-host lab as in parts 1 to 3: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and Private AI Services (PAIS) 3.0 on a plain vSphere and vCenter basis, which is a fully supported setup. I would like to use the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) features of VMware Cloud Foundation (VCF) as well, but this is a small lab. The post keeps the story and the numbers; every manifest and script is in the [companion repository](https://github.com/rmesterheide/vks-gpu-sharing) so that you can rebuild it from zero.
+The setting is the same single-host lab as in parts 1 to 3: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and Private AI Services (PAIS) 3.0. The post keeps the story and the numbers; every manifest and script is in the [companion repository](https://github.com/rmesterheide/vks-gpu-sharing) so that you can rebuild it from zero.
 
-A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement.
 
 {{< rebuild repo="rmesterheide/vks-gpu-sharing" >}}the VKS cluster and GPU Operator setup, the DRA manifests for time-slicing and MPS, the benchmark script and the raw numbers of this post.{{< /rebuild >}}
 

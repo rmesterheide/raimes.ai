@@ -14,9 +14,9 @@ linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7523287868069298
 
 [Part 4a](/posts/from-passthrough-to-vgpu-slices-in-one-evening/) was the route to NVIDIA vGPU on one host and the three checks I would do first. [Part 4b](/posts/one-card-cut-into-slices/) ran one, two and three endpoints on the card and measured them. This piece puts six endpoints on the same card: six slices of 4 GB, six Private AI Services (PAIS) model endpoints, all busy at the same time. NVIDIA's table says the RTX A5000 takes six of the 4C profile. Getting there took one host reboot and one visit to the licensing portal.
 
-The setting is the same as in parts 1 to 4b: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and PAIS 3.0 activated from vCenter. PAIS 3.0 is fully supported on a plain vSphere and vCenter basis, and that is what I rebuild here. I would like to use the multi-tenancy and the NSX-based Virtual Private Cloud (VPC) features of VMware Cloud Foundation (VCF) as well, but this is a small lab. The card is a refurbished RTX A5000 with 24 GB.
+The setting is the same as in parts 1 to 4b: one EPYC host with ESX 9.1.1, a vSphere Supervisor, and PAIS 3.0 activated from vCenter. The card is a refurbished RTX A5000 with 24 GB.
 
-A disclosure, as always: I work at Broadcom as a solutions architect for infrastructure. This is my lab and my own reading of public documentation, not an official statement. The NVIDIA software runs on a 90-day NVIDIA AI Enterprise evaluation that I requested as a private person for this lab.
+The NVIDIA software runs on a 90-day NVIDIA AI Enterprise evaluation that I requested as a private person for this lab.
 
 {{< rebuild repo="rmesterheide/pais-vgpu" >}}the host scripts (install, vGPU mode, scheduler, watch, housekeeping), the endpoint manifests and the runbook that creates the six endpoints one after the other, the load tool for N endpoints, and the raw results of this evening.{{< /rebuild >}}
 
@@ -37,7 +37,7 @@ The evening of part 4b ended with a 12 GB chat slice and a 4 GB embedding slice 
 
 Both models went into the lab's Harbor registry from the 4090 workstation in the afternoon.
 
-One word on what the six are. All six endpoints run in the one PAIS namespace of this lab, so in VCF terms they are one tenant with six workloads. Real tenants would be separate Supervisor namespaces, or VPCs on VCF, each with its own quota and its own gateway. This piece is about sharing one card between six workloads, not about isolation between tenants. The VM class `a5000-vgpu-4c` has 4 vCPUs and 16 GB fully reserved, so six workers take 24 vCPUs and 96 GB of the host. A small runbook creates the six endpoints one after the other and waits for each node to join before it applies the next one. That is Check 3 of part 4a applied: a node that boots more than 15 minutes after its Machine was created never joins.
+One word on what the six are. All six endpoints run in the one PAIS namespace of this lab, so in VMware Cloud Foundation (VCF) terms they are one tenant with six workloads. Real tenants would be separate Supervisor namespaces, or Virtual Private Clouds (VPCs) on VCF, each with its own quota and its own gateway. This piece is about sharing one card between six workloads, not about isolation between tenants. The VM class `a5000-vgpu-4c` has 4 vCPUs and 16 GB fully reserved, so six workers take 24 vCPUs and 96 GB of the host. A small runbook creates the six endpoints one after the other and waits for each node to join before it applies the next one. That is Check 3 of part 4a applied: a node that boots more than 15 minutes after its Machine was created never joins.
 
 ## The fifth slice never came
 
