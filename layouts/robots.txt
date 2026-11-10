@@ -2,6 +2,7 @@
 User-agent: *
 {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
 Disallow: /stats/
+Disallow: /review/
 {{- else }}
 Disallow: /
 {{- end }}

@@ -81,3 +81,9 @@
   .post-content .about-photo, .about-photo { float: right; width: 128px; height: 128px; border-radius: 50%; margin: 0 0 12px 24px; object-fit: cover; }
   @media (max-width: 520px) { .post-content .about-photo, .about-photo { float: none; display: block; margin: 0 0 16px; width: 112px; height: 112px; } }
 </style>
+
+{{- /* Review drafts (2026-11-10): hidden URL under /review/, no index, banner on top. */ -}}
+{{- if .Params.review_draft }}
+<meta name="robots" content="noindex, nofollow, noarchive">
+<style>.review-draft{border:2px solid #c9922a;background:rgba(201,146,42,.12);padding:.8rem 1rem;border-radius:8px;margin:0 0 1.5rem}</style>
+{{- end }}
