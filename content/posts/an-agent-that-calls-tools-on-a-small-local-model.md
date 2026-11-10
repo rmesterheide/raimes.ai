@@ -9,7 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "agents", "mcp", "vgpu", "benchmark"]
 summary: "Part 5 turns on the full set of Private AI Services 3.0 capabilities, connects a tool server over the Model Context Protocol and builds the first agent. A Qwen3 4B model on a 4 GB virtual GPU slice answered 24 of 30 questions in a usable way. One line in the agent instructions made it 30 of 30, in less than half the time. Then the agent gets the lab documentation as a knowledge base and read access to vCenter, and a small page shows every step it takes."
-linkedin: ""
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7525814884509458432/"
 ---
 
 Parts 1 to 4 of this series built model endpoints: first with Claude behind the gateway, then with a local model on a GPU, then with six endpoints on one card. Since part 2 the Private AI Services (PAIS) UI has shown Data Indexing and Retrieval, Model Context Protocol (MCP) and Agent Builder as locked. This part unlocks them. It connects a small tool server over MCP, builds one agent and measures how well small local models call tools. In the last section the agent gets the lab documentation and read access to vCenter.
