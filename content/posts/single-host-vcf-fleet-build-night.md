@@ -53,10 +53,10 @@ The 2024 reasons for this board and CPU family are in the post [From Intel to AM
 | Time | Step |
 |---|---|
 | afternoon | old lab powered off, parts installed |
-| 17:58 | ESX 9.1.1 boots with 64 cores and 512 GB, after two hardware problems (next section) |
+| 18:00 | ESX 9.1.1 boots with 64 cores and 512 GB, after two hardware problems (next section) |
 | 18:35 to 18:45 | ESX reinstalled from a USB stick with a kickstart file |
-| 19:14 | VCF Installer appliance running on the host |
-| 19:33 | single-host flag and the vSAN ESA settings applied on the Installer |
+| 19:15 | VCF Installer appliance running on the host |
+| 19:30 | single-host flag and the vSAN ESA settings applied on the Installer |
 | 19:40 to 20:30 | validation, about 64 GB of binaries copied from the offline depot into the Installer, second validation |
 | 20:32 | fleet deployment started |
 | 01:45 | fleet deployment complete |
