@@ -9,7 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "vcf-automation", "vgpu", "model-as-a-service"]
 summary: "A question that comes up in almost every conversation about Private AI Services: how does a team get a model endpoint from a portal, without a ticket and without a pipeline? Part 6 answers it with a catalog item in VCF Automation. Four fields, one request, and seven minutes later a Gemma 4 model answers on a vGPU slice behind the gateway. With the template, the order step by step, five things that cost time, and what I want to build next."
-linkedin: ""
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7526911552378040320/"
 ---
 
 Parts 1 to 5 of this series ran on plain vSphere: one host, a Supervisor, Private AI Services (PAIS) activated from vCenter. For this part the lab is a different place. On the evening of 11 November it became a single-host VMware Cloud Foundation (VCF) 9.1.1 fleet, built along [William Lam's single-host guide](https://williamlam.com/2026/09/vcf-9-1-1-single-esx-host-for-vcf-fleet-vcf-workload-domain-or-vcf-cluster.html), with VCF Automation and a Supervisor on NSX Virtual Private Cloud (VPC) networking. One EPYC host now runs vCenter, NSX, VCF Operations, VCF Automation, the Supervisor and PAIS. A private cloud in a box. The [build night has its own post](/posts/single-host-vcf-fleet-build-night/).
