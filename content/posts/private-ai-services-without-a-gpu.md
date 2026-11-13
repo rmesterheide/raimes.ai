@@ -223,4 +223,4 @@ The cost side, because the gateway is the place where you see it: almost 100,000
 - **Start with a public model on purpose.** It proves the whole chain (DNS, load balancer, gateway, auth, token) before any GPU is in the box. In part 3 the only change for the client is the model name.
 - **Trim tool results before they reach the model.** The concierge already drops `managedFields`; it should also cut events and status down to what matters, because input tokens are billed.
 
-Part 3 brings the RTX 3090 into the server, a VM class with the GPU in passthrough, and a local model next to Claude behind the same gateway. Then the concierge asks the same question twice, once per model, and I compare answers, tokens and time.
+[Part 3](/posts/rtx-a5000-behind-the-same-service-name/) brings a refurbished RTX A5000 into the server, a VM class with the GPU in passthrough, and a local model next to Claude behind the same gateway. When I wrote this part, the plan was an RTX 3090; that card was sold before part 3.
