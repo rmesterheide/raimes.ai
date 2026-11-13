@@ -8,7 +8,7 @@ cover:
   alt: "Route to Private AI Services 3.0, part 6: providing model endpoints as a service with VCF Automation"
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "vcf-automation", "vgpu", "model-as-a-service"]
-summary: "A question that comes up in almost every conversation about Private AI Services: how does a team get a model endpoint from a portal, without a ticket and without a pipeline? Part 6 answers it with a catalog item in VCF Automation. Four fields, one request, and seven minutes later a Gemma 4 model answers on a vGPU slice behind the gateway. With the template, the order step by step, five things that cost time, and what is still missing for a real service."
+summary: "A question that comes up in almost every conversation about Private AI Services: how does a team get a model endpoint from a portal, without a ticket and without a pipeline? Part 6 answers it with a catalog item in VCF Automation. Four fields, one request, and seven minutes later a Gemma 4 model answers on a vGPU slice behind the gateway. With the template, the order step by step, five things that cost time, and what I want to build next."
 linkedin: ""
 ---
 
@@ -25,7 +25,7 @@ The NVIDIA software still runs on the 90-day NVIDIA AI Enterprise evaluation fro
 - **The template needs two resource types:** `CCI.Supervisor.Namespace` for the existing namespace and `CCI.Supervisor.Resource` with the `ModelEndpoint` manifest and a wait condition on `Ready`. A released version shows up in the catalog by itself, in an All Apps organization too.
 - **The lab example:** the order went in at 22:05 and the deployment was successful at 22:12. In between, PAIS created a worker VM with a 12 GB vGPU slice, built the driver, got a licence and pulled the model from Harbor. The first call returned 109 tokens in 1.7 seconds, 68 tokens per second.
 - **Five things that cost time:** `metadata.name`, quotes around colons, strings for `cliArgs`, unique routing names, and the CPU reservation of the namespace, which let only one 12 GB worker start.
-- **Still missing for a real service:** the consumer account, API tokens without a visit to the PAIS UI, quotas and rate limits per model.
+- **What I build next:** the consumer account for the demo from login to the first answer, and VCF Automation as the identity provider of PAIS, so the token comes from the same login.
 {{< /tldr >}}
 
 ## Two ways to the same object
@@ -123,13 +123,12 @@ The answer came back in 1.7 seconds, 28 tokens in, 109 tokens out, 68 tokens per
 
 One more problem came from the layer below. PAIS 3.0 picks the newest vSphere Kubernetes release for its cluster, which in my lab was v1.34.11 with a 7.0 kernel, and the bundled vGPU guest driver does not build on that kernel. I pinned the cluster to v1.34.9 in the `PAISConfiguration` at creation. The wizard has no field for it, and the version cannot be lowered later.
 
-## What is still missing
+## What I have not built yet
 
-The order works. A service needs more than an order, and the lab does not show these parts yet.
+The order works. Two parts of the consumer story are still on my list, and one note on where the pipeline fits.
 
-- **The consumer account.** The order above was placed by the organization administrator. A real consumer is an Organization User who is a member of the project, sees the catalog and the instances and nothing else, and has a local account in PAIS for the token. That is the next step, and I want to show it from login to the first answer.
-- **The token step.** VCF Automation can be the identity provider of PAIS, which would remove the visit to the PAIS UI. That needs an OAuth client in the organization, which I have not set up.
-- **Quotas and rate limits.** VCF Automation limits CPU, memory and VM classes per namespace. The gateway has no quota or rate limit per model and no access list per route. Who may call which model is a question the platform team has to answer somewhere else today.
+- **The consumer account.** The order above was placed by the organization administrator. The next demo uses an Organization User who is a member of the project, sees the catalog and the instances, and has a local account in PAIS for the token. I want to show that from login to the first answer.
+- **The token from the same login.** VCF Automation can be the identity provider of PAIS. Then the user signs in once and the token step moves out of the PAIS UI. That needs an OAuth client in the organization, which I have not set up yet.
 - **The pipeline path.** The same template YAML can live in Git, be released over the blueprint API and be ordered from the catalog API by a pipeline. The catalog does not replace continuous integration and delivery (CI/CD). It gives teams without a pipeline a way to order.
 
 ## Documentation
