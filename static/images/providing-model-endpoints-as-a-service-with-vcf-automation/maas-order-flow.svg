@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1040" viewBox="0 0 1200 1040">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#8a94a3" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="1040" fill="#0b0f14"/>
+<text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#f4f6f8" text-anchor="start">Model as a Service: what happens when a user orders a model endpoint</text>
+<text x="40" y="80" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8a94a3" text-anchor="start">My lab, November 2026: single-host VCF 9.1.1 with VCF Automation, a Supervisor on VPC networking and Private AI Services 3.0 on a vGPU slice. One box is one step.</text>
+<rect x="40" y="110" width="360" height="888" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="56" y="134" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#6fa8dc" text-anchor="start">CONSUMER: VCF Automation organization portal</text>
+<rect x="420" y="110" width="360" height="272" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="436" y="134" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#38bdf8" text-anchor="start">TEMPLATE AND SUPERVISOR NAMESPACE</text>
+<rect x="800" y="110" width="360" height="396" rx="14" fill="#0f141c" stroke="#1b2330"/>
+<text x="816" y="134" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#c084fc" text-anchor="start">PRIVATE AI SERVICES: the endpoint comes up</text>
+<rect x="56" y="150" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="150" width="328" height="4" rx="2" fill="#6fa8dc"/>
+<circle cx="362" cy="176" r="12" fill="#6fa8dc"/>
+<text x="362" y="180.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">1</text>
+<text x="72" y="181" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Request in the catalog</text>
+<text x="72" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#6fa8dc" text-anchor="start">Build &amp; Deploy → Catalog → llm-endpoint</text>
+<text x="72" y="222" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">model, GPU size, context window and the</text>
+<text x="72" y="241" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">model name for the gateway, four fields</text>
+<rect x="56" y="274" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="274" width="328" height="4" rx="2" fill="#6fa8dc"/>
+<circle cx="362" cy="300" r="12" fill="#6fa8dc"/>
+<text x="362" y="304.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">2</text>
+<text x="72" y="305" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Deployment</text>
+<text x="72" y="324" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#6fa8dc" text-anchor="start">Instances</text>
+<text x="72" y="346" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">requester, template version, topology</text>
+<text x="72" y="365" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">namespace → endpoint, task progress</text>
+<rect x="436" y="150" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="436" y="150" width="328" height="4" rx="2" fill="#38bdf8"/>
+<circle cx="742" cy="176" r="12" fill="#38bdf8"/>
+<text x="742" y="180.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">3</text>
+<text x="452" y="181" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Template llm-endpoint</text>
+<text x="452" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">Content Hub → Blueprint Design, released v6</text>
+<text x="452" y="222" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">CCI.Supervisor.Namespace  existing: true</text>
+<text x="452" y="241" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">CCI.Supervisor.Resource   wait: Ready</text>
+<rect x="436" y="274" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="436" y="274" width="328" height="4" rx="2" fill="#38bdf8"/>
+<circle cx="742" cy="300" r="12" fill="#38bdf8"/>
+<text x="742" y="304.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">4</text>
+<text x="452" y="305" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">ModelEndpoint object</text>
+<text x="452" y="324" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="start">namespace pais-cgky3 on the Supervisor</text>
+<text x="452" y="346" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">kind: ModelEndpoint, engine: LlamaCPP</text>
+<text x="452" y="365" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">VM class, context size and model from the inputs</text>
+<rect x="816" y="150" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="816" y="150" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="1122" cy="176" r="12" fill="#c084fc"/>
+<text x="1122" y="180.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">5</text>
+<text x="832" y="181" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Worker VM</text>
+<text x="832" y="200" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">VKS cluster of the PAIS instance</text>
+<text x="832" y="222" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">one node per endpoint, VM class a5000-vgpu-12c,</text>
+<text x="832" y="241" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">a 12 GB slice of the RTX A5000</text>
+<rect x="816" y="274" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="816" y="274" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="1122" cy="300" r="12" fill="#c084fc"/>
+<text x="1122" y="304.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">6</text>
+<text x="832" y="305" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Driver and licence</text>
+<text x="832" y="324" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">GPU Operator in the cluster</text>
+<text x="832" y="346" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">vGPU guest driver built on the node, about 3 min,</text>
+<text x="832" y="365" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">licence lease from the NVIDIA cloud service</text>
+<rect x="816" y="398" width="328" height="106" rx="12" fill="#161d29" stroke="#c084fc" stroke-width="2"/>
+<rect x="816" y="398" width="328" height="4" rx="2" fill="#c084fc"/>
+<circle cx="1122" cy="424" r="12" fill="#c084fc"/>
+<text x="1122" y="428.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">7</text>
+<text x="832" y="429" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Model and engine</text>
+<text x="832" y="448" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c084fc" text-anchor="start">Harbor registry, llama.cpp CUDA image</text>
+<text x="832" y="470" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">7 GB pulled from the lab registry, loaded on the</text>
+<text x="832" y="489" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">slice, route in the gateway, Ready after 7 min</text>
+<rect x="56" y="562" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="562" width="328" height="4" rx="2" fill="#6fa8dc"/>
+<circle cx="362" cy="588" r="12" fill="#6fa8dc"/>
+<text x="362" y="592.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">8</text>
+<text x="72" y="593" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">Outputs</text>
+<text x="72" y="612" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#6fa8dc" text-anchor="start">Instances → deployment → Outputs</text>
+<text x="72" y="634" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">gatewayBaseUrl  …/compatibility/openai/v1</text>
+<text x="72" y="653" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">modelName       gemma4</text>
+<rect x="56" y="686" width="328" height="106" rx="12" fill="#161d29" stroke="#283241" stroke-width="1"/>
+<rect x="56" y="686" width="328" height="4" rx="2" fill="#6fa8dc"/>
+<circle cx="362" cy="712" r="12" fill="#6fa8dc"/>
+<text x="362" y="716.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">9</text>
+<text x="72" y="717" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">API token</text>
+<text x="72" y="736" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#6fa8dc" text-anchor="start">Private AI Services UI, user menu</text>
+<text x="72" y="758" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">the user signs in with the same local account</text>
+<text x="72" y="777" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">and generates a token for the gateway</text>
+<rect x="56" y="810" width="328" height="106" rx="12" fill="#161d29" stroke="#6fa8dc" stroke-width="2"/>
+<rect x="56" y="810" width="328" height="4" rx="2" fill="#6fa8dc"/>
+<circle cx="362" cy="836" r="12" fill="#6fa8dc"/>
+<text x="362" y="840.5" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#0b0f14" text-anchor="middle">10</text>
+<text x="72" y="841" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#f4f6f8" text-anchor="start">The call</text>
+<text x="72" y="860" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#6fa8dc" text-anchor="start">any OpenAI client, curl, a script</text>
+<text x="72" y="882" font-family="Menlo, Consolas, monospace" font-size="12.5" font-weight="400" fill="#f4f6f8" text-anchor="start">POST /chat/completions  model: gemma4</text>
+<text x="72" y="901" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8a94a3" text-anchor="start">28 tokens in, 109 out, 1.7 s, 68 tok/s</text>
+<rect x="56" y="934" width="328" height="40" rx="20" fill="none" stroke="#6fa8dc" stroke-width="1.4"/>
+<text x="74" y="959" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#f4f6f8" text-anchor="start">Ordered 22:05, answering 22:12</text>
+<text x="366" y="959" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#5d6774" text-anchor="end">12 Nov</text>
+<polyline points="220.0,256 220.0,274" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="600.0,256 600.0,274" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="980.0,256 980.0,274" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="980.0,380 980.0,398" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="220.0,668 220.0,686" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="220.0,792 220.0,810" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="384,327.0 402,327.0 402,203.0 436,203.0" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="764,327.0 782,327.0 782,203.0 816,203.0" fill="none" stroke="#8a94a3" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<polyline points="980.0,504 980.0,530 220.0,530 220.0,562" fill="none" stroke="#c084fc" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#a)"/>
+<text x="460" y="522" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#5d6774" text-anchor="start">endpoint Ready: the deployment finishes and the outputs are filled</text>
+<text x="40" y="1018" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5d6774" text-anchor="start">raimes.ai  ·  Route to Private AI Services 3.0, part 6  ·  numbers from one order in the lab, not a benchmark</text>
+</svg>
