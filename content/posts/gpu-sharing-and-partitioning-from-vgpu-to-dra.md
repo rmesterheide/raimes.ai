@@ -46,7 +46,11 @@ This post is a map, not a series part. It sorts the techniques by layer, puts th
 
 **Device plugin.** The classic path. The GPU Operator advertises `nvidia.com/gpu: 1` per device, a pod requests one, and gets the whole device. Time-slicing exists as a config map on the plugin, with no memory isolation at all. This is what PAIS 3.0 runs inside its VKS cluster today.
 
-**DRA.** The core API is generally available (GA) since Kubernetes 1.34. The DRA driver for NVIDIA GPUs, now under `kubernetes-sigs`, publishes each device with its attributes, and a pod claims a device or a share of it. The sharing modes are time-slicing (fair, no memory limit), MPS (several processes on the streaming multiprocessors (SMs) at the same time, with a pinned memory limit per client), MIG with pre-cut or dynamic partitions, and consumable capacity, which lets claims take a slice of memory from one device. Partitionable devices and consumable capacity were still alpha in 1.34; I did not find a source that confirms a later status.
+**DRA.** The core API is generally available (GA) since Kubernetes 1.34. On VCF, the Kubernetes version of a VKS cluster comes from a vSphere Kubernetes Release (VKR). My Supervisor offered VKRs from 1.33 to 1.36, and my DRA cluster ran 1.36.4 with the `resource.k8s.io/v1` API already enabled, so I did not have to turn anything on.
+
+DRA does not create fractional GPU capacity by itself. It gives Kubernetes an API to describe devices and to schedule and account for them. What DRA adds over the device plugin is choice: a claim can ask for a device by its attributes, such as model, memory or architecture, and it can ask that several devices match each other. The device plugin only knows a count, `nvidia.com/gpu: 1`.
+
+The DRA driver for NVIDIA GPUs, now under `kubernetes-sigs`, publishes each device with its attributes, and a pod claims a device or a share of it. The sharing itself comes from the NVIDIA driver stack and the hardware. The DRA driver only configures it: MPS needs the MPS control daemon, MIG needs a card with MIG. The sharing modes are time-slicing (fair, no memory limit), MPS (several processes on the streaming multiprocessors (SMs) at the same time, with a pinned memory limit per client), MIG with pre-cut or dynamic partitions, and consumable capacity, which lets claims take a slice of memory from one device. Partitionable devices and consumable capacity were still alpha in 1.34; I did not find a source that confirms a later status.
 
 **Schedulers on top.** Run:ai, the KAI scheduler and Kueue add what DRA does not do: quotas per project, fair share between departments, over-quota borrowing, preemption. Run:ai's fractions are its own mechanism, independent of DRA, and they split a GPU that Kubernetes sees as a whole device. Broadcom's white paper of July 2026 describes how Run:ai is deployed on VCF with VKS clusters; for the supported GPU modes of a given Run:ai version, check NVIDIA's system requirements.
 
@@ -58,7 +62,7 @@ This post is a map, not a series part. It sorts the techniques by layer, puts th
 | Flexible time-sliced vGPU | fixed per slice | best-effort time slices | vMotion, maintenance | vSphere admin | NVAIE licence |
 | Hardware-isolated MIG (as a vGPU profile) | hardware partition | hardware partition | vMotion, maintenance | vSphere admin | NVAIE licence, A100 and newer |
 | Device plugin time-slicing | none | time slices | n/a (pod) | cluster admin | GA |
-| DRA time-slicing | none | time slices | n/a (pod) | the claim | GA core, driver 0.5 |
+| DRA time-slicing | none, every pod sees the whole card | time slices | n/a (pod) | the claim | GA core, driver 0.5 |
 | DRA MPS | pinned limit per client | SM share, concurrent | n/a (pod) | the claim | GA core, driver 0.5 |
 | DRA MIG, dynamic MIG | hardware partition | hardware partition | n/a (pod) | the claim | dynamic MIG alpha |
 | Run:ai fractions | per-fraction limit | scheduler | n/a (pod) | project quota | see NVIDIA's requirements |
@@ -67,9 +71,13 @@ The table has one pattern. Everything on the hypervisor layer is decided by the 
 
 ## The same card under four techniques
 
-All runs use the same model, Gemma 4 12B in 4-bit, on llama.cpp with four slots per instance and 400 tokens per answer, on one RTX A5000. The DRA runs went straight to the llama.cpp instance through a port-forward; the vGPU runs went through the PAIS gateway. The single-request numbers of both paths match, so the rows are comparable; the four- and eight-parallel numbers carry a few percent of path difference.
+All runs use the same model, Gemma 4 12B in 4-bit, on llama.cpp with four slots per instance and 400 tokens per answer, on one RTX A5000.
 
-| Load | One instance, whole card | Two instances, DRA time-slicing | Two instances, DRA MPS 50 % | Two VMs, two 12 GB vGPU slices |
+The requests took two different paths. For DRA, I sent them directly to each llama.cpp instance, through a `kubectl port-forward`. For vGPU, they went through the PAIS gateway. With one request at a time, both paths gave the same numbers, so the rows can be compared. With four or eight parallel requests, the path can change the result by a few percent.
+
+All numbers in the table are generated tokens per second. Where two instances run, the number is the sum of both.
+
+| Load (tokens per second) | One instance, whole card | Two instances, DRA time-slicing | Two instances, DRA MPS 50 % | Two VMs, two 12 GB vGPU slices |
 |---|---|---|---|---|
 | one stream each, sum | 72 | 59.6 | 72.1 | 59.4 |
 | four parallel each, sum | 202 | 192 | 212 | 213 |
@@ -84,7 +92,20 @@ Three readings.
 
 **A light neighbour is free on both layers.** An embedding endpoint on a 4 GB vGPU slice next to the chat endpoint cost the chat endpoint three percent and delivered 506 texts per second itself. Under DRA time-slicing, an idle second instance cost nothing.
 
-What the vGPU runs showed that the DRA runs could not: both time-slicing instances in Kubernetes saw the full 24 GB, because that path has no memory limit. Each vGPU slice had one.
+### Time-slicing on two layers: what is the same, and what is not
+
+The table says "time slices" for vGPU and for DRA time-slicing, but "none" for memory isolation only on the DRA side. The two are not the same thing.
+
+The compute part works in the same way. The GPU runs one context at a time and switches between them. With one stream per instance, both paths delivered almost the same sum: 59.6 tokens per second with DRA time-slicing, 59.4 with two vGPU slices. In both cases that is about a sixth less than one instance alone, which is the cost of the switching. The length of the time slice did not matter for this workload: under DRA I ran the `Default` and the `Long` interval, and the results differed by less than two percent.
+
+The differences are in what surrounds the time slices.
+
+- **Memory.** A vGPU slice has a fixed framebuffer. The vGPU Manager on the host enforces it, and the VM sees 12 GB, not 24. Under DRA time-slicing, both instances run on one NVIDIA driver in the same worker VM, and in my lab each of them saw all 24 GB. Nothing stops one instance from taking memory that the other one needs. The second one then fails to load its model or runs out of memory during work. This is what "none" means in the table.
+- **Driver and failure domain.** Each vGPU VM runs its own guest driver. Under DRA time-slicing, all pods on the card share one driver on one node. A driver restart or a node failure stops every pod on that card.
+- **Who switches.** With vGPU, the vGPU scheduler on the host switches between VMs. Its policy (Best Effort, Equal Share or Fixed Share) is a host setting for the whole card. With DRA, the GPU switches between processes of the same driver, and the claim's configuration can set the length of the time slice.
+- **Who decides.** A vGPU profile is chosen by the vSphere admin in a VM class. A DRA time-slicing share is chosen by the workload in its claim.
+
+So DRA time-slicing shares compute like vGPU, but it does not limit memory at all. A team that needs a memory limit on the Kubernetes layer uses MPS with a pinned memory limit, or MIG on a card that has it, not time-slicing.
 
 ## Where the two layers meet, and where they do not
 
@@ -95,6 +116,8 @@ This section covers what a platform team on VCF has to plan around.
 **Run:ai, KAI, Kueue with DRA** need a GPU that Kubernetes can partition itself. On VCF that means a VKS cluster next to PAIS, with the card passed through into a worker, and the GPU Operator in DRA mode. My DRA cluster from the [sharing post](/posts/sharing-one-gpu-on-the-kubernetes-layer/) is exactly that shape.
 
 **A combination I found no documentation for:** a full-size vGPU profile (the whole card as one vGPU) under a VKS worker, with the DRA driver on top. The VM would keep vMotion and the vGPU licence model, and Kubernetes would still do the sharing. Whether MPS and the DRA driver behave on a vGPU, and whether that is a supported shape, is the next row of my table, and it is not measured yet.
+
+**Large VMs with several GPUs** follow the same logic. When a VKS worker gets several whole GPUs, the hypervisor's job ends at the VM. Sharing these GPUs between pods, and giving a pod GPUs that belong together, is then the job of DRA and a scheduler such as Run:ai.
 
 ## How I position it now
 
