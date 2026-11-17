@@ -133,6 +133,10 @@ So the map I give customers has three rows.
 
 Flexible time-sliced vGPU as the tool for cutting one card into AI endpoints is the one row I would retire where the hardware allows it. I base this on the result with eight parallel requests per VM above. Hardware-isolated MIG keeps the isolation and drops the switching cost, and that is the vGPU to plan for on the next generation of cards.
 
+## Thank you
+
+Thanks to Frank Denneman for reviewing a draft of this post. His questions led to the section on time-slicing on two layers and to the paragraph on what DRA does and does not do.
+
 ## Sources
 
 Official documentation and the posts this builds on:
