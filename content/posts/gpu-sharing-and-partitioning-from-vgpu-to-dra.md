@@ -44,7 +44,7 @@ This post is a map, not a series part. It sorts the techniques by layer, puts th
 
 ### Kubernetes layer: GPU to pod
 
-**Device plugin.** The classic path. The GPU Operator advertises `nvidia.com/gpu: 1` per device, a pod requests one, and gets the whole device. Time-slicing exists as a config map on the plugin, with no memory isolation at all. This is what PAIS 3.0 runs inside its VKS cluster today.
+**Device plugin.** The classic path. The GPU Operator advertises `nvidia.com/gpu: 1` per device, a pod requests one, and gets the whole device. This is what PAIS 3.0 runs inside its VKS cluster today, and it fits well: each model endpoint runs as one pod, and that pod gets its own vGPU slice or passthrough GPU. The sharing already happened on the hypervisor. The plugin can also time-slice a device through a config map. Then several pods share the device memory without a limit per pod.
 
 **DRA.** The core API is generally available (GA) since Kubernetes 1.34. On VCF, the Kubernetes version of a VKS cluster comes from a vSphere Kubernetes Release (VKR). My Supervisor offered VKRs from 1.33 to 1.36, and my DRA cluster ran 1.36.4 with the `resource.k8s.io/v1` API already enabled, so I did not have to turn anything on.
 
@@ -136,6 +136,8 @@ Flexible time-sliced vGPU as the tool for cutting one card into AI endpoints is 
 ## Thank you
 
 Thanks to Frank Denneman for reviewing a draft of this post. His questions led to the section on time-slicing on two layers and to the paragraph on what DRA does and does not do.
+
+Frank does not need a shout-out from me, but here it is anyway. If you liked this overview and want to go deeper, read [Frank's blog](https://frankdenneman.ai/).
 
 ## Sources
 
