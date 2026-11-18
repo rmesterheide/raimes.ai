@@ -9,6 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["private-ai", "homelab", "gpu", "kubernetes"]
 summary: "A short map of the ways one GPU can be shared: passthrough, flexible time-sliced vGPU and hardware-isolated MIG on the hypervisor, the device plugin, Dynamic Resource Allocation (DRA), time-slicing, the Multi-Process Service (MPS) and MIG in Kubernetes, and schedulers such as NVIDIA Run:ai on top. Where each one isolates, where each one pins, and what the same RTX A5000 delivered under each of them in my lab. Plus the gap between the two layers that platform teams on VMware Cloud Foundation have to plan around."
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7528700502814040065/"
 ---
 
 Three conversations in the last two weeks ended at the same question. A customer wants to run every workload on VMware Cloud Foundation (VCF), including AI. NVIDIA virtual GPU (vGPU) fits the VMware operating model well: vMotion, host maintenance without downtime, a GPU slice per VM. At the same time, the Kubernetes community builds everything around Dynamic Resource Allocation (DRA), and schedulers such as NVIDIA Run:ai expect a GPU that Kubernetes can partition itself. So which sharing technique belongs where, and what does each one cost?
