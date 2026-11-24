@@ -9,7 +9,7 @@ cover:
 categories: ["vmware"]
 tags: ["gitops", "argo-cd", "vcf-automation", "vks", "homelab"]
 summary: "I installed the ArgoCD-based GitOps service of VMware Cloud Foundation Automation 9.1.1 in my lab: Software Depot, regional Harbor, the service itself, the new GitOps page in the organization portal and one attached Kubernetes cluster. Lab example: the install took over an ArgoCD Supervisor Service that was already running, and both instances and seven applications stayed healthy."
-linkedin: ""
+linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7530972972371681282/"
 ---
 
 My lab already runs ArgoCD as a Supervisor Service. I installed it in vCenter, and I create instances with `kubectl`. VMware Cloud Foundation (VCF) Automation 9.1.1 offers a second way: a GitOps service that a provider installs once, and that organization users then use from their portal.
