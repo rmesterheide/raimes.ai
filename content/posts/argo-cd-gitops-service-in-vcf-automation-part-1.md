@@ -8,13 +8,13 @@ cover:
   alt: "GitOps for Private AI with VCF Automation, part 1: the ArgoCD service installed in three minutes"
 categories: ["vmware"]
 tags: ["gitops", "argo-cd", "vcf-automation", "vks", "homelab"]
-summary: "I installed the ArgoCD based GitOps service of VMware Cloud Foundation Automation 9.1.1 in my lab: Software Depot, regional Harbor, the service itself, the new GitOps page in the organization portal and one attached Kubernetes cluster. Lab example: the install took over an ArgoCD Supervisor Service that was already running, and both instances and seven applications stayed healthy."
+summary: "I installed the ArgoCD-based GitOps service of VMware Cloud Foundation Automation 9.1.1 in my lab: Software Depot, regional Harbor, the service itself, the new GitOps page in the organization portal and one attached Kubernetes cluster. Lab example: the install took over an ArgoCD Supervisor Service that was already running, and both instances and seven applications stayed healthy."
 linkedin: ""
 ---
 
 My lab already runs ArgoCD as a Supervisor Service. I installed it in vCenter, and I create instances with `kubectl`. VMware Cloud Foundation (VCF) Automation 9.1.1 offers a second way: a GitOps service that a provider installs once, and that organization users then use from their portal.
 
-I wanted that second way for a catalog item that rolls out an NVIDIA NIM inference microservice through ArgoCD. The catalog of my lab organization shows where this leads: five items for private AI, and the NVIDIA NIM Endpoint is the one that ArgoCD rolls out.
+I wanted that second way for a catalog item that rolls out an NVIDIA NIM inference microservice through ArgoCD. The catalog of my lab organization shows what I am building toward: five items for private AI, and the NVIDIA NIM Endpoint is the one that ArgoCD rolls out.
 
 ![The catalog in the VCF Automation organization portal with five items: AI Kubernetes Cluster, AI Workstation, LLM Endpoint, NVIDIA NIM Endpoint and Triton Inference Server](/images/argo-cd-gitops-service-in-vcf-automation-part-1/catalog.webp)
 
@@ -22,10 +22,10 @@ This is part 1 of two. It covers the installation of the service and the first a
 
 The lab is the single-host VCF 9.1.1 fleet from the [build night post](/posts/single-host-vcf-fleet-build-night/).
 
-**The status of the service.** Broadcom [introduced it as a Tech Preview in VCF 9.1.1](https://blogs.vmware.com/cloud-foundation/2026/09/03/from-bottleneck-to-breakthrough-centralizing-gitops-at-enterprise-scale-with-vcf-9-1-1/). The [release notes of VCF Automation 9.1.2](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-2-0-release-notes/vcf-automation-9-1-2-0-release-notes.html) list it under What's New. My lab runs 9.1.1. The same blog post says that the ArgoCD Supervisor Service, installed through vCenter, is supported for production. Everything in this post also works with that Supervisor Service, and a section further down puts the two ways next to each other.
+**The status of the service.** Broadcom [introduced it as a Tech Preview in VCF 9.1.1](https://blogs.vmware.com/cloud-foundation/2026/09/03/from-bottleneck-to-breakthrough-centralizing-gitops-at-enterprise-scale-with-vcf-9-1-1/). The [release notes of VCF Automation 9.1.2](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-2-0-release-notes/vcf-automation-9-1-2-0-release-notes.html) list it under What's New. My lab runs 9.1.1. The same blog post says that the ArgoCD Supervisor Service, installed through vCenter, is supported for production. The ArgoCD objects that part 2 uses also work with that Supervisor Service, and a section further down puts the two ways next to each other.
 
 {{< tldr >}}
-- **Five steps in this order:** fill the Software Depot of the fleet, install the regional Harbor, upload the ArgoCD package, install the ArgoCD Service, attach a cluster in the organization portal.
+- **Six steps in this order:** fill the Software Depot of the fleet, install the regional Harbor, upload the ArgoCD package, install the ArgoCD Service, open the GitOps page in the organization portal, attach a cluster.
 - **Harbor took about 10 minutes, the ArgoCD Service about 3 minutes.** Both are four-page dialogs under Service Management in the provider portal.
 - **The lab example:** the install took over the ArgoCD Supervisor Service that was already running. Both existing instances and their seven applications stayed healthy, and the new GitOps page lists them.
 - **An instance that existed before the install needs one role.** I assigned the role "ArgoCD Instance" to its service account, and the cluster was Ready 15 seconds later.
@@ -90,9 +90,9 @@ for component in VCF_SERVICE_HARBOR SUPERVISOR_SERVICE_HARBOR VCF_SERVICE_ARGOCD
 done
 ```
 
-Each upload took between 21 and 26 seconds. The list then showed three components, each with one of one image.
+Each upload took between 21 and 26 seconds. The list then showed three components, each with an image count of 1/1.
 
-I had started with two components. The Harbor dialog in the next step names two bundles on its first page, the Harbor service of VCF Automation and the Harbor Supervisor Service. So I added `SUPERVISOR_SERVICE_HARBOR` before I went on. The [command reference of the VCF Download Tool](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/lifecycle-management/binary-management-for-vmware-cloud-foundation/what-is-the-vcf-download-tool-/vcf-download-tool-sofware-depot-management-options.html) lists all depot commands.
+I had started with two components, `VCF_SERVICE_HARBOR` and `VCF_SERVICE_ARGOCD`. The Harbor dialog in the next step names two bundles on its first page, the Harbor service of VCF Automation and the Harbor Supervisor Service. So I added `SUPERVISOR_SERVICE_HARBOR` before I went on. The [command reference of the VCF Download Tool](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/lifecycle-management/binary-management-for-vmware-cloud-foundation/what-is-the-vcf-download-tool-/vcf-download-tool-sofware-depot-management-options.html) lists all depot commands.
 
 ## Step 2: install the regional Harbor
 
@@ -115,9 +115,9 @@ After Submit, the status went from Busy to Installing to Healthy. That took abou
 
 ![The Harbor service in Service Management after the install: status Healthy, labels Regional and System Managed, one region](/images/argo-cd-gitops-service-in-vcf-automation-part-1/harbor-general.webp)
 
-![The resources of the Harbor service, all Healthy: the Harbor Supervisor Service, four overlays, the registry entry for the Supervisor and the depot endpoint](/images/argo-cd-gitops-service-in-vcf-automation-part-1/harbor-resources.webp)
+![The first ten of twelve resources of the Harbor service: two secrets, the Harbor Supervisor Service, a user interface plugin, four overlays, the registry entry for the Supervisor and the depot endpoint. Every entry with a status shows Healthy](/images/argo-cd-gitops-service-in-vcf-automation-part-1/harbor-resources.webp)
 
-The install changes the registry configuration of the Supervisor. I watched one VKS cluster during that time. Its control plane node was replaced once, about seven minutes after Submit. The GPU worker was not replaced while I watched, and the model on it answered every request. I would still plan a maintenance window for this step on a shared platform.
+The install changes the registry configuration of the Supervisor. During that time I watched one VKS cluster of my lab, which runs a model on a GPU worker node. Its control plane node was replaced once, about seven minutes after Submit. The worker node was not replaced while I watched, and the model on it answered every request. I would still plan a maintenance window for this step on a shared platform.
 
 ## Step 3: upload the ArgoCD package
 
@@ -140,9 +140,9 @@ The dialog again has four pages.
 1. **Certificates.** Four bundles, all trusted.
 2. **Scope.** I left the default, "Deploy to all existing regions and newly created ones".
 3. **Service Properties.** I changed nothing. One value to know for later: `keepCRDs` is `false` by default.
-4. **Review and Finalise.** Nine resources: the Supervisor Service with the ArgoCD operator, two plugins for the user interface, two service accounts, a role for the service, and a global role "ArgoCD Instance" for use in the organizations.
+4. **Review and Finalise.** Nine resources: a secret, the Supervisor Service with the ArgoCD operator, two plugins for the user interface, two service accounts, a configuration handler, a role for the service, and a global role "ArgoCD Instance" for use in the organizations.
 
-I clicked Submit and read the status after 8 seconds. It said Unhealthy with one installation error. The detail said that a service account was waiting for the role of the service and would try again after 30 seconds. I waited, and about 90 seconds later the status was Installing. After about 3 minutes it was Healthy, with all nine components Healthy. My advice for this step: give it three minutes before you look at single components.
+I clicked Submit and read the status after 8 seconds. It said Unhealthy with one installation error. The detail said that a service account was waiting for the role of the service and would try again after 30 seconds. I waited, and about 90 seconds after Submit the status was Installing. After about 3 minutes it was Healthy, with all nine components Healthy. The status settled after about 3 minutes, so I would wait that long before looking at single components.
 
 ![Service Management in the VCF Automation provider portal, tab VCF Services: the ArgoCD Service is listed under Installed with status Healthy, next to VKS cluster management and other services](/images/argo-cd-gitops-service-in-vcf-automation-part-1/service-management.png)
 
@@ -150,7 +150,7 @@ I clicked Submit and read the status after 8 seconds. It said Unhealthy with one
 
 This was the part I wanted to know before the install. A Supervisor Service with the same package name, `argocd-service.vsphere.vmware.com`, and the same version was already running on the Supervisor. I did not know whether the install would conflict with it.
 
-It did not. This is what I measured:
+The install did not conflict with it. This is what I measured:
 
 | Time after Submit | What happened |
 |---|---|
@@ -162,7 +162,7 @@ It did not. This is what I measured:
 
 The row of the Supervisor Service in Service Management shows the build that I had installed in vCenter before. Both ArgoCD web interfaces answered with 200 during the whole time. The seven applications of the agent platform stayed Synced and Healthy.
 
-A platform team that already uses the Supervisor Service can therefore add the VCF Automation integration later. In my lab the existing instances did not have to be created again.
+In my lab, the VCF Automation integration could be added to a Supervisor Service that was already in use. The existing instances did not have to be created again. One role had to be assigned before a cluster could be attached, which is step 6.
 
 ## Step 5: the GitOps page in the organization portal
 
@@ -196,7 +196,7 @@ The service account of the instance needs the role "ArgoCD Instance". The hint n
 
 In the organization portal: Administer > Access Control > Service Accounts. The list showed one account per ArgoCD instance, both active. I opened Edit on the account of my instance, typed "Argo" into Assign Role, selected "ArgoCD Instance" and saved.
 
-15 seconds later the cluster was Ready:
+The cluster was Ready 15 seconds later:
 
 ```text
 VCFAutomationAccessValid   True   VCF Automation access verified and all required permissions are granted
@@ -209,7 +209,7 @@ The status of the object now carries the API address of the cluster and the name
 
 ## Two ways to the same objects
 
-Both ways use the same operator and the same objects: `ArgoCD` for an instance, `ManagedEntity` for a target, `Application` for what gets deployed. The TechDocs page Deploying an Argo CD Instance calls them two deployment modes and compares them. This table adds what I saw in the lab.
+Both ways use the same operator and the same objects: `ArgoCD` for an instance, `ManagedEntity` for a target, `Application` for what gets deployed. The TechDocs page [Deploying an Argo CD Instance](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/using-argo-cd-service/deploying-an-argo-cd-instance.html) calls them two deployment modes and compares them. This table follows that comparison and adds my lab in the last row.
 
 | | ArgoCD Supervisor Service | ArgoCD Service in VCF Automation |
 |---|---|---|
@@ -221,9 +221,9 @@ Both ways use the same operator and the same objects: `ArgoCD` for an instance, 
 | Identity of the instance | a Kubernetes service account in the namespace | a service account in VCF Automation |
 | Access to a target | a RoleBinding for that service account in the target namespace | the role "ArgoCD Instance" for the service account in VCF Automation |
 | A cluster is attached | with a `ManagedEntity` manifest | on the Scope tab, which creates the `ManagedEntity` |
-| In my lab | the agent platform, seven applications, since 21 November | the instance for part 2, with one cluster attached on 24 November |
+| In my lab | the agent platform, seven applications, since 21 November | the instance for part 2, created before the install, with one cluster attached on the Scope tab on 24 November |
 
-The agent platform in my lab runs entirely on the Supervisor Service, the left column. If you do not want to use a Tech Preview, you can build what part 2 shows with the left column as well. The manifests are the same. The differences are who creates the instance and how it gets access to a target.
+The agent platform in my lab runs entirely on the Supervisor Service. If you do not want to use a Tech Preview, you can build what part 2 shows with the Supervisor Service as well. The manifests are the same. The differences are who creates the instance and how it gets access to a target.
 
 ## What I build next
 
