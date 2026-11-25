@@ -22,14 +22,14 @@ This is part 1 of two. It covers the installation of the service and the first a
 
 The lab is the single-host VCF 9.1.1 fleet from the [build night post](/posts/single-host-vcf-fleet-build-night/).
 
-**The status of the service.** Broadcom [introduced it as a Tech Preview in VCF 9.1.1](https://blogs.vmware.com/cloud-foundation/2026/09/03/from-bottleneck-to-breakthrough-centralizing-gitops-at-enterprise-scale-with-vcf-9-1-1/). The [release notes of VCF Automation 9.1.2](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-2-0-release-notes/vcf-automation-9-1-2-0-release-notes.html) list it under What's New. My lab runs 9.1.1. The same blog post says that the ArgoCD Supervisor Service, installed through vCenter, is supported for production. The ArgoCD objects that part 2 uses also work with that Supervisor Service, and a section further down puts the two ways next to each other.
+**The status of the service.** Broadcom [introduced it as a Tech Preview in VCF 9.1.1](https://blogs.vmware.com/cloud-foundation/2026/09/03/from-bottleneck-to-breakthrough-centralizing-gitops-at-enterprise-scale-with-vcf-9-1-1/). With VCF 9.1.2, released on 24 November 2026, the service is generally available (GA), and the [release notes of VCF Automation 9.1.2](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-2-0-release-notes/vcf-automation-9-1-2-0-release-notes.html) list it under What's New. My lab still runs 9.1.1, so this post shows the Tech Preview version. The ArgoCD objects that part 2 uses also work with the ArgoCD Supervisor Service, which is installed through vCenter, and a section further down puts the two ways next to each other.
 
 {{< tldr >}}
 - **Six steps in this order:** fill the Software Depot of the fleet, install the regional Harbor, upload the ArgoCD package, install the ArgoCD Service, open the GitOps page in the organization portal, attach a cluster.
 - **Harbor took about 10 minutes, the ArgoCD Service about 3 minutes.** Both are four-page dialogs under Service Management in the provider portal.
 - **The lab example:** the install took over the ArgoCD Supervisor Service that was already running. Both existing instances and their seven applications stayed healthy, and the new GitOps page lists them.
 - **An instance that existed before the install needs one role.** I assigned the role "ArgoCD Instance" to its service account, and the cluster was Ready 15 seconds later.
-- **If you run VCF 9.1.2:** the release notes say that it bundles the service. I have not tested 9.1.2.
+- **If you run VCF 9.1.2:** the service is generally available there, and the release notes say that 9.1.2 bundles it. I have not tested 9.1.2.
 {{< /tldr >}}
 
 ## What the service needs
@@ -213,7 +213,7 @@ Both ways use the same operator and the same objects: `ArgoCD` for an instance, 
 
 | | ArgoCD Supervisor Service | ArgoCD Service in VCF Automation |
 |---|---|---|
-| Status | supported for production | introduced as a Tech Preview in 9.1.1, listed under What's New in the release notes of VCF Automation 9.1.2 |
+| Status | supported for production | Tech Preview in 9.1.1, generally available with 9.1.2 |
 | Installed by | a vSphere administrator, in vCenter, per Supervisor | a provider administrator, in Service Management, for all Supervisors of the selected regions |
 | Meant for | vSphere environments without VCF Automation | environments with several organizations that VCF Automation manages |
 | An instance is created | with `kubectl` or the VCF command line, as an `ArgoCD` object | on the GitOps page of the organization portal, also with the command line |
@@ -223,12 +223,12 @@ Both ways use the same operator and the same objects: `ArgoCD` for an instance, 
 | A cluster is attached | with a `ManagedEntity` manifest | on the Scope tab, which creates the `ManagedEntity` |
 | In my lab | the agent platform, seven applications, since 21 November | the instance for part 2, created before the install, with one cluster attached on the Scope tab on 24 November |
 
-The agent platform in my lab runs entirely on the Supervisor Service. If you do not want to use a Tech Preview, you can build what part 2 shows with the Supervisor Service as well. The manifests are the same. The differences are who creates the instance and how it gets access to a target.
+The agent platform in my lab runs entirely on the Supervisor Service. If you run vSphere without VCF Automation, you can build what part 2 shows with the Supervisor Service as well. The manifests are the same. The differences are who creates the instance and how it gets access to a target.
 
 ## What I build next
 
 - **Part 2:** an NVIDIA NIM as a catalog item. The order creates an ArgoCD application, ArgoCD rolls out the NIM on the attached cluster, and the model becomes available at the gateway of Private AI Services.
-- **A deep learning VM through ArgoCD,** as the second example for part 2.
+- **A deep learning VM through ArgoCD,** as its own post.
 - **A new instance from the GitOps page,** to see the automatic role assignment and the single sign-on.
 - **The same steps as an organization user** without administrator rights.
 - **Upgrade and uninstall.** I want to read how both work now that Service Management has installed the service, and what `keepCRDs` means for the instances.
