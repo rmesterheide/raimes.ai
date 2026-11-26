@@ -62,6 +62,10 @@ params:
       New here? Start with [my homelab in five layers](/posts/my-homelab-in-five-layers-november-2026/),
       then follow [the route to Private AI Services 3.0](/posts/kubernetes-api-on-vsphere-in-one-evening/).
 
+
+      Planning hardware for private AI? [The Enterprise Private AI Building Block](/building-block/)
+      lists servers, card prices and a cost model. I check it about once a month.
+
   socialIcons:
     - name: github
       url: https://github.com/rmesterheide
@@ -89,6 +93,11 @@ menu:
       name: Topics
       url: /categories/
       weight: 15
+    # Permanent page, not a post (2026-11-26): content/building-block.md
+    - identifier: building-block
+      name: Building Block
+      url: /building-block/
+      weight: 17
     - identifier: about
       name: About
       url: /about/
