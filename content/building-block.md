@@ -1,7 +1,7 @@
 ---
 title: "The Enterprise Private AI Building Block"
 date: 2026-11-26T09:16:57+01:00
-lastmod: 2026-11-26T09:56:06+01:00
+lastmod: 2026-11-26T10:39:36+01:00
 draft: false
 url: /building-block/
 written_with_claude: true
@@ -19,7 +19,7 @@ summary: "One building block for Private AI on VMware Cloud Foundation: eight se
 
 **Last updated:** 26 November 2026. **Data from:** 25 and 26 November 2026. **Next check:** end of December 2026.
 
-I work as a Solutions Architect at Broadcom. This page is a service for my readers. It should help you to choose suitable hardware for Private AI. It is my personal view and not an official statement from Broadcom. It is also not a sizing for your workload.
+I work as a Solutions Architect at Broadcom. This page is a service for my readers. It should help you to choose suitable hardware for Private AI. It is my personal view and not an official statement from Broadcom. It is also not a sizing for your workload and not a recommendation to buy.
 
 In my lab I test on a single server with one small RTX A5000. That shows how the software works. It does not show what a large installation looks like. This page adds the larger view: the same stack as a building block of eight servers with four GPU cards each, running on VMware Cloud Foundation (VCF) 9. If you need more, you fill the servers up to eight cards or add a second block.
 
