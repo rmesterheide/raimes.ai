@@ -1,18 +1,18 @@
 ---
 title: "The Enterprise Private AI Building Block"
 date: 2026-11-26T09:16:57+01:00
-lastmod: 2026-11-26T10:39:36+01:00
+lastmod: 2026-11-26T14:10:18+01:00
 draft: false
 url: /building-block/
 written_with_claude: true
 cover:
-  image: "/images/covers/building-block.jpg"
+  image: "/images/covers/building-block-technical.jpg"
   alt: "The Enterprise Private AI Building Block"
   hiddenInSingle: true
 ShowToc: true
 ShowReadingTime: false
 ShowBreadCrumbs: false
-summary: "One building block for Private AI on VMware Cloud Foundation: eight servers with four GPU cards each, in servers that can take eight. This page follows three things month by month: which accelerators and servers the Broadcom Compatibility Guide lists, what the cards cost in Germany, and what my model says such a block costs and can handle. Documented facts and model values are marked separately."
+summary: "One building block for Private AI on VMware Cloud Foundation: eight servers with four GPU cards each, in servers that can take eight. This page follows month by month which accelerators and servers the Broadcom Compatibility Guide lists, which open-weight models fit and what my model says such a block can handle. It covers technical aspects only. Documented facts and model values are marked separately."
 ---
 
 <style>.post-content table{font-size:.9em}.post-content table th,.post-content table td{padding:6px 9px}</style>
@@ -23,19 +23,19 @@ I work as a Solutions Architect at Broadcom. This page is a service for my reade
 
 In my lab I test on a single server with one small RTX A5000. That shows how the software works. It does not show what a large installation looks like. This page adds the larger view: the same stack as a building block of eight servers with four GPU cards each, running on VMware Cloud Foundation (VCF) 9. If you need more, you fill the servers up to eight cards or add a second block.
 
-All prices on this page are public prices from resellers in Germany that I researched myself, each with source and date. They are not vendor list prices and not quotes. They are not price information from Broadcom or from a server vendor. Real project prices differ. The calculated values come from these public sources and from my own assumptions.
+This page covers technical aspects only: which accelerators and servers are listed, which open-weight models fit, and what my model says a block can handle. It has no prices and no cost calculation. The calculated values come from public data sheets and from my own assumptions.
 
-I check this page about once a month. Three things change over time: the accelerators and servers that are listed, the prices of the cards, and the open-weight models that people want to run. The change log at the end says what changed in each month.
+I check this page about once a month. Two things change over time: the accelerators and servers that are listed, and the open-weight models that people want to run. The change log at the end says what changed in each month.
 
 ## How to read this page
 
 Every number on this page has one of three labels.
 
-- **Documented:** I read it in a public source, and the source and the date are named. Examples are an entry in the Broadcom Compatibility Guide or a reseller price.
-- **Assumption:** I set the number myself. Examples are the power price or the price of a server without cards.
+- **Documented:** I read it in a public source, and the source and the date are named. Examples are an entry in the Broadcom Compatibility Guide or a value from a data sheet.
+- **Assumption:** I set the number myself. Examples are the power draw of a server without cards or the number of calls per user.
 - **Model value:** I calculated it from documented numbers and assumptions. Nothing on this page is measured on this hardware. The measurements from my lab are in the posts, and they come from one RTX A5000 with 24 GB.
 
-Use the documented parts as a starting point for your own check. Use the model values to see the order of magnitude and how it moves from month to month. For a real project, use the quote of your server vendor and a measurement with your own workload.
+Use the documented parts as a starting point for your own check. Use the model values to see the order of magnitude and how it moves from month to month. For a real project, ask your server vendor for the supported configuration and measure with your own workload.
 
 ## The building block
 
@@ -48,8 +48,9 @@ Use the documented parts as a starting point for your own check. Use the model v
 | Platform | VCF 9.1 |
 | GPU sharing | flexible time-sliced virtual GPU (vGPU) or hardware-isolated Multi-Instance GPU (MIG) |
 | Host network | 2 ports of 100 Gigabit Ethernet per server, two switches. It carries management, vMotion, storage and the requests to the models. |
-| Optional second network | a network with 200 or 400 Gbit/s per port for models that run across several servers, see below. Its cost is not part of the block cost. |
+| Optional second network | a network with 200 or 400 Gbit/s per port for models that run across several servers, see below. |
 | Reserve | one server (7 of 8 share the load) |
+| Power | about 3.9 kW per server and about 32 kW for the block, as a model value |
 
 Below I call the two variants the RTX block and the H200 block. "RTX PRO 6000" always means the Blackwell Server Edition on this page.
 
@@ -69,7 +70,7 @@ The Broadcom documentation names accelerators for Private AI from three partners
 |---|---|---|---|
 | AMD | AMD Instinct MI350X. Listed with these servers: Dell PowerEdge R7725, Dell PowerEdge XE7745, Supermicro AS-8126GS-TNMR. The Supermicro AS-8125GS-TNMR2 is listed with the AMD Instinct MI300X. | Enhanced DirectPath. This is a passthrough mode with a driver of the card vendor on the host. PyTorch and vLLM are the frameworks. | [VCF 9.1 release notes](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-0-0-release-notes/what-s-new/whats-new-vsphere.html), [AI with VCF 9.1 on AMD GPUs](https://blogs.vmware.com/cloud-foundation/2026/05/05/ai-with-vcf-9-1-on-amd-gpus-build-with-open-frameworks-and-simplify-management-at-a-lower-tco/) |
 | Intel | Intel Gaudi 3 as a PCIe card (HL-338) and as a mezzanine card (HL-325L). | Enhanced DirectPath with a driver from Intel. Several cards can be combined into one device group. Telemetry is shown in vCenter. An operator supports Kubernetes, including vSphere Kubernetes Service (VKS). | [Accelerating AI Workloads with Intel Gaudi 3 on VMware Cloud Foundation 9.0](https://blogs.vmware.com/cloud-foundation/2025/08/07/accelerating-ai-workloads-with-intel-gaudi-3-on-vmware-cloud-foundation-9-0/) |
-| NVIDIA | Data center GPUs, among them the three cards in the price table below. The program "AI Ready Node" lists them together with servers and a number of cards. | Flexible time-sliced vGPU, hardware-isolated MIG or DirectPath. | [Configure NVIDIA vGPU or GPU passthrough on the ESX hosts](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-0/private-ai-foundation-9-x/deploying-private-ai-foundation-with-nvidia/configure-nvidia-vgpu-or-gpu-passthrough-on-the-esx-hosts.html) |
+| NVIDIA | Data center GPUs, among them the two cards of the building block. The program "AI Ready Node" lists them together with servers and a number of cards. | Flexible time-sliced vGPU, hardware-isolated MIG or DirectPath. | [Configure NVIDIA vGPU or GPU passthrough on the ESX hosts](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-0/private-ai-foundation-9-x/deploying-private-ai-foundation-with-nvidia/configure-nvidia-vgpu-or-gpu-passthrough-on-the-esx-hosts.html) |
 
 Private AI Services in VCF 9.1 can also run a model on CPUs, without an accelerator. Broadcom describes this in the post [Streamline, Simplify and Protect all your AI workloads with VCF 9.1](https://blogs.vmware.com/cloud-foundation/2026/05/05/streamline-simplify-and-protect-all-your-ai-workloads-with-vcf-9-1/).
 
@@ -79,12 +80,12 @@ Each partner has a card in the PCIe form factor, like the cards of the building 
 |---|---|---:|---:|---:|---|
 | AMD | AMD Instinct MI350P | 144 GB | 600 W | 4,608 GB | [AMD product page](https://www.amd.com/en/products/accelerators/instinct/mi350/mi350p.html) |
 | Intel | Intel Gaudi 3 HL-338 | 128 GB | 600 W | 4,096 GB | [Intel product brief](https://cdrdv2-public.intel.com/817488/Gaudi%203%20PCIe%20Product%20Brief_RB_1_V6.pdf) |
-| NVIDIA | H200 NVL | 141 GB | 600 W | 4,512 GB | see the price table below |
-| NVIDIA | RTX PRO 6000 Blackwell Server Edition | 96 GB | 600 W | 3,072 GB | see the price table below |
+| NVIDIA | H200 NVL | 141 GB | 600 W | 4,512 GB | [NVIDIA product page](https://www.nvidia.com/en-us/data-center/h200/) |
+| NVIDIA | RTX PRO 6000 Blackwell Server Edition | 96 GB | 600 W | 3,072 GB | [NVIDIA product page](https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/) |
 
-All four cards draw up to 600 W, so the power per server in the cost model is the same for each of them. The table of open-weight models below shows all four cards.
+All four cards draw up to 600 W, so in my model the power per server is the same for each of them. The table of open-weight models below shows all four cards.
 
-The cost and capacity tables on this page use the two NVIDIA cards, because I started the model with them. For the AMD card I found one public offer in Germany on 26 November 2026, for the card as an option of one server vendor, made to order ([reseller page](https://www.tiefenbach-it.com/hpe-amd-instinct-mi350p-144gb-pcie-accelerator-for-s8a40c)). It does not meet the rule of my price table, so I do not calculate with it. The Intel card is sold at a price on request. Capacity numbers for the AMD and the Intel card are not part of this page.
+The capacity numbers on this page use the two NVIDIA cards, because I started the model with them. Capacity numbers for the AMD and the Intel card are not part of this page.
 
 ## Servers in the compatibility guide
 
@@ -123,56 +124,24 @@ Notes on the table:
 - The program also lists servers for two to four cards, from these vendors and from Fujitsu, Hitachi Vantara and Supermicro. The full list is in the guide.
 - Storage has its own program in the guide (vSAN ReadyNode). Check both programs for your configuration.
 
-## Card prices in Germany
+## Power of a block
 
-*Documented. Source: heise Preisvergleich, pages for [RTX PRO 6000 Blackwell Server Edition](https://preisvergleich.heise.de/nvidia-rtx-pro-6000-blackwell-server-edition-900-2g153-0000-000-a3492247.html), [H200 NVL](https://preisvergleich.heise.de/nvidia-h200-nvl-900-21010-0040-000-a3414253.html) and [L40S](https://preisvergleich.heise.de/nvidia-l40s-900-2g133-0080-000-a3127476.html). Prices read on 25 November 2026 and confirmed on 26 November 2026. Delivery status from 25 November 2026. Prices in euros. These are public reseller prices, not quotes and not project prices.*
-
-The rule for this table: I take the lowest price of a reseller in Germany that has the card in stock. If no reseller has it in stock, I take the lowest price with a stated delivery time. Offers from other countries and offers without a delivery time are not counted.
-
-| Card | Memory | Price incl. 19 % value added tax (VAT) | Price net | Net per GB | Delivery |
-|---|---:|---:|---:|---:|---|
-| RTX PRO 6000 Blackwell Server Edition | 96 GB | €19,635 | €16,500 | €172 | in stock |
-| H200 NVL | 141 GB | €78,540 | €66,000 | €468 | 7 working days |
-| L40S | 48 GB | €11,761 | €9,883 | €206 | in stock |
-
-These are retail prices for a single card. A server vendor usually sells its own card option with the server, at its own price, and a project price can be very different. I use the retail price because it is public and I can read it again every month. It shows the direction, not what you will pay.
-
-## What a block costs
-
-*Model value. Card prices are public reseller prices, the other inputs are assumptions. All amounts in euros, net. This is not a quote.*
+*Model value. The power per card is the highest value from the data sheets. The other inputs are assumptions.*
 
 | Input | Value | Label |
 |---|---|---|
-| Card prices | as in the table above | documented |
-| Server that can take 8 cards, without cards | €70,000 | assumption, servers of this class are sold at a price on request |
-| Host network: adapter with 2 ports of 100 Gigabit Ethernet, one per server | €539 | documented, reseller price |
-| Host network: cables, two per server | €59 each | documented, reseller price |
-| Host network: switch with 32 ports of 100 Gigabit Ethernet, two per block | €15,000 each | assumption |
-| Power | €0.20 per kWh, power usage effectiveness (PUE) 1.4, average load 70 % | assumption |
-| Power draw | 600 W per card, 1.5 kW per server without cards | assumption |
-| Hardware support | 5 % of the hardware cost per year | assumption |
-| Operations | one full-time person, €120,000 per year | assumption |
-| Period | 4 years | assumption |
+| Power per card | 600 W | documented, data sheets of the four cards |
+| Server without cards | 1.5 kW | assumption |
+| Two switches of the host network | 1.0 kW | assumption |
 
-| | RTX block | H200 block |
+| | 4 cards per server | 8 cards per server |
 |---|---:|---:|
-| Cards | 32 x RTX PRO 6000 | 32 x H200 NVL |
-| GPU memory in total | 3,072 GB | 4,512 GB |
-| Cost of the cards | €528,000 | €2,112,000 |
-| Servers without cards | €560,000 | €560,000 |
-| Host network | €35,000 | €35,000 |
-| **Hardware in total** | **€1,123,000** | **€2,707,000** |
-| Power and cooling per year | €55,000 | €55,000 |
-| Hardware support per year | €56,000 | €135,000 |
-| Operations per year | €120,000 | €120,000 |
-| **Total over 4 years, without software** | **€2,049,000** | **€3,950,000** |
-| Per card and hour, without software | €1.83 | €3.52 |
+| Power per server | 3.9 kW | 6.3 kW |
+| Power of 8 servers and the host network | 32.2 kW | 51.4 kW |
+| GPU memory with RTX PRO 6000 | 3,072 GB | 6,144 GB |
+| GPU memory with H200 NVL | 4,512 GB | 9,024 GB |
 
-With eight cards per server (64 cards in total) the cost per card and hour falls to €1.26 and €2.95, because the same servers and the same host network hold twice as many cards.
-
-Software is not part of this model. That includes VCF and the NVIDIA software for vGPU. For licence questions about Broadcom products, please use the [official Broadcom documentation](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-1/deploying-private-ai-foundation-with-nvidia/requirements-for-deploying-private-ai-foundation-with-nvidia.html). The model also leaves out the management domain, storage and data center space.
-
-In the H200 block the cards are 78 % of the hardware cost. The card price decides the result there, so the result moves with the price table above.
+These are the highest values, not an average over the day. Cooling and the optional second network are not included. The cooling you need depends on the data center.
 
 ## Which open-weight models fit
 
@@ -250,36 +219,36 @@ How to read these numbers:
 
 ## From proof of concept to eight cards per server
 
-*Model value. Hardware cost in euros, net, cumulative, without software. It is based on public reseller prices and assumptions, not on a quote. The host network is included from the first stage. The second network is not included.*
+*Model value. Power is the highest value for the servers and the host network. The second network is not included.*
 
-You do not have to buy the block at once. You buy servers that can take eight cards and fill them step by step, so no hardware is replaced on the way. The last stage fills all eight servers completely.
+You do not have to build the block at once. You start with servers that can take eight cards and fill them step by step, so no hardware is replaced on the way. The last stage fills all eight servers completely.
 
-| Stage | Servers x cards | Cards | Hardware, RTX | Hardware, H200 |
+| Stage | Servers x cards | Cards | Cards that share the load | Power |
 |---|---|---:|---:|---:|
-| Proof of concept | 2 x 2 | 4 | €237,000 | €435,000 |
-| Pilot | 3 x 4 | 12 | €440,000 | €1,034,000 |
-| Production, one block | 8 x 4 | 32 | €1,123,000 | €2,707,000 |
-| Expansion | 8 x 8 | 64 | €1,651,000 | €4,819,000 |
+| Proof of concept | 2 x 2 | 4 | 4 | 6.4 kW |
+| Pilot | 3 x 4 | 12 | 8 | 12.7 kW |
+| Production, one block | 8 x 4 | 32 | 28 | 32.2 kW |
+| Expansion | 8 x 8 | 64 | 56 | 51.4 kW |
 
-The proof of concept has no reserve. From the pilot on, one server is the reserve. The next table shows how many chat users each stage can handle in healthy operation. The numbers are rounded.
+The proof of concept has no reserve. From the pilot on, one server is the reserve. The next table shows what each stage can handle in healthy operation, which means 70 % of what the model says the cards that share the load can do. Users and sessions grow in proportion to these cards. The numbers are rounded.
 
-| Stage | Cards that share the load | Chat users, RTX | Chat users, H200 |
-|---|---:|---:|---:|
-| Proof of concept | 4 | 250 | 470 |
-| Pilot | 8 | 510 | 940 |
-| Production, one block | 28 | 1,800 | 3,300 |
-| Expansion | 56 | 3,600 | 6,600 |
+| Stage | Chat users, RTX | Chat users, H200 | Agent sessions, RTX | Agent sessions, H200 |
+|---|---:|---:|---:|---:|
+| Proof of concept | 250 | 470 | 30 | 59 |
+| Pilot | 510 | 940 | 61 | 120 |
+| Production, one block | 1,800 | 3,300 | 210 | 410 |
+| Expansion | 3,600 | 6,600 | 420 | 830 |
 
 Four things to check before you plan the stages:
 
-- The table counts only the GPU servers. Check the minimum number of hosts for your cluster in the Broadcom documentation.
+- The tables count only the GPU servers. Check the minimum number of hosts for your cluster in the Broadcom documentation.
 - A server with two or four cards instead of eight must be a configuration that the server vendor offers.
 - A server with eight cards draws about 6.3 kW in my model. Check power and cooling of the rack before the last stage.
 - The pilot is the stage to measure. Record tokens in and out per call and the share that comes from the cache, and replace my assumptions with your numbers.
 
 ## Optional: a second network for models across servers
 
-*Documented and model value. The design is from public Broadcom sources, the cost is a model value. The adapter price is a public reseller price in Germany, read on 26 November 2026, in euros, net. The prices of switches and cables are assumptions. This is not a quote.*
+*Documented and assumption. The design is from public Broadcom sources. The numbers of adapters and switches for the building block are my assumptions.*
 
 The host network is all a block needs as long as every model runs inside one server. A model that needs more cards than one server holds can be spread over several servers. This is called distributed inference. The GPUs then exchange data directly from server to server, and a second, faster network carries this traffic. It uses Remote Direct Memory Access (RDMA) over Converged Ethernet (RoCE) in version 2, written RoCE v2 below.
 
@@ -295,21 +264,19 @@ The paper uses servers with an HGX board. On this page I apply the same design t
 | Part | What is documented | Source |
 |---|---|---|
 | Adapter | Broadcom BCM57608 with 2 x 200 Gbit/s or 1 x 400 Gbit/s, listed for ESX 9.1 with the drivers bnxtnet and bnxtroce | [Broadcom Compatibility Guide, program "IO Devices"](https://compatibilityguide.broadcom.com/detail?program=io&productId=61222&persona=live), read on 26 November 2026 |
-| Switch chip | Broadcom Tomahawk 5 with 51.2 Tbit/s in total. That equals 64 ports with 800 Gbit/s or 128 ports with 400 Gbit/s. The cost table below assumes a smaller switch with 32 ports of 400 Gbit/s. | [Broadcom product page](https://www.broadcom.com/products/ethernet-connectivity/switching/strataxgs/bcm78900-series) |
+| Switch chip | Broadcom Tomahawk 5 with 51.2 Tbit/s in total. That equals 64 ports with 800 Gbit/s or 128 ports with 400 Gbit/s. The table below assumes a smaller switch with 32 ports of 400 Gbit/s. | [Broadcom product page](https://www.broadcom.com/products/ethernet-connectivity/switching/strataxgs/bcm78900-series) |
 | Network settings | RoCE v2 needs a network without packet loss. Priority Flow Control (PFC) is one way to get it. | [Network requirements for RDMA over Converged Ethernet](https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-1/vsphere-networking/managing-network-resources/rdma/network-requirements-for-rdma-over-converged-ethernet.html) |
 | Software | Distributed inference on vSphere Kubernetes Service | [Broadcom paper on distributed inference](https://www.vmware.com/docs/vcf-distributed-infer) |
 
-What this second network adds to the cost of one block if every server is connected. It is not part of the block cost, the stages or the capacity numbers above.
+What this second network needs for one block if every server is connected:
 
 | | 8 servers x 4 cards | 8 servers x 8 cards | Label |
 |---|---:|---:|---|
 | Adapters, each with 2 ports of 200 Gbit/s | 16 | 32 | assumption: one port per card, so one adapter serves two cards |
-| Cost of the adapters, €1,347 each | €22,000 | €43,000 | documented, [reseller price](https://www.senetic.de/product/BCM957608-P2200GQF00) |
-| Cables, one per adapter port (32 or 64), €310 each | €10,000 | €20,000 | assumption |
-| Two switches with 32 ports of 400 Gbit/s, €45,000 each | €90,000 | €90,000 | assumption |
-| **Second network in total** | **€121,000** | **€153,000** | model value, calculated from unrounded amounts |
+| Adapter ports and cables | 32 | 64 | follows from the row above |
+| Switches with 32 ports of 400 Gbit/s | 2 | 2 | assumption: one switch port per adapter port |
 
-With 8 cards per server the 64 adapter ports use all ports of both switches. Links between the switches and to other networks are not in this cost.
+With 8 cards per server the 64 adapter ports use all ports of both switches. Links between the switches and to other networks need more ports.
 
 Three things to plan if you want this network:
 
@@ -319,12 +286,12 @@ Three things to plan if you want this network:
 
 ## What this page leaves out
 
-Servers that can take eight cards are sold by quote. I do not compare server prices of the vendors here. I also do not compare adapters or switches of different vendors.
+This page has no prices and no cost calculation. I also do not compare adapters, switches or servers of different vendors.
 
 ## Method and sources
 
 - The compatibility guide is read through its public web interface. A small script saves all entries of the program and compares them with the month before.
-- Card prices come from three pages of one price comparison site. I read them once a month.
+- The values of the cards come from the data sheets and product pages of AMD, Intel and NVIDIA.
 - The capacity model describes a GPU by three data sheet values (memory, memory bandwidth, compute) and a model by the size of its weights and its cache per token. The load profiles are my own assumptions.
 - NVIDIA sources: [vGPU support matrix for vSphere](https://docs.nvidia.com/vgpu/latest/product-support-matrix/vmware-vsphere.html), [cards that support MIG](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-gpus.html), [supported models for NIM](https://docs.nvidia.com/nim/large-language-models/latest/supported-models.html).
 - Broadcom source for the GPU modes on the hosts: [Configure NVIDIA vGPU or GPU passthrough on the ESX hosts](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-0/private-ai-foundation-9-x/deploying-private-ai-foundation-with-nvidia/configure-nvidia-vgpu-or-gpu-passthrough-on-the-esx-hosts.html).
@@ -337,6 +304,6 @@ If you find an error, please [mail me](/imprint/).
 
 - Compatibility guide: 45 entries in the program "AI Ready Node". This is the baseline for the next comparison.
 - Accelerators: AMD Instinct MI350X and Intel Gaudi 3 are listed for ESX 9.1, next to the NVIDIA cards. The model table shows a PCIe card of each partner.
-- Card prices: first reading, see the table.
-- Model: first version with two card variants, four cards per server and four stages.
-- Added on the same day: the 100 Gigabit Ethernet network is called the host network, and a new section describes an optional second network for models across servers, with its cost.
+- Model: first version with two card variants, four cards per server, power values and four stages.
+- Second network: a section describes an optional second network for models across servers.
+- The page covers technical aspects only.

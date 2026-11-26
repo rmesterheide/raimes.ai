@@ -65,8 +65,7 @@ params:
 
       Are you planning or designing a Private AI platform at enterprise scale and looking for a
       starting point? [The Enterprise Private AI Building Block](/building-block/) lists accelerators,
-      servers, card prices and a cost model. I check it about once a month. It is my personal view
-      and not a recommendation to buy.
+      servers and the open-weight models that fit, with a capacity model. I check it about once a month.
 
   socialIcons:
     - name: github
