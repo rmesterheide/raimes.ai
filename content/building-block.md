@@ -1,7 +1,7 @@
 ---
 title: "The Enterprise Private AI Building Block"
 date: 2026-11-26T09:16:57+01:00
-lastmod: 2026-11-26T09:32:30+01:00
+lastmod: 2026-11-26T09:45:36+01:00
 draft: false
 url: /building-block/
 written_with_claude: true
@@ -12,12 +12,12 @@ cover:
 ShowToc: true
 ShowReadingTime: false
 ShowBreadCrumbs: false
-summary: "One building block for private AI on VMware Cloud Foundation: eight servers with four GPU cards each, in servers that can take eight. This page follows three things month by month: which accelerators and servers the Broadcom Compatibility Guide lists, what the cards cost in Germany, and what my model says such a block costs and can handle. Documented facts and model values are marked separately."
+summary: "One building block for Private AI on VMware Cloud Foundation: eight servers with four GPU cards each, in servers that can take eight. This page follows three things month by month: which accelerators and servers the Broadcom Compatibility Guide lists, what the cards cost in Germany, and what my model says such a block costs and can handle. Documented facts and model values are marked separately."
 ---
 
 **Last updated:** 26 November 2026. **Data from:** 25 and 26 November 2026. **Next check:** end of December 2026.
 
-I work as a Solutions Architect at Broadcom. This page is a service for my readers. It should help you to choose suitable hardware for private AI. It is my personal view and not an official statement from Broadcom. It is also not a sizing for your workload.
+I work as a Solutions Architect at Broadcom. This page is a service for my readers. It should help you to choose suitable hardware for Private AI. It is my personal view and not an official statement from Broadcom. It is also not a sizing for your workload.
 
 In my lab I test on a single server with one small RTX A5000. That shows how the software works. It does not show what a large installation looks like. This page adds the larger view: the same stack as a building block of eight servers with four GPU cards each, running on VMware Cloud Foundation (VCF) 9. If you need more, you fill the servers up to eight cards or add a second block.
 
@@ -61,7 +61,7 @@ How one card is shared between several workloads is a topic of its own. I wrote 
 
 *Documented. Sources: Broadcom Compatibility Guide, programs ["DirectPath GPUs and Accelerators"](https://compatibilityguide.broadcom.com/search?program=sptg&persona=live) and ["VM Direct Path IO for General GPU"](https://compatibilityguide.broadcom.com/search?program=vmdirect&persona=live), read on 26 November 2026, and the Broadcom pages linked in the table.*
 
-The Broadcom documentation names accelerators for private AI from three partners: AMD, Intel and NVIDIA. The table shows what I found documented for VCF 9.1 and its hypervisor ESX today. It is sorted by name.
+The Broadcom documentation names accelerators for Private AI from three partners: AMD, Intel and NVIDIA. The table shows what I found documented for VCF 9.1 and its hypervisor ESX today. It is sorted by name.
 
 | Partner | Accelerators in the guide for ESX 9.1 | How they are used on VCF | Read more |
 |---|---|---|---|
