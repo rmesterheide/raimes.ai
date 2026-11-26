@@ -69,7 +69,11 @@ Two things in this post are not covered by vendor support. The evaluation licens
 
 These steps are the work of the platform team. A consumer does not see them.
 
-**1. A VKS cluster with a GPU worker.** I ordered it from the catalog item AI Kubernetes Cluster, which the [Private AI Foundation Quickstart](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-1/deploying-private-ai-foundation-with-nvidia/finalizing-the-setup-for-deep-learning-vms-and-vks-cluster-with-gpu/how-do-i-use-the-paif-quickstart-in-aria-automation.html) creates. The order took under 12 minutes. It built one control plane node and one worker node with the whole card as a 24 GB slice, and it installed NVIDIA's GPU Operator and the vGPU guest driver. I did not install a driver by hand.
+**1. A VKS cluster with a GPU worker.** I ordered it from the catalog item AI Kubernetes Cluster, which the [Private AI Foundation Quickstart](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-1/deploying-private-ai-foundation-with-nvidia/finalizing-the-setup-for-deep-learning-vms-and-vks-cluster-with-gpu/how-do-i-use-the-paif-quickstart-in-aria-automation.html) creates. I named the deployment `nim-cluster`. The order took under 12 minutes. It built one control plane node and one worker node with the whole card as a 24 GB slice, and it installed NVIDIA's GPU Operator and the vGPU guest driver. I did not install a driver by hand.
+
+![The deployment nim-cluster in VCF Automation with the status Create Successful, created at 9:05:21 AM and last updated at 9:17:41 AM, from the catalog item AI Kubernetes Cluster. The page states that the cluster comes with the NVIDIA GPU operator.](/images/nvidia-nim-as-a-catalog-item-in-vcf-automation-part-2/cluster-deployment.png)
+
+This is the cluster that I attached to the ArgoCD instance in [step 6 of part 1](/posts/argo-cd-gitops-service-in-vcf-automation-part-1/#step-6-attach-a-vks-cluster). All orders in this post deploy to it.
 
 **2. The NIM Operator.** I followed NVIDIA's page [Installing NVIDIA NIM Operator](https://docs.nvidia.com/nim-operator/latest/install.html):
 
@@ -158,6 +162,8 @@ Three sizing notes from these runs:
 - **A 24 GB vGPU slice offered about 21.4 GiB to CUDA.** I plan with that number, not with 24.
 - **The context length is part of the sizing.** With this model the slice has room for about 19,000 tokens of context. A setting of 32,768 did not start, 16,384 did.
 - **I pin the profile and the slice size per model.** The chart carries the profile ID, the context length and the cache size for each model that I have measured. An order can only pick from that list, so it always gets a combination that has run on this card.
+
+My lab has one small card. If you plan hardware for a larger setup, I keep a separate page for that: [The Enterprise Private AI Building Block](/building-block/). It lists the accelerators and servers from the Broadcom Compatibility Guide, shows which open-weight models fit and what my model says a block of eight servers can handle. I check it about once a month.
 
 ## The blueprint: one Application and one route
 
@@ -348,6 +354,7 @@ Four parallel requests gave almost four times the throughput of one request. For
 The pages for single steps are linked in the text. These are the entry points:
 
 - Repository: [pais-vgpu, folder nim-endpoint](https://github.com/rmesterheide/pais-vgpu/tree/main/nim-endpoint) with the chart, the ArgoCD project, the blueprint and the health checks
+- Hardware for a larger setup: [The Enterprise Private AI Building Block](/building-block/), my page on accelerators, servers and models that fit, checked about once a month
 - NVIDIA: [NVIDIA NIM Operator](https://docs.nvidia.com/nim-operator/latest/index.html)
 - NVIDIA: [NVIDIA NIM for LLM and VLM Documentation](https://docs.nvidia.com/nim/large-language-models/latest/introduction.html)
 - NVIDIA: [llama-3.1-nemotron-nano-8b-v1, model card](https://build.nvidia.com/nvidia/llama-3_1-nemotron-nano-8b-v1/modelcard)
