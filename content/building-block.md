@@ -1,7 +1,7 @@
 ---
 title: "The Enterprise Private AI Building Block"
 date: 2026-11-26T09:16:57+01:00
-lastmod: 2026-11-26T09:45:36+01:00
+lastmod: 2026-11-26T09:56:06+01:00
 draft: false
 url: /building-block/
 written_with_claude: true
@@ -14,6 +14,8 @@ ShowReadingTime: false
 ShowBreadCrumbs: false
 summary: "One building block for Private AI on VMware Cloud Foundation: eight servers with four GPU cards each, in servers that can take eight. This page follows three things month by month: which accelerators and servers the Broadcom Compatibility Guide lists, what the cards cost in Germany, and what my model says such a block costs and can handle. Documented facts and model values are marked separately."
 ---
+
+<style>.post-content table{font-size:.9em}.post-content table th,.post-content table td{padding:6px 9px}</style>
 
 **Last updated:** 26 November 2026. **Data from:** 25 and 26 November 2026. **Next check:** end of December 2026.
 
@@ -178,19 +180,33 @@ In the H200 block the cards are 78 % of the hardware cost. The card price decide
 
 The rule for the calculated values: a model counts as fitting only if it fits completely into the memory of the cards. I take the size of the weights times 1.15, and that must fit into 92 % of the memory of the cards. The factor 1.15 and the 92 % are my assumptions. The table shows the smallest number of cards (1, 2, 4 or 8) for one copy of the model. One copy on the smallest number of cards serves only a few requests at the same time.
 
-| Model | Parameters (B = billion) | Licence | Weights | AMD Instinct MI350P | Intel Gaudi 3 | NVIDIA H200 NVL | NVIDIA RTX PRO 6000 |
-|---|---:|---|---|---:|---:|---:|---:|
-| [gpt-oss-20b](https://huggingface.co/openai/gpt-oss-20b) | 21B | Apache 2.0 | as published | 1 | 1 | **1** | 1 |
-| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) | 27.8B | Apache 2.0 | 8-bit, 31 GB | 1 | 1 | **1** | 1 |
-| [Gemma 4 31B](https://huggingface.co/google/gemma-4-31b-it) | 30.7B | Apache 2.0 | 4-bit, 18 GB | 1 | 1 | 1 | **1** |
-| [Llama 3.3 70B](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct) | 70.6B | Llama 3.3 Community | 8-bit, 78 GB | 1 | 1 | **2** | 2 |
-| [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | 117B | Apache 2.0 | as published | 1 | 1 | **1** | 1 |
-| [Qwen3.5-122B](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) | 125B | Apache 2.0 | 8-bit, 138 GB | 2 | 2 | **2** | 2 |
-| [Mistral Medium 3.5 128B](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B) | 128B | Modified MIT | 8-bit, 141 GB | 2 | 2 | 2 | 2 |
-| [Qwen3.5-397B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 403B | Apache 2.0 | 8-bit, 443 GB | 4 | 8 | **4** | 8 |
-| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2) | 753B | MIT | 8-bit, 756 GB | 8 | 8 | **8** | more than 8 |
+| Model | Weights | AMD MI350P | Intel Gaudi 3 | NVIDIA H200 NVL | NVIDIA RTX PRO 6000 |
+|---|---|---:|---:|---:|---:|
+| gpt-oss-20b | as published | 1 | 1 | **1** | 1 |
+| Qwen3.8-27B | 8-bit, 31 GB | 1 | 1 | **1** | 1 |
+| Gemma 4 31B | 4-bit, 18 GB | 1 | 1 | 1 | **1** |
+| Llama 3.3 70B | 8-bit, 78 GB | 1 | 1 | **2** | 2 |
+| gpt-oss-120b | as published | 1 | 1 | **1** | 1 |
+| Qwen3.5-122B | 8-bit, 138 GB | 2 | 2 | **2** | 2 |
+| Mistral Medium 3.5 128B | 8-bit, 141 GB | 2 | 2 | 2 | 2 |
+| Qwen3.5-397B | 8-bit, 443 GB | 4 | 8 | **4** | 8 |
+| GLM-5.2 | 8-bit, 756 GB | 8 | 8 | **8** | more than 8 |
 
 The rule looks only at memory. Whether an inference server supports a model and a weight format on a card is a separate check with the documentation of the card vendor. For Llama 3.3 70B the NVIDIA list names two H200 NVL cards, and I show that number. By memory alone one card would be enough.
+
+The models with their size and licence (B = billion parameters):
+
+| Model | Parameters | Licence |
+|---|---:|---|
+| [gpt-oss-20b](https://huggingface.co/openai/gpt-oss-20b) | 21B | Apache 2.0 |
+| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) | 27.8B | Apache 2.0 |
+| [Gemma 4 31B](https://huggingface.co/google/gemma-4-31b-it) | 30.7B | Apache 2.0 |
+| [Llama 3.3 70B](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct) | 70.6B | Llama 3.3 Community |
+| [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | 117B | Apache 2.0 |
+| [Qwen3.5-122B](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) | 125B | Apache 2.0 |
+| [Mistral Medium 3.5 128B](https://huggingface.co/mistralai/Mistral-Medium-3.5-128B) | 128B | Modified MIT |
+| [Qwen3.5-397B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 403B | Apache 2.0 |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2) | 753B | MIT |
 
 I only name the licences. I do not assess them. Please read the licence of a model before you use it.
 
@@ -238,12 +254,21 @@ How to read these numbers:
 
 You do not have to buy the block at once. You buy servers that can take eight cards and fill them step by step, so no hardware is replaced on the way. The last stage fills all eight servers completely.
 
-| Stage | Servers x cards | Cards | Reserve | Hardware, RTX | Hardware, H200 | Chat users, RTX | Chat users, H200 |
-|---|---|---:|---|---:|---:|---:|---:|
-| Proof of concept | 2 x 2 | 4 | none | €237,000 | €435,000 | about 250 | about 470 |
-| Pilot | 3 x 4 | 12 | one server | €440,000 | €1,034,000 | about 510 | about 940 |
-| Production, one block | 8 x 4 | 32 | one server | €1,123,000 | €2,707,000 | about 1,800 | about 3,300 |
-| Expansion, eight cards per server | 8 x 8 | 64 | one server | €1,651,000 | €4,819,000 | about 3,600 | about 6,600 |
+| Stage | Servers x cards | Cards | Hardware, RTX | Hardware, H200 |
+|---|---|---:|---:|---:|
+| Proof of concept | 2 x 2 | 4 | €237,000 | €435,000 |
+| Pilot | 3 x 4 | 12 | €440,000 | €1,034,000 |
+| Production, one block | 8 x 4 | 32 | €1,123,000 | €2,707,000 |
+| Expansion | 8 x 8 | 64 | €1,651,000 | €4,819,000 |
+
+The proof of concept has no reserve. From the pilot on, one server is the reserve. The next table shows how many chat users each stage can handle in healthy operation. The numbers are rounded.
+
+| Stage | Cards that share the load | Chat users, RTX | Chat users, H200 |
+|---|---:|---:|---:|
+| Proof of concept | 4 | 250 | 470 |
+| Pilot | 8 | 510 | 940 |
+| Production, one block | 28 | 1,800 | 3,300 |
+| Expansion | 56 | 3,600 | 6,600 |
 
 Four things to check before you plan the stages:
 
