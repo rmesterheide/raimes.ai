@@ -1,7 +1,7 @@
 ---
 title: "The Enterprise Private AI Building Block"
 date: 2026-11-26T09:16:57+01:00
-lastmod: 2026-11-26T09:16:57+01:00
+lastmod: 2026-11-26T09:32:30+01:00
 draft: false
 url: /building-block/
 written_with_claude: true
@@ -45,7 +45,8 @@ Use the documented parts as a starting point for your own check. Use the model v
 | Card, variant 2 | NVIDIA H200 NVL, 141 GB |
 | Platform | VCF 9.1 |
 | GPU sharing | flexible time-sliced virtual GPU (vGPU) or hardware-isolated Multi-Instance GPU (MIG) |
-| Network | 2 x 100 Gigabit Ethernet per server, two switches |
+| Host network | 2 ports of 100 Gigabit Ethernet per server, two switches. It carries management, vMotion, storage and the requests to the models. |
+| Optional second network | a network with 200 or 400 Gbit/s per port for models that run across several servers, see below. Its cost is not part of the block cost. |
 | Reserve | one server (7 of 8 share the load) |
 
 Below I call the two variants the RTX block and the H200 block. "RTX PRO 6000" always means the Blackwell Server Edition on this page.
@@ -142,8 +143,9 @@ These are retail prices for a single card. A server vendor usually sells its own
 |---|---|---|
 | Card prices | as in the table above | documented |
 | Server that can take 8 cards, without cards | €70,000 | assumption, servers of this class are sold at a price on request |
-| Network adapter 2 x 100 Gigabit Ethernet, one per server | €539 | documented, reseller price |
-| Switch 32 x 100 Gigabit Ethernet, two per block | €15,000 each | assumption |
+| Host network: adapter with 2 ports of 100 Gigabit Ethernet, one per server | €539 | documented, reseller price |
+| Host network: cables, two per server | €59 each | documented, reseller price |
+| Host network: switch with 32 ports of 100 Gigabit Ethernet, two per block | €15,000 each | assumption |
 | Power | €0.20 per kWh, power usage effectiveness (PUE) 1.4, average load 70 % | assumption |
 | Power draw | 600 W per card, 1.5 kW per server without cards | assumption |
 | Hardware support | 5 % of the hardware cost per year | assumption |
@@ -156,7 +158,7 @@ These are retail prices for a single card. A server vendor usually sells its own
 | GPU memory in total | 3,072 GB | 4,512 GB |
 | Cost of the cards | €528,000 | €2,112,000 |
 | Servers without cards | €560,000 | €560,000 |
-| Network | €35,000 | €35,000 |
+| Host network | €35,000 | €35,000 |
 | **Hardware in total** | **€1,123,000** | **€2,707,000** |
 | Power and cooling per year | €55,000 | €55,000 |
 | Hardware support per year | €56,000 | €135,000 |
@@ -164,7 +166,7 @@ These are retail prices for a single card. A server vendor usually sells its own
 | **Total over 4 years, without software** | **€2,049,000** | **€3,950,000** |
 | Per card and hour, without software | €1.83 | €3.52 |
 
-With eight cards per server (64 cards in total) the cost per card and hour falls to €1.26 and €2.95, because the same servers and the same network hold twice as many cards.
+With eight cards per server (64 cards in total) the cost per card and hour falls to €1.26 and €2.95, because the same servers and the same host network hold twice as many cards.
 
 Software is not part of this model. That includes VCF and the NVIDIA software for vGPU. For licence questions about Broadcom products, please use the [official Broadcom documentation](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-1/deploying-private-ai-foundation-with-nvidia/requirements-for-deploying-private-ai-foundation-with-nvidia.html). The model also leaves out the management domain, storage and data center space.
 
@@ -192,7 +194,7 @@ The rule looks only at memory. Whether an inference server supports a model and 
 
 I only name the licences. I do not assess them. Please read the licence of a model before you use it.
 
-Models up to about 130 billion parameters fit on one or two cards of each of the four types. A model that needs eight cards needs a server with all eight slots in use, so it fits only after the last expansion stage. A model that needs more than eight cards needs a design across several servers, and that is outside this page.
+Models up to about 130 billion parameters fit on one or two cards of each of the four types. A model that needs eight cards has two ways to run. One way is a server with all eight slots in use, which is the last expansion stage. The other way is to spread the model over two servers of the block. That uses the optional second network, which has its own section below. A model that needs more than eight cards has to run across servers and therefore uses that network.
 
 ## What a block can handle
 
@@ -232,7 +234,7 @@ How to read these numbers:
 
 ## From proof of concept to eight cards per server
 
-*Model value. Hardware cost in euros, net, cumulative, without software. It is based on public reseller prices and assumptions, not on a quote. The network is included from the first stage.*
+*Model value. Hardware cost in euros, net, cumulative, without software. It is based on public reseller prices and assumptions, not on a quote. The host network is included from the first stage. The second network is not included.*
 
 You do not have to buy the block at once. You buy servers that can take eight cards and fill them step by step, so no hardware is replaced on the way. The last stage fills all eight servers completely.
 
@@ -250,10 +252,49 @@ Four things to check before you plan the stages:
 - A server with eight cards draws about 6.3 kW in my model. Check power and cooling of the rack before the last stage.
 - The pilot is the stage to measure. Record tokens in and out per call and the share that comes from the cache, and replace my assumptions with your numbers.
 
+## Optional: a second network for models across servers
+
+*Documented and model value. The design is from public Broadcom sources, the cost is a model value. The adapter price is a public reseller price in Germany, read on 26 November 2026, in euros, net. The prices of switches and cables are assumptions. This is not a quote.*
+
+The host network is all a block needs as long as every model runs inside one server. A model that needs more cards than one server holds can be spread over several servers. This is called distributed inference. The GPUs then exchange data directly from server to server, and a second, faster network carries this traffic. It uses Remote Direct Memory Access (RDMA) over Converged Ethernet (RoCE) in version 2, written RoCE v2 below.
+
+Broadcom describes such a design with its own Ethernet parts in the post [Deploy VMware Private AI on HGX servers with Broadcom Ethernet Networking](https://blogs.vmware.com/cloud-foundation/2025/09/09/deploy-vmware-private-ai-on-hgx-servers-with-broadcom-ethernet-networking/) and in the [white paper](https://www.vmware.com/docs/paif-hgx-brcm-eth) behind it:
+
+- Broadcom adapters of the type BCM57608 with 400 Gbit/s in the servers.
+- Switches with the Broadcom Tomahawk 5 chip.
+- The GPUs and the adapters are given to the virtual machine with DirectPath I/O.
+- Inference across several servers with NVIDIA NIM and with vLLM.
+
+The paper uses servers with an HGX board. On this page I apply the same design to the PCIe servers of the building block. That step is my assumption.
+
+| Part | What is documented | Source |
+|---|---|---|
+| Adapter | Broadcom BCM57608 with 2 x 200 Gbit/s or 1 x 400 Gbit/s, listed for ESX 9.1 with the drivers bnxtnet and bnxtroce | [Broadcom Compatibility Guide, program "IO Devices"](https://compatibilityguide.broadcom.com/detail?program=io&productId=61222&persona=live), read on 26 November 2026 |
+| Switch chip | Broadcom Tomahawk 5 with 51.2 Tbit/s in total. That equals 64 ports with 800 Gbit/s or 128 ports with 400 Gbit/s. The cost table below assumes a smaller switch with 32 ports of 400 Gbit/s. | [Broadcom product page](https://www.broadcom.com/products/ethernet-connectivity/switching/strataxgs/bcm78900-series) |
+| Network settings | RoCE v2 needs a network without packet loss. Priority Flow Control (PFC) is one way to get it. | [Network requirements for RDMA over Converged Ethernet](https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-1/vsphere-networking/managing-network-resources/rdma/network-requirements-for-rdma-over-converged-ethernet.html) |
+| Software | Distributed inference on vSphere Kubernetes Service | [Broadcom paper on distributed inference](https://www.vmware.com/docs/vcf-distributed-infer) |
+
+What this second network adds to the cost of one block if every server is connected. It is not part of the block cost, the stages or the capacity numbers above.
+
+| | 8 servers x 4 cards | 8 servers x 8 cards | Label |
+|---|---:|---:|---|
+| Adapters, each with 2 ports of 200 Gbit/s | 16 | 32 | assumption: one port per card, so one adapter serves two cards |
+| Cost of the adapters, €1,347 each | €22,000 | €43,000 | documented, [reseller price](https://www.senetic.de/product/BCM957608-P2200GQF00) |
+| Cables, one per adapter port (32 or 64), €310 each | €10,000 | €20,000 | assumption |
+| Two switches with 32 ports of 400 Gbit/s, €45,000 each | €90,000 | €90,000 | assumption |
+| **Second network in total** | **€121,000** | **€153,000** | model value, calculated from unrounded amounts |
+
+With 8 cards per server the 64 adapter ports use all ports of both switches. Links between the switches and to other networks are not in this cost.
+
+Three things to plan if you want this network:
+
+- The servers that use it give whole cards to one virtual machine. Plan them as their own group of servers, next to the servers that share cards.
+- Check with the server vendor that the server has free slots for the adapters next to the GPU cards: two adapters per server with 4 cards, four adapters with 8 cards.
+- Measure one model on two servers against the same model on one server before you decide. I have no numbers for that.
+
 ## What this page leaves out
 
-- **Models across several servers.** One model that is spread over several servers needs a fast network between the GPUs. Broadcom describes this in the [network requirements for Remote Direct Memory Access (RDMA) over Converged Ethernet](https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-1/vsphere-networking/managing-network-resources/rdma/network-requirements-for-rdma-over-converged-ethernet.html) and in two papers, [Private AI on HGX with Broadcom Ethernet](https://www.vmware.com/docs/paif-hgx-brcm-eth) and [distributed inference on VCF](https://www.vmware.com/docs/vcf-distributed-infer).
-- **Server prices.** Servers for eight cards are sold by quote. I do not compare vendor prices here.
+Servers that can take eight cards are sold by quote. I do not compare server prices of the vendors here. I also do not compare adapters or switches of different vendors.
 
 ## Method and sources
 
@@ -273,3 +314,4 @@ If you find an error, please [mail me](/imprint/).
 - Accelerators: AMD Instinct MI350X and Intel Gaudi 3 are listed for ESX 9.1, next to the NVIDIA cards. The model table shows a PCIe card of each partner.
 - Card prices: first reading, see the table.
 - Model: first version with two card variants, four cards per server and four stages.
+- Added on the same day: the 100 Gigabit Ethernet network is called the host network, and a new section describes an optional second network for models across servers, with its cost.
