@@ -1,7 +1,7 @@
 ---
 title: "The Enterprise Private AI Building Block"
 date: 2026-11-26T09:16:57+01:00
-lastmod: 2026-11-26T14:10:18+01:00
+lastmod: 2026-11-26T14:35:17+01:00
 draft: false
 url: /building-block/
 written_with_claude: true
@@ -12,7 +12,7 @@ cover:
 ShowToc: true
 ShowReadingTime: false
 ShowBreadCrumbs: false
-summary: "One building block for Private AI on VMware Cloud Foundation: eight servers with four GPU cards each, in servers that can take eight. This page follows month by month which accelerators and servers the Broadcom Compatibility Guide lists, which open-weight models fit and what my model says such a block can handle. It covers technical aspects only. Documented facts and model values are marked separately."
+summary: "Two sizes for Private AI on VMware Cloud Foundation: a starter block of three servers with two GPU cards each and the building block of eight servers with four cards each. This page follows month by month which accelerators and servers the Broadcom Compatibility Guide lists, which open-weight models fit and what my model says each size can handle. It covers technical aspects only. Documented facts and model values are marked separately."
 ---
 
 <style>.post-content table{font-size:.9em}.post-content table th,.post-content table td{padding:6px 9px}</style>
@@ -21,9 +21,9 @@ summary: "One building block for Private AI on VMware Cloud Foundation: eight se
 
 I work as a Solutions Architect at Broadcom. This page is a service for my readers. It should help you to choose suitable hardware for Private AI. It is my personal view and not an official statement from Broadcom. It is also not a sizing for your workload and not a recommendation to buy.
 
-In my lab I test on a single server with one small RTX A5000. That shows how the software works. It does not show what a large installation looks like. This page adds the larger view: the same stack as a building block of eight servers with four GPU cards each, running on VMware Cloud Foundation (VCF) 9. If you need more, you fill the servers up to eight cards or add a second block.
+In my lab I test on a single server with one small RTX A5000. That shows how the software works. It does not show what a large installation looks like. This page adds the larger view: the same stack in two sizes, running on VMware Cloud Foundation (VCF) 9. The starter block has three servers with two GPU cards each. The building block has eight servers with four GPU cards each. With servers that can take eight cards you can grow from the first to the second, and beyond it.
 
-This page covers technical aspects only: which accelerators and servers are listed, which open-weight models fit, and what my model says a block can handle. It has no prices and no cost calculation. The calculated values come from public data sheets and from my own assumptions.
+This page covers technical aspects only: which accelerators and servers are listed, which open-weight models fit, and what my model says the two sizes can handle. It has no prices and no cost calculation. The calculated values come from public data sheets and from my own assumptions.
 
 I check this page about once a month. Two things change over time: the accelerators and servers that are listed, and the open-weight models that people want to run. The change log at the end says what changed in each month.
 
@@ -37,26 +37,39 @@ Every number on this page has one of three labels.
 
 Use the documented parts as a starting point for your own check. Use the model values to see the order of magnitude and how it moves from month to month. For a real project, ask your server vendor for the supported configuration and measure with your own workload.
 
-## The building block
+## Two sizes: the starter block and the building block
+
+| | Starter block | Building block |
+|---|---|---|
+| Servers | 3, in one cluster | 8, in one cluster |
+| GPU cards per server | 2, as PCIe cards | 4, as PCIe cards, in a server that can take 8 |
+| Cards in total | 6 | 32 |
+| Reserve | one server (2 of 3 share the load) | one server (7 of 8 share the load) |
+| Power | about 2.7 kW per server, about 9 kW in total | about 3.9 kW per server, about 32 kW in total |
+
+Both sizes use the same parts:
 
 | | |
 |---|---|
-| Servers | 8, in one cluster |
-| GPU cards per server | 4, as PCIe cards, in a server that can take 8 |
 | Card, variant 1 | NVIDIA RTX PRO 6000 Blackwell Server Edition, 96 GB |
 | Card, variant 2 | NVIDIA H200 NVL, 141 GB |
 | Platform | VCF 9.1 |
 | GPU sharing | flexible time-sliced virtual GPU (vGPU) or hardware-isolated Multi-Instance GPU (MIG) |
 | Host network | 2 ports of 100 Gigabit Ethernet per server, two switches. It carries management, vMotion, storage and the requests to the models. |
 | Optional second network | a network with 200 or 400 Gbit/s per port for models that run across several servers, see below. |
-| Reserve | one server (7 of 8 share the load) |
-| Power | about 3.9 kW per server and about 32 kW for the block, as a model value |
 
-Below I call the two variants the RTX block and the H200 block. "RTX PRO 6000" always means the Blackwell Server Edition on this page.
+The power values are model values.
 
-I chose servers that take standard PCIe cards. You can start such a server with two cards and add cards later.
+Below I call the two card variants RTX and H200. "RTX PRO 6000" always means the Blackwell Server Edition on this page.
 
-Why four cards and not eight? A server with four of these cards draws about 3.9 kW in my model, a server with eight about 6.3 kW. Four cards per server fit the power and cooling of many existing data center racks. Most models also need only one or two cards for one copy. The four free slots leave room to grow. Systems with a fixed board of eight GPUs (NVIDIA HGX) are a different class and are not part of this page.
+I chose servers that take standard PCIe cards.
+
+The starter block is for teams that begin with Private AI and want a small, complete setup: three servers, so that one of them can be the reserve, and two cards in each. There are two ways to build it:
+
+- **Small servers.** The compatibility guide lists servers, most of them of the usual 2U size (two rack units high), with two to four of these cards. They need less space and power. They do not grow to eight cards, and a model that needs four cards for one copy may not fit into one server.
+- **Servers that can take eight cards, with two cards each.** The server is larger at the start. The same servers then grow to the building block and to eight cards each, so no hardware is replaced on the way.
+
+Why does the building block have four cards per server and not eight? A server with four of these cards draws about 3.9 kW in my model, a server with eight about 6.3 kW. Four cards per server fit the power and cooling of many existing data center racks. Most models also need only one or two cards for one copy. The four free slots leave room to grow. Systems with a fixed board of eight GPUs (NVIDIA HGX) are a different class and are not part of this page.
 
 How one card is shared between several workloads is a topic of its own. I wrote about it in [GPU sharing and partitioning techniques](/posts/gpu-sharing-and-partitioning-from-vgpu-to-dra/) and in [GPU architecture for model serving on VMware Cloud Foundation](/posts/gpu-architecture-for-model-serving-on-vcf/).
 
@@ -70,13 +83,13 @@ The Broadcom documentation names accelerators for Private AI from three partners
 |---|---|---|---|
 | AMD | AMD Instinct MI350X. Listed with these servers: Dell PowerEdge R7725, Dell PowerEdge XE7745, Supermicro AS-8126GS-TNMR. The Supermicro AS-8125GS-TNMR2 is listed with the AMD Instinct MI300X. | Enhanced DirectPath. This is a passthrough mode with a driver of the card vendor on the host. PyTorch and vLLM are the frameworks. | [VCF 9.1 release notes](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/release-notes/vmware-cloud-foundation-9-1-0-0-release-notes/what-s-new/whats-new-vsphere.html), [AI with VCF 9.1 on AMD GPUs](https://blogs.vmware.com/cloud-foundation/2026/05/05/ai-with-vcf-9-1-on-amd-gpus-build-with-open-frameworks-and-simplify-management-at-a-lower-tco/) |
 | Intel | Intel Gaudi 3 as a PCIe card (HL-338) and as a mezzanine card (HL-325L). | Enhanced DirectPath with a driver from Intel. Several cards can be combined into one device group. Telemetry is shown in vCenter. An operator supports Kubernetes, including vSphere Kubernetes Service (VKS). | [Accelerating AI Workloads with Intel Gaudi 3 on VMware Cloud Foundation 9.0](https://blogs.vmware.com/cloud-foundation/2025/08/07/accelerating-ai-workloads-with-intel-gaudi-3-on-vmware-cloud-foundation-9-0/) |
-| NVIDIA | Data center GPUs, among them the two cards of the building block. The program "AI Ready Node" lists them together with servers and a number of cards. | Flexible time-sliced vGPU, hardware-isolated MIG or DirectPath. | [Configure NVIDIA vGPU or GPU passthrough on the ESX hosts](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-0/private-ai-foundation-9-x/deploying-private-ai-foundation-with-nvidia/configure-nvidia-vgpu-or-gpu-passthrough-on-the-esx-hosts.html) |
+| NVIDIA | Data center GPUs, among them the two cards of both sizes. The program "AI Ready Node" lists them together with servers and a number of cards. | Flexible time-sliced vGPU, hardware-isolated MIG or DirectPath. | [Configure NVIDIA vGPU or GPU passthrough on the ESX hosts](https://techdocs.broadcom.com/us/en/vmware-cis/private-ai/foundation-with-nvidia/9-0/private-ai-foundation-9-x/deploying-private-ai-foundation-with-nvidia/configure-nvidia-vgpu-or-gpu-passthrough-on-the-esx-hosts.html) |
 
 Private AI Services in VCF 9.1 can also run a model on CPUs, without an accelerator. Broadcom describes this in the post [Streamline, Simplify and Protect all your AI workloads with VCF 9.1](https://blogs.vmware.com/cloud-foundation/2026/05/05/streamline-simplify-and-protect-all-your-ai-workloads-with-vcf-9-1/).
 
-Each partner has a card in the PCIe form factor, like the cards of the building block. The MI350P is the PCIe card of the AMD Instinct MI350 series. The values come from the data sheets of the vendors.
+Each partner has a card in the PCIe form factor, like the cards of both sizes. The MI350P is the PCIe card of the AMD Instinct MI350 series. The values come from the data sheets of the vendors.
 
-| Partner | PCIe card | Memory | Power | In a block of 32 cards | Source |
+| Partner | PCIe card | Memory | Power | In the building block (32 cards) | Source |
 |---|---|---:|---:|---:|---|
 | AMD | AMD Instinct MI350P | 144 GB | 600 W | 4,608 GB | [AMD product page](https://www.amd.com/en/products/accelerators/instinct/mi350/mi350p.html) |
 | Intel | Intel Gaudi 3 HL-338 | 128 GB | 600 W | 4,096 GB | [Intel product brief](https://cdrdv2-public.intel.com/817488/Gaudi%203%20PCIe%20Product%20Brief_RB_1_V6.pdf) |
@@ -104,7 +117,7 @@ The program "AI Ready Node" lists pairs of a server and a GPU. Each entry names 
 | Entries with RTX PRO 4500 Blackwell Server Edition | 3 |
 | Entries with an HGX board | 7 |
 
-The next table shows the entries that fit the building block: servers that are listed with up to eight cards of one of the two variants. The numbers in the table are the highest number of cards in the entry. It is sorted by vendor name. It is not a ranking.
+The next table shows the entries that can take eight cards of one of the two card variants. They fit the building block, and the starter block if you want to grow in the same servers. The numbers in the table are the highest number of cards in the entry. It is sorted by vendor name. It is not a ranking.
 
 | Vendor | Server | CPU in the entry | H200 NVL | RTX PRO 6000 | ESX |
 |---|---|---|---:|---:|---|
@@ -118,13 +131,25 @@ The next table shows the entries that fit the building block: servers that are l
 Notes on the table:
 
 - The entries come from the certification tests of the server vendors. I have not tested any of these systems myself.
-- All six entries state "NVIDIA vGPU: Yes" and "DirectPath: Yes" for the cards shown.
+- All six entries of this table state "NVIDIA vGPU: Yes" and "DirectPath: Yes" for the cards shown.
 - An entry applies to the CPU series it names.
 - An empty cell means that this pair is not in this program today. It says nothing about whether the pair works. The server vendor can tell you more.
-- The program also lists servers for two to four cards, from these vendors and from Fujitsu, Hitachi Vantara and Supermicro. The full list is in the guide.
 - Storage has its own program in the guide (vSAN ReadyNode). Check both programs for your configuration.
 
-## Power of a block
+The second table shows the entries with two to four cards of one of the two card variants. They fit the starter block with small servers. It is sorted by vendor name and is not a ranking.
+
+| Vendor | Server | CPU in the entry | H200 NVL | RTX PRO 6000 | ESX |
+|---|---|---|---:|---:|---|
+| Cisco | UCS C240 M8 | Intel Xeon 6500P/6700P | 3 | 3 | 9.1, 9.0 |
+| Cisco | UCS X210c M7, blade | Intel Xeon Platinum 8500 | | 4 | 9.1, 9.0 |
+| Cisco | UCS X210c M8, blade | Intel Xeon 6500P/6700P | 4 | 4 | 9.1, 9.0 |
+| HPE | ProLiant Compute DL345 Gen12 | AMD EPYC 9005 | | 3 | 9.1, 9.0, 8.0 U3 |
+| HPE | ProLiant Compute DL380 Gen12 | Intel Xeon 6500P/6700P | 2 | 3 | 9.1, 9.0, 8.0 U3 |
+| HPE | ProLiant DL385 Gen11 | AMD EPYC 9004 | | 2 | 9.1, 9.0, 8.0 U3 |
+
+The notes on the first table apply here too. All entries of this table also state "NVIDIA vGPU: Yes" and "DirectPath: Yes" for the cards shown. The program lists more servers of this size with the L40S card, from Dell, Fujitsu, Hitachi Vantara, Lenovo and Supermicro. The full list is in the guide.
+
+## Power and memory of both sizes
 
 *Model value. The power per card is the highest value from the data sheets. The other inputs are assumptions.*
 
@@ -134,12 +159,14 @@ Notes on the table:
 | Server without cards | 1.5 kW | assumption |
 | Two switches of the host network | 1.0 kW | assumption |
 
-| | 4 cards per server | 8 cards per server |
-|---|---:|---:|
-| Power per server | 3.9 kW | 6.3 kW |
-| Power of 8 servers and the host network | 32.2 kW | 51.4 kW |
-| GPU memory with RTX PRO 6000 | 3,072 GB | 6,144 GB |
-| GPU memory with H200 NVL | 4,512 GB | 9,024 GB |
+| | Starter block, 3 x 2 | Building block, 8 x 4 | Expansion, 8 x 8 |
+|---|---:|---:|---:|
+| Power per server | 2.7 kW | 3.9 kW | 6.3 kW |
+| Power of all servers and the host network | 9.1 kW | 32.2 kW | 51.4 kW |
+| GPU memory with RTX PRO 6000 | 576 GB | 3,072 GB | 6,144 GB |
+| GPU memory with H200 NVL | 846 GB | 4,512 GB | 9,024 GB |
+
+The model uses the same 1.5 kW for every server without cards. A small server may draw less.
 
 These are the highest values, not an average over the day. Cooling and the optional second network are not included. The cooling you need depends on the data center.
 
@@ -179,13 +206,13 @@ The models with their size and licence (B = billion parameters):
 
 I only name the licences. I do not assess them. Please read the licence of a model before you use it.
 
-Models up to about 130 billion parameters fit on one or two cards of each of the four types. A model that needs eight cards has two ways to run. One way is a server with all eight slots in use, which is the last expansion stage. The other way is to spread the model over two servers of the block. That uses the optional second network, which has its own section below. A model that needs more than eight cards has to run across servers and therefore uses that network.
+Models up to about 130 billion parameters fit on one or two cards of each of the four types. A model that needs eight cards has two ways to run. One way is a server with all eight slots in use, which is the last expansion stage. The other way is to spread the model over two servers of the building block. That uses the optional second network, which has its own section below. The starter block has only 6 cards, so a model that needs 8 cards does not fit into it. A model that needs more than eight cards has to run across servers and therefore uses that network.
 
-## What a block can handle
+## What the two sizes can handle
 
 *Model value, not measured. When I compared the model with published measurements, it was off by up to about one third, mostly too low. In one case with a very long input it was more than twice as high.*
 
-The model answers one question: how many people can work on one block at the same time, if the answers stay fast? Fast means about 25 to 30 output tokens per second for each user, and less than one second until the first token in a chat. For an agent call with 60,000 tokens of input the model gives one to three seconds until the first token.
+The model answers one question: how many people can work on a block of each size at the same time, if the answers stay fast? Fast means about 25 to 30 output tokens per second for each user, and less than one second until the first token in a chat. For an agent call with 60,000 tokens of input the model gives one to three seconds until the first token.
 
 I look at two kinds of use:
 
@@ -196,47 +223,50 @@ I look at two kinds of use:
 
 All values in this table are assumptions, and I chose round numbers on purpose. Replace them with your own.
 
-Both use a model of the 27B class. "Healthy operation" means: one of the eight servers is a reserve, and the other seven run at 70 % of what the model says they can do.
+Both kinds of use run on a model of the 27B class. "Healthy operation" means: one server is a reserve, and the other servers run at 70 % of what the model says they can do.
 
-| Healthy operation | RTX block | H200 block |
-|---|---:|---:|
-| Cards that share the load | 28 | 28 |
-| Chat: users active at the same time | about 1,800 | about 3,300 |
-| Chat: tokens in per second | about 150,000 | about 270,000 |
-| Chat: tokens out per second | about 7,400 | about 14,000 |
-| Agents: sessions running at the same time | about 210 | about 410 |
-| Agents: tokens in per second | about 210,000 | about 410,000 |
-| Agents: tokens out per second | about 1,800 | about 3,500 |
+| Healthy operation | Starter, RTX | Starter, H200 | Building block, RTX | Building block, H200 |
+|---|---:|---:|---:|---:|
+| Cards that share the load | 4 | 4 | 28 | 28 |
+| Chat: users active at the same time | 250 | 470 | 1,800 | 3,300 |
+| Chat: tokens in per second | 21,000 | 39,000 | 150,000 | 270,000 |
+| Chat: tokens out per second | 1,100 | 2,000 | 7,400 | 14,000 |
+| Agents: sessions running at the same time | 30 | 59 | 210 | 410 |
+| Agents: tokens in per second | 30,000 | 59,000 | 210,000 | 410,000 |
+| Agents: tokens out per second | 250 | 490 | 1,800 | 3,500 |
+
+All numbers in this table are rounded.
 
 How to read these numbers:
 
 - Each row assumes that the whole block serves only this one use. The rows do not add up.
+- One RTX PRO 6000 card is enough to hold the 27B model. In my model one copy still runs across two of these cards, because that handles more calls per card.
 - "Active at the same time" means people who are in a chat right now. The number of people with an account is several times higher.
 - The input tokens include the part that comes from the cache. Without a cache the block can handle much less input.
 - A chat with long documents needs more input per call. With 30,000 tokens per call instead of 10,000, the number of users falls to about one third in my model.
-- A larger model changes the numbers. With a model of the 120B class the RTX block can handle about 20 % fewer agent calls.
+- A larger model changes the numbers. With a model of the 120B class the RTX variant can handle about 20 % fewer agent calls.
 - An agent session is one developer who has an agent working. How many developers that covers depends on how often they use agents.
 
-## From proof of concept to eight cards per server
+## From the starter block to eight cards per server
 
 *Model value. Power is the highest value for the servers and the host network. The second network is not included.*
 
-You do not have to build the block at once. You start with servers that can take eight cards and fill them step by step, so no hardware is replaced on the way. The last stage fills all eight servers completely.
+You do not have to build the building block at once. If the starter block uses servers that can take eight cards, you fill them step by step and add servers, so no hardware is replaced on the way. The last stage fills all eight servers completely.
 
 | Stage | Servers x cards | Cards | Cards that share the load | Power |
 |---|---|---:|---:|---:|
-| Proof of concept | 2 x 2 | 4 | 4 | 6.4 kW |
+| Starter block | 3 x 2 | 6 | 4 | 9.1 kW |
 | Pilot | 3 x 4 | 12 | 8 | 12.7 kW |
-| Production, one block | 8 x 4 | 32 | 28 | 32.2 kW |
+| Building block | 8 x 4 | 32 | 28 | 32.2 kW |
 | Expansion | 8 x 8 | 64 | 56 | 51.4 kW |
 
-The proof of concept has no reserve. From the pilot on, one server is the reserve. The next table shows what each stage can handle in healthy operation, which means 70 % of what the model says the cards that share the load can do. Users and sessions grow in proportion to these cards. The numbers are rounded.
+One server is the reserve in every stage. The next table shows what each stage can handle in healthy operation. Users and sessions grow in proportion to the cards that share the load. The numbers are rounded.
 
 | Stage | Chat users, RTX | Chat users, H200 | Agent sessions, RTX | Agent sessions, H200 |
 |---|---:|---:|---:|---:|
-| Proof of concept | 250 | 470 | 30 | 59 |
+| Starter block | 250 | 470 | 30 | 59 |
 | Pilot | 510 | 940 | 61 | 120 |
-| Production, one block | 1,800 | 3,300 | 210 | 410 |
+| Building block | 1,800 | 3,300 | 210 | 410 |
 | Expansion | 3,600 | 6,600 | 420 | 830 |
 
 Four things to check before you plan the stages:
@@ -244,7 +274,7 @@ Four things to check before you plan the stages:
 - The tables count only the GPU servers. Check the minimum number of hosts for your cluster in the Broadcom documentation.
 - A server with two or four cards instead of eight must be a configuration that the server vendor offers.
 - A server with eight cards draws about 6.3 kW in my model. Check power and cooling of the rack before the last stage.
-- The pilot is the stage to measure. Record tokens in and out per call and the share that comes from the cache, and replace my assumptions with your numbers.
+- The starter block is the stage to measure. Record tokens in and out per call and the share that comes from the cache, and replace my assumptions with your numbers.
 
 ## Optional: a second network for models across servers
 
@@ -268,7 +298,7 @@ The paper uses servers with an HGX board. On this page I apply the same design t
 | Network settings | RoCE v2 needs a network without packet loss. Priority Flow Control (PFC) is one way to get it. | [Network requirements for RDMA over Converged Ethernet](https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-1/vsphere-networking/managing-network-resources/rdma/network-requirements-for-rdma-over-converged-ethernet.html) |
 | Software | Distributed inference on vSphere Kubernetes Service | [Broadcom paper on distributed inference](https://www.vmware.com/docs/vcf-distributed-infer) |
 
-What this second network needs for one block if every server is connected:
+What this second network needs for the building block (8 x 4) and for the expansion (8 x 8) if every server is connected:
 
 | | 8 servers x 4 cards | 8 servers x 8 cards | Label |
 |---|---:|---:|---|
@@ -304,6 +334,6 @@ If you find an error, please [mail me](/imprint/).
 
 - Compatibility guide: 45 entries in the program "AI Ready Node". This is the baseline for the next comparison.
 - Accelerators: AMD Instinct MI350X and Intel Gaudi 3 are listed for ESX 9.1, next to the NVIDIA cards. The model table shows a PCIe card of each partner.
-- Model: first version with two card variants, four cards per server, power values and four stages.
+- Model: first version with two card variants, two sizes (starter block and building block), power values and four stages.
 - Second network: a section describes an optional second network for models across servers.
 - The page covers technical aspects only.
