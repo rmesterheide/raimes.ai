@@ -1,7 +1,7 @@
 ---
 title: "The Enterprise Private AI Building Block"
 date: 2026-11-26T09:16:57+01:00
-lastmod: 2026-11-26T22:17:41+01:00
+lastmod: 2026-11-26T23:01:37+01:00
 draft: false
 url: /building-block/
 written_with_claude: true
@@ -119,9 +119,11 @@ The capacity numbers on this page use the two NVIDIA cards, because I started th
 
 *Pointer to the official source: [Broadcom Compatibility Guide, program "AI Ready Node"](https://compatibilityguide.broadcom.com/search?program=aiserver&persona=live).*
 
-The program "AI Ready Node" lists pairs of a server and a GPU. Each entry names the card, the highest number of cards, the releases of the ESX hypervisor and what it says about NVIDIA vGPU and DirectPath. The guide writes "ESXi" for the hypervisor. I have not tested any of the listed systems myself.
+The program "AI Ready Node" lists pairs of a server and a GPU. Each entry names the card, the highest number of cards, the releases of the ESX hypervisor and what it says about NVIDIA vGPU and DirectPath. The guide writes "ESXi" for the hypervisor. I would like to test each of these servers thoroughly and run it at its limits. I cannot do that, so the values on this page are modelled at most, not measured.
 
 I do not repeat the entries here. The two sizes on this page need servers with two to four cards (option 1) or with up to eight cards (option 2 and the building block). Which servers the guide lists for them today is in the guide.
+
+As examples, and not as a full list: when I read the program on 26 November 2026, it had entries with up to eight of these cards for the Cisco UCS C845A M8, the Dell PowerEdge XE7740 and XE7745, the HPE ProLiant Compute DL380a Gen12 and the Lenovo ThinkSystem SR675 V3. The order is alphabetical. The guide has the current list.
 
 Three things about an entry in the guide:
 
@@ -288,9 +290,24 @@ What this second network needs for the building block (8 x 4) and for the expans
 
 With 8 cards per server the 64 adapter ports use all ports of both switches. Links between the switches and to other networks need more ports.
 
+### What this means for the virtual machine
+
+*From my preparation for the session CLOB1084 at VMware Explore on Tour Frankfurt in October 2026, and from my lab. The linked posts name the sources.*
+
+A model across servers runs in one virtual machine per server. In the design above, this virtual machine gets the GPUs and the adapters with DirectPath I/O. These settings shape it:
+
+- **Card and adapter on the same side of the server.** Direct transfers between an adapter and a GPU work when both sit under the same PCIe root complex, on the same Non-Uniform Memory Access (NUMA) node. The virtual machine shows the same pairing to the guest operating system.
+- **At most 128 virtual CPUs in this design.** A larger virtual machine would need a virtual input-output memory management unit (IOMMU), and this design runs without one.
+- **Access Control Services stay on in the ESX hypervisor.** Direct traffic between two devices is allowed for the single virtual machine, in its advanced settings. It is not switched off for the whole host.
+- **Memory is fully reserved.** DirectPath I/O requires that.
+- **Large cards use 64-bit memory-mapped I/O.** In my lab one card with 24 GB already needed the two parameters for it. The value grows with the memory of all cards in the virtual machine.
+- **The devices bind the virtual machine to its server.** There is no vMotion for it. A model that runs across two servers stops when one of them fails.
+
+The details are in [GPU architecture for model serving on VMware Cloud Foundation](/posts/gpu-architecture-for-model-serving-on-vcf/) and in [part 3 of my lab series](/posts/rtx-a5000-behind-the-same-service-name/). The first post also shows other options that are not part of this design: vGPU instead of passthrough for the GPU, and a virtual function instead of passthrough for the adapter.
+
 Three consequences of this network:
 
-- The servers that use it give whole cards to one virtual machine. They form their own group of servers, next to the servers that share cards.
+- The servers that use it give whole cards to one virtual machine, as described above. They form their own group of servers, next to the servers that share cards.
 - The server needs free slots for the adapters next to the GPU cards: two adapters per server with 4 cards, four adapters with 8 cards. The server vendor can confirm that.
 - I have no numbers that compare one model on two servers with the same model on one server. A measurement would show the difference.
 
