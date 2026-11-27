@@ -163,7 +163,7 @@ Three sizing notes from these runs:
 - **The context length is part of the sizing.** With this model the slice has room for about 19,000 tokens of context. A setting of 32,768 did not start, 16,384 did.
 - **I pin the profile and the slice size per model.** The chart carries the profile ID, the context length and the cache size for each model that I have measured. An order can only pick from that list, so it always gets a combination that has run on this card.
 
-My lab has one small card. If you plan hardware for a larger setup, I keep a separate page for that: [The Enterprise Private AI Building Block](/building-block/). It lists the accelerators and servers from the Broadcom Compatibility Guide, shows which open-weight models fit and what my model says a block of eight servers can handle. I check it about once a month.
+My lab has one small card. For larger setups I describe hardware options on a separate page: [The Enterprise Private AI Building Block](/building-block/). It covers accelerators, servers and the open-weight models that fit, and it points to the official sources. I check it about once a month.
 
 ## The blueprint: one Application and one route
 
@@ -354,7 +354,7 @@ Four parallel requests gave almost four times the throughput of one request. For
 The pages for single steps are linked in the text. These are the entry points:
 
 - Repository: [pais-vgpu, folder nim-endpoint](https://github.com/rmesterheide/pais-vgpu/tree/main/nim-endpoint) with the chart, the ArgoCD project, the blueprint and the health checks
-- Hardware for a larger setup: [The Enterprise Private AI Building Block](/building-block/), my page on accelerators, servers and models that fit, checked about once a month
+- Hardware options for a larger setup: [The Enterprise Private AI Building Block](/building-block/), my page on accelerators, servers and models that fit, checked about once a month
 - NVIDIA: [NVIDIA NIM Operator](https://docs.nvidia.com/nim-operator/latest/index.html)
 - NVIDIA: [NVIDIA NIM for LLM and VLM Documentation](https://docs.nvidia.com/nim/large-language-models/latest/introduction.html)
 - NVIDIA: [llama-3.1-nemotron-nano-8b-v1, model card](https://build.nvidia.com/nvidia/llama-3_1-nemotron-nano-8b-v1/modelcard)
@@ -364,3 +364,4 @@ The pages for single steps are linked in the text. These are the entry points:
 - Broadcom: [Installing and Configuring the Secret Store Service](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/using-secret-store-service-with-vsphere-supervisor.html)
 - Broadcom: [Installing and Configuring the Argo CD Service in VCF and vSphere](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/using-argo-cd-service.html)
 - William Lam: [VCF 9.1.1 - Single ESX Host for VCF Fleet, VCF Workload Domain or VCF Cluster](https://williamlam.com/2026/09/vcf-9-1-1-single-esx-host-for-vcf-fleet-vcf-workload-domain-or-vcf-cluster.html), the guide my lab is built along
+- Christian Ferber: [VMware Private AI Services - a beginner's experience](https://vrealize.it/2026/11/10/9973/), an install guide for Private AI Services with VCF Automation on vrealize.it
